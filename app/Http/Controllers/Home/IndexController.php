@@ -13,4 +13,7 @@ class IndexController extends Controller
     public function index(){
     	return view('home.index');
     }
+	public function add(){
+		echo '1';
+	}
 }
