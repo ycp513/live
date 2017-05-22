@@ -1,0 +1,1 @@
+var TaskBar={hasEnoughPri:true,requestBar:function(){if(TaskBar.hasEnoughPri){ServiceBroadcast.up("/anchor/taskBarInit",{topSid:liveplayer.pageInfo.sid,subSid:liveplayer.pageInfo.ssid})}},respBar:function(a){if(TaskBar.hasEnoughPri){p_non_income_activity_bar_init(a)}},broadcast:function(a){if(TaskBar.hasEnoughPri){p_non_income_activity_bar_broadcast(a)}}};
