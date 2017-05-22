@@ -22,3 +22,7 @@ Route::get('index/{action}', function(App\Http\Controllers\Home\IndexController 
 Route::get('list/{action}', function(App\Http\Controllers\Home\ListController $index, $action){
     return $index->$action();
 });
+//Personal
+Route::get('per/{action}', function(App\Http\Controllers\Home\PersonalController $index, $action){
+    return $index->$action();
+});
