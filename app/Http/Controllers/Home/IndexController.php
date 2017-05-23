@@ -14,7 +14,7 @@ class IndexController extends Controller
     	return view('home.index');
     }
 	public function add(){
-		echo '1232';
+		echo '123222';
 	}
 
 	//测试git
