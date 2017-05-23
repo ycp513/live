@@ -16,4 +16,10 @@ class IndexController extends Controller
 	public function add(){
 		echo '1';
 	}
+
+	//测试git
+	public function testgit()
+	{
+		echo 'hello git !!!';
+	}
 }
