@@ -42,4 +42,8 @@ Route::group( ['namespace' => 'Home'] , function() {
 Route::get('per/{action}', function(App\Http\Controllers\Home\PersonalController $index, $action){
     return $index->$action();
 });
-//studio
+
+//Personal
+Route::get('liveroom/{action}', function(App\Http\Controllers\Home\StudioController $index, $action){
+    return $index->$action();
+});
