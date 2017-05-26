@@ -26,3 +26,7 @@ Route::get('list/{action}', function(App\Http\Controllers\Home\ListController $i
 Route::get('per/{action}', function(App\Http\Controllers\Home\PersonalController $index, $action){
     return $index->$action();
 });
+//Personal
+Route::get('liveroom/{action}', function(App\Http\Controllers\Home\StudioController $index, $action){
+    return $index->$action();
+});
