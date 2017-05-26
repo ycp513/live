@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 class StudioController extends Controller
 {
+
    	//直播间渲染
    	public function liveStudio(){
 
@@ -25,4 +26,5 @@ class StudioController extends Controller
         ];
    		return view('home.live',$author);
    	}
+
 }
