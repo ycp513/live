@@ -43,8 +43,3 @@ Route::get('per/{action}', function(App\Http\Controllers\Home\PersonalController
     return $index->$action();
 });
 //studio
-Route::group( ['namespace' => 'Home'] , function() {
-    //直播间
-    Route::get('/studio/livestudio', 'StudioController@liveStudio');
-
-});
