@@ -46,8 +46,5 @@ Route::get('per/{action}', function(App\Http\Controllers\Home\PersonalController
 Route::group( ['namespace' => 'Home'] , function() {
     //直播间
     Route::get('/studio/livestudio', 'StudioController@liveStudio');
-    //直播详情页
-    Route::get('/index/cate', 'IndexController@cate');
-    //直播搜索
-    Route::post('/index/search' , 'IndexController@search');
+
 });
