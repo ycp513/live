@@ -15,14 +15,39 @@ Route::get('/', function () {
     return view('welcome');
 });
 //index
-Route::get('index/{action}', function(App\Http\Controllers\Home\IndexController $index, $action){
+/*Route::get('index/{action}', function(App\Http\Controllers\Home\IndexController $index, $action){
     return $index->$action();
+});*/
+
+//index
+Route::group( ['namespace' => 'Home'] , function() {
+    //直播首页
+    Route::get('/index/index', 'IndexController@index');
+    //直播详情页
+    Route::get('/index/cate', 'IndexController@cate');
+    //直播搜索
+    Route::post('/index/search' , 'IndexController@search');
 });
-//list
+
+/*//list
 Route::get('list/{action}', function(App\Http\Controllers\Home\ListController $index, $action){
     return $index->$action();
+});*/
+//list
+Route::group( ['namespace' => 'Home'] , function() {
+    //直播间
+    Route::get('/list/livelist', 'ListController@liveList');
 });
 //Personal
 Route::get('per/{action}', function(App\Http\Controllers\Home\PersonalController $index, $action){
     return $index->$action();
+});
+//studio
+Route::group( ['namespace' => 'Home'] , function() {
+    //直播间
+    Route::get('/studio/livestudio', 'StudioController@liveStudio');
+    //直播详情页
+    Route::get('/index/cate', 'IndexController@cate');
+    //直播搜索
+    Route::post('/index/search' , 'IndexController@search');
 });

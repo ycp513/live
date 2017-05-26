@@ -3,6 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit">
+    <link href="{{ URL::asset('home/css/pgwslider.min.css')}}" rel="stylesheet">
+    <style type="text/css">
+        .m{ width: 1000px; height: 300px; margin-left: auto; margin-right: auto; margin-top: 2%; }
+    </style>
+    <script src="{{ URL::asset('home/js/turn.js')}}"></script>
+    <script src="{{ URL::asset('home/js/pgwslider.min.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(document).ready(function() {
+                jQuery.noConflict();
+                $('.pgwSlider').pgwSlider();
+            });
+        });
+    </script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 <meta name="baidu-site-verification" content="JOgjfxUTMx" />
@@ -28,14 +42,12 @@ var stat = {
 <script src="{{URL::asset('/home/js/headfoot-8e8c36672b.mix.js')}}" charset="utf-8"></script>
 <script>
 (function(){
-if(typeof require == 'undefined'){
-    window.require = {
-        
-        urlArgs: '20170518154705',
-        waitSeconds: 0
-    };
-}
-
+    if(typeof require == 'undefined'){
+        window.require = {
+            urlArgs: '20170518154705',
+            waitSeconds: 0
+        };
+    }
 })();
     
 </script>
@@ -52,7 +64,44 @@ if(typeof require == 'undefined'){
                 <dd class="w-head-menu-cnt w-head-drag"><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="i w-head-drag-enterstage"></i>
                     <div class="w-head-drag-main">
                         <ul class="w-head-menu-cnt-main-intro">
-                            <li class="w-head-menu-cnt-main-item clear">
+                        @foreach ($category as $key => $val)
+                             @if( $key%3 == 1 || $key ==1)
+                             <li class="w-head-menu-cnt-main-item clear">
+                                    <h3 class="tl">
+                                            <a href="{{ url('/list/livelist') }}?id={{$key}}" class="tl-link" data-statistic-module="2" data-statistic-moduleid="sing">
+                                                    <i class="icon-btn"
+                                                       style="background-image: {{URL::asset('home/images/njfinmq1ngmtnmqzys00ytgwlthjzgmtoddknzjjmzhintrm.png')}};"
+                                                    >
+                                                    </i>
+                                                    {{$val}}
+                                            </a>
+                                    </h3>
+                             </li>
+                            @elseif( $key %3 == 2 || $key ==2)
+                            <li class="w-head-menu-cnt-main-item ">
+                                        <h3 class="tl">
+                                            <a href="{{ url('/list/livelist') }}?id={{$key}}" class="tl-link" data-statistic-module="2" data-statistic-moduleid="talk">
+                                                <i class="icon-btn"
+                                                   style="background-image: {{URL::asset('home/images/m2nizdrkodutyti3oc00ndlilwi4ywitzjayywflmju4zgm4.png')}};"
+                                                >
+                                                </i>
+                                                {{$val}}</a>
+                                        </h3>
+                                    </li>
+                             @elseif($key %3 == 0 )
+                            <li class="w-head-menu-cnt-main-item ">
+                                        <h3 class="tl">
+                                            <a href="{{ url('/list/livelist') }}?id={{$key}}" class="tl-link" data-statistic-module="2" data-statistic-moduleid="red">
+                                                <i class="icon-btn"
+                                                   style="background-image: {{URL::asset('home/images/zjgzmjk3otqtzta3yi00ymnjlwe1owitymfkztm5ndywzdrl.png')}};"
+                                                >
+                                                </i>
+                                                {{$val}}</a>
+                                        </h3>
+                                    </li>
+                             @endif
+                        @endforeach
+                            <!--<li class="w-head-menu-cnt-main-item clear">
                                         <h3 class="tl">
                                             <a href="/music/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="sing">
                                                 <i class="icon-btn"
@@ -74,7 +123,7 @@ if(typeof require == 'undefined'){
                                                     </ul>
                                         </div>
                                     </li>
-                                    <li class="w-head-menu-cnt-main-item ">
+                            <li class="w-head-menu-cnt-main-item ">
                                         <h3 class="tl">
                                             <a href="/show/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="talk">
                                                 <i class="icon-btn"
@@ -93,7 +142,7 @@ if(typeof require == 'undefined'){
                                                 </ul>
                                         </div>
                                     </li>
-                                    <li class="w-head-menu-cnt-main-item ">
+                            <li class="w-head-menu-cnt-main-item ">
                                         <h3 class="tl">
                                             <a href="/travel/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="red">
                                                 <i class="icon-btn"
@@ -123,7 +172,7 @@ if(typeof require == 'undefined'){
                                                     </ul>
                                         </div>
                                     </li>
-                                    <li class="w-head-menu-cnt-main-item clear">
+                            <li class="w-head-menu-cnt-main-item clear">
                                         <h3 class="tl">
                                             <a href="/mc/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="mc">
                                                 <i class="icon-btn"
@@ -142,7 +191,7 @@ if(typeof require == 'undefined'){
                                                 </ul>
                                         </div>
                                     </li>
-                                    <li class="w-head-menu-cnt-main-item ">
+                            <li class="w-head-menu-cnt-main-item ">
                                         <h3 class="tl">
                                             <a href="/game/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="game">
                                                 <i class="icon-btn"
@@ -168,7 +217,7 @@ if(typeof require == 'undefined'){
                                                     </ul>
                                         </div>
                                     </li>
-                                    <li class="w-head-menu-cnt-main-item ">
+                            <li class="w-head-menu-cnt-main-item ">
                                         <h3 class="tl">
                                             <a href="/sport/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="sport">
                                                 <i class="icon-btn"
@@ -194,7 +243,7 @@ if(typeof require == 'undefined'){
                                                     </ul>
                                         </div>
                                     </li>
-                                    <li class="w-head-menu-cnt-main-item clear">
+                            <li class="w-head-menu-cnt-main-item clear">
                                         <h3 class="tl">
                                             <a href="/acg/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="car">
                                                 <i class="icon-btn"
@@ -213,7 +262,7 @@ if(typeof require == 'undefined'){
                                                 </ul>
                                         </div>
                                     </li>
-                                    <li class="w-head-menu-cnt-main-item ">
+                            <li class="w-head-menu-cnt-main-item ">
                                         <h3 class="tl">
                                             <a href="/cgame/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="cgame">
                                                 <i class="icon-btn"
@@ -251,7 +300,7 @@ if(typeof require == 'undefined'){
                                                     </ul>
                                         </div>
                                     </li>
-                                    <li class="w-head-menu-cnt-main-item ">
+                            <li class="w-head-menu-cnt-main-item ">
                                         <h3 class="tl">
                                             <a href="/others/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="other">
                                                 <i class="icon-btn"
@@ -300,8 +349,8 @@ if(typeof require == 'undefined'){
                                                         </li>
                                                     </ul>
                                         </div>
-                                    </li>
-                                    </ul>
+                                    </li>-->
+                        </ul>
                         <div class="w-head-kan-cnt">
                             <ul>
                                 <li><i class="icon-jysp"></i><a href="http://hgame.yy.com/index?from=yy" target="_blank" data-statistic-module="2" data-statistic-moduleid="hgame">交友速配</a></li>
@@ -379,7 +428,7 @@ if(typeof require == 'undefined'){
                     <div class="w-head-drag-main">
                         <ul class="w-head-download-cnt">
                             <li class="w-head-download-item w-head-download-img">
-                                <a href="/download" target="_blank" class="app-link" data-statistic-module="7" data-statistic-moduleid="0"><img src="home/images/yy2wm-447d81cafa.png" alt="手机YY"><span class="app-txt">手机YY</span></a>
+                                <a  class="app-link" data-statistic-module="7" data-statistic-moduleid="0"><img src="{{URL::asset('home/images/yy2wm-447d81cafa.png')}}" alt="手机YY"><span class="app-txt">手机YY</span></a>
                             </li>
                             <li class="w-head-download-item"><a href="/yy8/" data-statistic-module="7" data-statistic-moduleid="1">YY PC客户端</a></li>
                             <li class="w-head-download-item"><a href="/index/t/download" data-statistic-module="7" data-statistic-moduleid="2">软件下载中心</a></li>
@@ -431,12 +480,12 @@ if(typeof require == 'undefined'){
                 </div>
             </script>
 
-            <form id="wHeadSearchForm" action="/search" target="_blank">
+            <form id="wHeadSearchForm" action="{{ url('/index/search') }}" target="_blank" method="post">
                 <div class="w-head-search">
                     <div class="w-head-search-ipt">
                         <label for="wHeadSearch" class="icon"><i></i></label>
-                        
-                        <input id="wHeadSearch" placeholder="藻小胖&nbsp;" name="q" class="ipt" value="" autocomplete="off"> 
+                        {{ csrf_field() }}
+                        <input id="wHeadSearch" placeholder="主播或房间号" name="user" class="ipt" value="" autocomplete="off">
                         <button class="w-search-btn" type="submit" data-stat-act-type="12" data-statistic-module="3"></button>
                     </div>
                     <input type="submit" value="搜索" class="w-head-search-btn" data-stat-act-type="12" data-statistic-module="3"> 
@@ -605,10 +654,17 @@ if(typeof require == 'undefined'){
             <div class="w-head-nav-main-l">
                 <ul id="wHeadNav">
                     <li data-biz="index" data-stat-bak1="index" data-stat-act-type="1" >
-                            <a href="/" class="t"><span>首页</span><i class="line-b"></i>
+                            <a href="{{ url('/index/index') }}" class="t"><span>首页</span><i class="line-b"></i>
                                 </a>
                             </li>
-                    <li data-biz="sing" data-stat-bak1="sing" data-stat-act-type="1" class="cur-withsub">
+                    @foreach ($category as $key => $val)
+                    <li data-biz="talk" data-stat-bak1="talk" data-stat-act-type="1" >
+                        <a href="{{ url('/list/livelist') }}?id={{$key}}" class="t"><span>{{$val}}</span><i class="line-b"></i>
+                        </a>
+                    </li>
+                    @endforeach
+
+                   <!-- <li data-biz="sing" data-stat-bak1="sing" data-stat-act-type="1" class="cur-withsub">
                             <a href="/music/" class="t"><span>歌舞</span><i class="line-b"></i>
                                 <i class="tri"></i>
                                 <i class="tri2"></i>
@@ -778,7 +834,7 @@ if(typeof require == 'undefined'){
                                         </ul>
                                 </div>
                            </div>
-                           </li>
+                           </li>-->
                     </ul>
             </div>
         </div>
@@ -865,268 +921,28 @@ if(typeof require == 'undefined'){
                 $bannerFg.css('background-image', 'url(' + imgFg + ')');
                 
                 if (imgBg && $.trim(imgBg).length) {
-                	$bannerBg.css('background', 'url('images/5b3cd445f4cc4d30ac95017ae99f7c80.gif') repeat-x');
+                	$bannerBg.css('background', "{{URL::asset('home/images/5b3cd445f4cc4d30ac95017ae99f7c80.gif')}}" ,'repeat-x');
                 } else {
                     imgBg = $bannerBg.attr('data-bgcolor');
                     $bannerBg.css('background', imgBg);
                 }
 		    });
 		</script>
+
 		<div class="bg-link" data-stat-bak2="1001" data-stat-bak3="17" data-stat-name="首页静默直播模块">
-	        <a href="/c/9696520/index.htm" target="_blank" class="b-lft" data-stat-parm1="157" data-stat-act-type="17"></a>
-	        <a href="/c/9696520/index.htm" target="_blank" class="b-rgt" data-stat-parm1="157" data-stat-act-type="17"></a>
-	    </div>
-	    <div class="banner-inner" data-tmpl-type="1001_1100">
-			<div class="video-wrap" data-stat-bak2="1001" data-stat-bak3="17" data-stat-name="首页静默直播模块">
-				<div id="flashBox" class="flash-box">
-                   <div id="VRShow" class="VRShow">
-                        <div class="VRShow-main">
-                            <div class="VRShow-box">
-                                <div class="VRShow-drag-icon VRShow-box-icon"></div>
-                                <div class="VRShow-box-tip"> <span>360度</span>拖动屏幕</div>
-                            </div>
-                        </div>
-                        <div class="VRShow-main">
-                            <div class="VRShow-box">
-                                <div class="VRShow-zoom-icon VRShow-box-icon"></div>
-                                <div class="VRShow-box-tip">滚动鼠标<span>放大缩小</span></div>
-                            </div>
-                        </div>
-                    </div> 
+                   <!-- <a href="/c/9696520/index.htm" target="_blank" class="b-lft" data-stat-parm1="157" data-stat-act-type="17"></a>
+                    <a href="/c/9696520/index.htm" target="_blank" class="b-rgt" data-stat-parm1="157" data-stat-act-type="17"></a> -->
                 </div>
-				<div id="flashSide" class="recommend-list">
-					<ul>
-						<li  data-first-mic="1196976645" data-url="/54880976/54880976?tempId=16777217" data-sid="54880976" data-ssid="54880976" data-uid="1196976645" data-biz="rookie" data-tpl="16777217" data-type="4"   data-vr="0">
-									<a href="javascript:;" class="show-img">
-										<div class="video-pic-inner"><div class="pic-default"><img src="{{ URL::asset('/home/images/default_load-7889f80ae2.png') }}" alt="" /></div><div class="pic-real"><img src="{{URL::asset('/home/images/odfjzde0mzuty2i0mi00mzgyltk3mzctmzfjmwiwnzuxzjax.jpg')}}" alt="好声音" /></div></div><div class="mask"></div><div class="highlight"><i class="arrow"></i></div></a>
-								</li>
-							<li  data-first-mic="1180645212" data-url="/58606163/58606163?tempId=16777217" data-sid="58606163" data-ssid="58606163" data-uid="1180645212" data-biz="rookie" data-tpl="16777217" data-type="4"   data-vr="0">
-									<a href="javascript:;" class="show-img">
-										<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="" /></div><div class="pic-real"><img src="{{URL::asset('ztu3zdc5ogytmzq0zc00nzbhltlimjmtzjnhm2q5zgnlodbk.jpg')}}" alt="两性" /></div></div><div class="mask"></div><div class="highlight"><i class="arrow"></i></div></a>
-								</li>
-							<li  data-first-mic="4122207" data-url="/93479716/93479716?tempId=16777217" data-sid="93479716" data-ssid="93479716" data-uid="4122207" data-biz="rookie" data-tpl="16777217" data-type="4"   data-vr="0">
-									<a href="javascript:;" class="show-img">
-										<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="" /></div><div class="pic-real"><img src="picture/njvmzjgyzmetymqyys00yzgylwe1ngqtodi5zjbmnja3owy3.jpg" alt="脱口秀" /></div></div><div class="mask"></div><div class="highlight"><i class="arrow"></i></div></a>
-								</li>
-							<li  data-first-mic="1616091973" data-url="/22490906/22490906?tempId=16777217" data-sid="22490906" data-ssid="22490906" data-uid="1616091973" data-biz="rookie" data-tpl="16777217" data-type="4"   data-vr="0">
-									<a href="javascript:;" class="show-img">
-										<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="" /></div><div class="pic-real"><img src="picture/zwi1y2rlmgytmjm3ns00mtmzltkxymetodayyzfkndljmjkx.jpg" alt="舞蹈" /></div></div><div class="mask"></div><div class="highlight"><i class="arrow"></i></div></a>
-								</li>
-							<li  data-first-mic="1358070450" data-url="/80266156/80266156?tempId=16777217" data-sid="80266156" data-ssid="80266156" data-uid="1358070450" data-biz="rookie" data-tpl="16777217" data-type="4"   data-vr="0">
-									<a href="javascript:;" class="show-img">
-										<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="" /></div><div class="pic-real"><img src="picture/ywywntyzngytndzhmc00mdawlthimdmtndnlzdmxy2u4ndu1.jpg" alt="36体育精彩不停播" /></div></div><div class="mask"></div><div class="highlight"><i class="arrow"></i></div></a>
-								</li>
-							</ul>
-				</div>
-				
-			</div>
-			<div class="star-wrap">
-				<div class="star-col" data-stat-bak2="11000" data-stat-bak3="22"  data-stat-name="音乐">
-						<h3 style="border-bottom-color:">
-							<span class="title" style="color:#FFFFFF"><i class="icon-208  icon-208-light"></i>音乐</span>
-							</h3>
-						<ul>
-							<li data-sid="84101147" data-ssid="84101147" data-uid="1249104856" data-biz="sing" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/84101147/84101147?tempId=16777217" title="直播延迟 做设备套餐" data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="84101147" data-stat-sid="84101147" data-stat-hostid="1249104856" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="直播延迟 做设备套餐" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/a2761ddb00b8517cffc66f8a10858f8167ced41a?imageview/4/0/w/363/h/330/blur/1" alt="直播延迟 做设备套餐" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">直播延迟 做设备套餐</div>
-										</a>
-									</li>
-								<li data-sid="13757652" data-ssid="13757652" data-uid="1477561412" data-biz="mc" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/13757652/13757652?tempId=16777217" title="暴力麦手凌斗斗" data-stat-parm1="2" data-stat-parm2="4" data-stat-parm3="13757652" data-stat-sid="13757652" data-stat-hostid="1477561412" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="暴力麦手凌斗斗" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MzEwOTA2YmUtMmY0Yy00NGZiLWJkZGYtMDFjMDEzNmQ4Zjk4.jpg?imageview/4/0/w/363/h/330/blur/1" alt="暴力麦手凌斗斗" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">暴力麦手凌斗斗</div>
-										</a>
-									</li>
-								<li data-sid="24086798" data-ssid="24086798" data-uid="597797253" data-biz="mc" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/24086798/24086798?tempId=16777217" title="东北妞妞活力无限" data-stat-parm1="3" data-stat-parm2="4" data-stat-parm3="24086798" data-stat-sid="24086798" data-stat-hostid="597797253" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="东北妞妞活力无限" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MDI4OTYzMTYtODJiNy00NDdiLWE1MmQtNmEzMmYwMjRjYTQ3.jpg?imageview/4/0/w/363/h/330/blur/1" alt="东北妞妞活力无限" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">东北妞妞活力无限</div>
-										</a>
-									</li>
-								<li data-sid="13757650" data-ssid="13757650" data-uid="1453844117" data-biz="sing" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/13757650/13757650?tempId=16777217" title="995老少咸宜放松嗨" data-stat-parm1="4" data-stat-parm2="4" data-stat-parm3="13757650" data-stat-sid="13757650" data-stat-hostid="1453844117" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="995老少咸宜放松嗨" /></div>
-												<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/7099/20170429_0359463377082.jpg" alt="995老少咸宜放松嗨" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">995老少咸宜放松嗨</div>
-										</a>
-									</li>
-								</ul>
-					</div>
-				<div class="star-col" data-stat-bak2="11000" data-stat-bak3="21"  data-stat-name="舞蹈">
-						<h3 style="border-bottom-color:">
-							<span class="title" style="color:#FFFFFF"><i class="icon-202  icon-202-light"></i>舞蹈</span>
-							</h3>
-						<ul>
-							<li data-sid="63164895" data-ssid="63164895" data-uid="1037812323" data-biz="dance" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/63164895/63164895?tempId=16777217" title="性感童颜小杨颖" data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="63164895" data-stat-sid="63164895" data-stat-hostid="1037812323" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="性感童颜小杨颖" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/NGMzM2YyMmUtODRiMy00NzhlLTlhOWQtMmE5NjlkYTlkMTZh.jpg?imageview/4/0/w/363/h/330/blur/1" alt="性感童颜小杨颖" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">性感童颜小杨颖</div>
-										</a>
-									</li>
-								<li data-sid="86451955" data-ssid="86451955" data-uid="967418032" data-biz="dance" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/86451955/86451955?tempId=16777217" title="乱舞妞黑丝诱惑" data-stat-parm1="2" data-stat-parm2="4" data-stat-parm3="86451955" data-stat-sid="86451955" data-stat-hostid="967418032" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="乱舞妞黑丝诱惑" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/NzNlNjllNzYtMmUzYS00ZDQ2LWE2ZmUtYjgwYzJjODAzYjZk.jpg?imageview/4/0/w/363/h/330/blur/1" alt="乱舞妞黑丝诱惑" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">乱舞妞黑丝诱惑</div>
-										</a>
-									</li>
-								<li data-sid="20933234" data-ssid="20933234" data-uid="1616374686" data-biz="dance" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/20933234/20933234?tempId=16777217" title="小赵丽颖舞仙梦珂" data-stat-parm1="3" data-stat-parm2="4" data-stat-parm3="20933234" data-stat-sid="20933234" data-stat-hostid="1616374686" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="小赵丽颖舞仙梦珂" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/8aa4579419fc1d9941c9eabe0c5f5d2ffa3bf698?imageview/4/0/w/363/h/330/blur/1" alt="小赵丽颖舞仙梦珂" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">小赵丽颖舞仙梦珂</div>
-										</a>
-									</li>
-								<li data-sid="98118948" data-ssid="98118948" data-uid="1034872429" data-pid="15013x03_98118948_1034872429_1495152278_1495152278" data-biz="dance" data-tpl="1" data-type="1" >
-										<a target="_blank" href="/x/15013x03_98118948_1034872429_1495152278_1495152278" title="175长腿性...正在直播" data-stat-parm1="4" data-stat-parm2="1" data-stat-parm3="15013x03_98118948_1034872429_1495152278_1495152278" data-stat-sid="98118948" data-stat-hostid="1034872429" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="175长腿性...正在直播" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/96b687925684d4a8817db58d6d3e12181143fd1f?imageview/4/0/w/363/h/330/blur/1" alt="175长腿性...正在直播" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">175长腿性...正在直播</div>
-										</a>
-									</li>
-								</ul>
-					</div>
-				<div class="star-col" data-stat-bak2="11000" data-stat-bak3="20"  data-stat-name="脱口秀">
-						<h3 style="border-bottom-color:">
-							<span class="title" style="color:#FFFFFF"><i class="icon-203  icon-203-light"></i>脱口秀</span>
-							</h3>
-						<ul>
-							<li data-sid="58587932" data-ssid="58587932" data-uid="1231593" data-biz="talk" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/58587932/58587932?tempId=16777217" title="人类的好朋友雨轩" data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="58587932" data-stat-sid="58587932" data-stat-hostid="1231593" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="人类的好朋友雨轩" /></div>
-												<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/E4/97/tz0M9VdfdBgAAAAAAAAn0yxrCLA319.jpg" alt="人类的好朋友雨轩" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">人类的好朋友雨轩</div>
-										</a>
-									</li>
-								<li data-sid="45463526" data-ssid="45463526" data-uid="234439141" data-biz="talk" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/45463526/45463526?tempId=16777217" title="芈儿" data-stat-parm1="2" data-stat-parm2="4" data-stat-parm3="45463526" data-stat-sid="45463526" data-stat-hostid="234439141" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="芈儿" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MmQ3MmFkMDItMjg0My00NGY3LWE1Y2EtYTM2ODM0OWM3MWQ1.jpg?imageview/4/0/w/363/h/330/blur/1" alt="芈儿" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">芈儿</div>
-										</a>
-									</li>
-								<li data-sid="89754948" data-ssid="89754948" data-uid="367454216" data-biz="talk" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/89754948/89754948?tempId=16777217" title="搞笑达人大嘎子" data-stat-parm1="3" data-stat-parm2="4" data-stat-parm3="89754948" data-stat-sid="89754948" data-stat-hostid="367454216" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="搞笑达人大嘎子" /></div>
-												<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/DF/4E/tz0M9VdFm_AAAAAAAABN7FFtK1k870.jpg" alt="搞笑达人大嘎子" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">搞笑达人大嘎子</div>
-										</a>
-									</li>
-								<li data-sid="17128412" data-ssid="17128412" data-uid="887781759" data-biz="talk" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/17128412/17128412?tempId=16777217" title="小二二嫂搞笑二人转" data-stat-parm1="4" data-stat-parm2="4" data-stat-parm3="17128412" data-stat-sid="17128412" data-stat-hostid="887781759" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="小二二嫂搞笑二人转" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MWY0M2ExMzgtMjBhNC00ZTc2LWIxYzEtZjVlZjhmMjQ0Yzdm.jpg?imageview/4/0/w/363/h/330/blur/1" alt="小二二嫂搞笑二人转" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">小二二嫂搞笑二人转</div>
-										</a>
-									</li>
-								</ul>
-					</div>
-				<div class="star-col" data-stat-bak2="11000" data-stat-bak3="19"  data-stat-name="特色">
-						<h3 style="border-bottom-color:">
-							<span class="title" style="color:#FFFFFF"><i class="icon-204  icon-204-light"></i>特色</span>
-							</h3>
-						<ul>
-							<li data-sid="17559200" data-ssid="17559200" data-uid="1487431690" data-pid="15013x03_17559200_1487431690_1495155659_1495155659" data-biz="red" data-tpl="1" data-type="1" >
-										<a target="_blank" href="/x/15013x03_17559200_1487431690_1495155659_1495155659" title="田吾作在东京耍" data-stat-parm1="1" data-stat-parm2="1" data-stat-parm3="15013x03_17559200_1487431690_1495155659_1495155659" data-stat-sid="17559200" data-stat-hostid="1487431690" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="田吾作在东京耍" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/NzA0ODEyZGQtZDBkMC00ZDUzLTg4YTMtNGFmNjg1MjZmNWRh.jpg?imageview/4/0/w/363/h/330/blur/1" alt="田吾作在东京耍" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">田吾作在东京耍</div>
-										</a>
-									</li>
-								<li data-sid="38434905" data-ssid="38434905" data-uid="74945294" data-pid="15013x03_38434905_74945294_1495154428_1495154428" data-biz="red" data-tpl="1" data-type="1" >
-										<a target="_blank" href="/x/15013x03_38434905_74945294_1495154428_1495154428" title="荒岛鱼生 第一天" data-stat-parm1="2" data-stat-parm2="1" data-stat-parm3="15013x03_38434905_74945294_1495154428_1495154428" data-stat-sid="38434905" data-stat-hostid="74945294" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="荒岛鱼生 第一天" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MTZhOGQ2YTItOTMzYy00YzhjLTkyOWUtYTUwMTkzYzc2ZWU0.jpg?imageview/4/0/w/363/h/330/blur/1" alt="荒岛鱼生 第一天" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">荒岛鱼生 第一天</div>
-										</a>
-									</li>
-								<li data-sid="92925993" data-ssid="92925993" data-uid="70799699" data-biz="other" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/92925993/92925993?tempId=16777217" title="20W能落地的SUV推荐" data-stat-parm1="3" data-stat-parm2="4" data-stat-parm3="92925993" data-stat-sid="92925993" data-stat-hostid="70799699" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="20W能落地的SUV推荐" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZDU2ZDJmNzItNzg4OS00MGRiLTg0OGQtZGMxY2JiZjA5ODI1.jpg?imageview/4/0/w/363/h/330/blur/1" alt="20W能落地的SUV推荐" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">20W能落地的SUV推荐</div>
-										</a>
-									</li>
-								<li data-sid="1338442784" data-ssid="1338442784" data-uid="1624826917" data-biz="other" data-tpl="16777217" data-type="4" >
-										<a target="_blank" href="/1338442784/1338442784?tempId=16777217" title="心理咨询师儿诺" data-stat-parm1="4" data-stat-parm2="4" data-stat-parm3="1338442784" data-stat-sid="1338442784" data-stat-hostid="1624826917" data-stat-act-type="3">
-											<div class="mask"></div>
-											<div class="pic">
-												<div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="心理咨询师儿诺" /></div>
-												<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZGQ4MTE0NWEtOTcwNy00ZTM1LWI5YzktZTA4MWFhMmEyNjIx.jpg?imageview/4/0/w/363/h/330/blur/1" alt="心理咨询师儿诺" /></div>
-												<div class="mask"></div><i class="icon-play"></i>
-											</div>
-											<div class="txt">心理咨询师儿诺</div>
-										</a>
-									</li>
-								</ul>
-					</div>
-				</div>
-		</div>
+        <div class="banner-inner" data-tmpl-type="1001_1100">
+            <div class="m">
+                <ul class="pgwSlider">
+                    <li> <img src="{{URL::asset('/home/images/phpQpUSyx1477290423.jpg')}}" alt="舞蹈" ></li>
+                    <li> <img src="{{URL::asset('/home/images/phpV53RyC1492413996.jpg')}}" alt="荒野求生" /></li>
+                    <li> <img src="{{URL::asset('/home/images/phpvsOO5N1488980196.jpg')}}" alt="老司机快上车" /></li>
+                    <li> <img src="{{URL::asset('/home/images/phpl362Yo1463645681.jpg')}}" alt="上！王者" /></li>
+                </ul>
+            </div>
+		</div> 
 	</div>
 
 </div>
@@ -1135,1127 +951,187 @@ if(typeof require == 'undefined'){
     <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="25" data-stat-name="音乐">
 <div class="column-hd">
 	<h3 class="column-title">
-			<a href="/music/" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-208"></i>音乐</a>
+			<a href="{{ url('/list/livelist/') }}?id=1" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-208"></i>音乐</a>
 			</h3>
 	<div class="hd-tags">
-		<a href="/impression/%E5%A4%A9%E7%B1%81%E4%B9%8B%E9%9F%B3" target="_blank" data-stat-parm1="2" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">天籁之音</a>
-			<span class="divide">|</span><a href="/impression/%E5%AE%9E%E5%8A%9B%E9%BA%A6%E6%89%8B" target="_blank" data-stat-parm1="3" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">实力麦手</a>
-			<span class="divide">|</span><a href="/impression/%E5%A5%B3%E7%A5%9E" target="_blank" data-stat-parm1="4" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">女神</a>
-			<span class="divide">|</span><a href="/impression/%E6%AD%8C%E7%A5%9E" target="_blank" data-stat-parm1="5" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">歌神</a>
+		    <a>天籁之音</a>
+			<span class="divide">|</span><a>实力麦手</a>
+			<span class="divide">|</span><a>女神</a>
+			<span class="divide">|</span><a>歌神</a>
 			</div>
-	<a href="/music/" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+	<a href="{{ url('/list/livelist/') }}?id=1" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
 	</div>
 <div class="column-bd">
-	<ul class="video-list ">
-		<li class="video-item" data-sid="54880976" data-ssid="54880976" data-uid="1196976645" data-biz="sing" data-tpl="16777217" data-type="4"  data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="54880976" data-stat-sid="54880976" data-stat-hostid="1196976645">
-					<a class="video-box" href="/54880976/54880976?tempId=16777217" target="_blank" title="嗨歌小魔女子晴" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="嗨歌小魔女子晴"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/YzViOGJkYjMtNjUzMy00OWE4LWIxNjEtYTQ1NGNkOTJiNWY1.jpg?imageview/4/0/w/363/h/330/blur/1" alt="嗨歌小魔女子晴" /></div></div>
-							<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">听歌就来991</span>
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/54880976/54880976?tempId=16777217" target="_blank" title="嗨歌小魔女子晴" data-stat-act-type="3">嗨歌小魔女子晴</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>22.1万</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/天籁之音" target="_blank">天籁之音</a>
-									<a href="/impression/女神" target="_blank">女神</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="25087165" data-ssid="25087165" data-uid="1463625592" data-biz="sing" data-tpl="16777217" data-type="4"  data-stat-parm1="2" data-stat-parm2="4" data-stat-parm3="25087165" data-stat-sid="25087165" data-stat-hostid="1463625592">
-					<a class="video-box" href="/25087165/25087165?tempId=16777217" target="_blank" title="9911玩转好声音" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="9911玩转好声音"></div>
-							<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/3516/20170304_001621049570.jpg" alt="9911玩转好声音" /></div></div>
-							<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">流行音乐听精彩</span>
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/25087165/25087165?tempId=16777217" target="_blank" title="9911玩转好声音" data-stat-act-type="3">9911玩转好声音</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>43486</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/天籁之音" target="_blank">天籁之音</a>
-									<a href="/impression/美丽动人" target="_blank">美丽动人</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="70302573" data-ssid="70302573" data-uid="199786398" data-biz="sing" data-tpl="16777217" data-type="4"  data-stat-parm1="3" data-stat-parm2="4" data-stat-parm3="70302573" data-stat-sid="70302573" data-stat-hostid="199786398">
-					<a class="video-box" href="/70302573/70302573?tempId=16777217" target="_blank" title="老司机&middot;~带带我&middot;~" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="老司机&middot;~带带我&middot;~"></div>
-							<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/44d1d28a968cb2b3a558b0aeb806e8d7796a23b4?imageview/4/0/w/363/h/330/blur/1" alt="老司机&middot;~带带我&middot;~" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/70302573/70302573?tempId=16777217" target="_blank" title="老司机&middot;~带带我&middot;~" data-stat-act-type="3">老司机&middot;~带带我&middot;~</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>31299</div>
-						</div>
-					<div class="anchor-tags">
-							<span class="no-impression">暂无标签</span>
-								</div>
-					</li>
-			<li class="video-item" data-sid="27309007" data-ssid="27309007" data-uid="1434283253" data-biz="sing" data-tpl="16777217" data-type="4"  data-stat-parm1="4" data-stat-parm2="4" data-stat-parm3="27309007" data-stat-sid="27309007" data-stat-hostid="1434283253">
-					<a class="video-box" href="/27309007/27309007?tempId=16777217" target="_blank" title="悦耳旋律图宝" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="悦耳旋律图宝"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/OTBjYjQ4YmMtN2YxZS00MTg3LWEwZTEtYjZjMmFmMTAwZDYz.jpg?imageview/4/0/w/363/h/330/blur/1" alt="悦耳旋律图宝" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/27309007/27309007?tempId=16777217" target="_blank" title="悦耳旋律图宝" data-stat-act-type="3">悦耳旋律图宝</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>14267</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/天籁之音" target="_blank">天籁之音</a>
-									<a href="/impression/女神" target="_blank">女神</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="66467661" data-ssid="66467661" data-uid="865218102" data-biz="sing" data-tpl="16777217" data-type="4"  data-stat-parm1="5" data-stat-parm2="4" data-stat-parm3="66467661" data-stat-sid="66467661" data-stat-hostid="865218102">
-					<a class="video-box" href="/66467661/66467661?tempId=16777217" target="_blank" title="IR子婧 好好唱歌" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="IR子婧 好好唱歌"></div>
-							<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/EC/6C/tz0M9VeEgr4AAAAAAABEgnUZRGU175.jpg" alt="IR子婧 好好唱歌" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/66467661/66467661?tempId=16777217" target="_blank" title="IR子婧 好好唱歌" data-stat-act-type="3">IR子婧 好好唱歌</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>9973</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/天籁之音" target="_blank">天籁之音</a>
-									<a href="/impression/实在" target="_blank">实在</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="65837274" data-ssid="65837274" data-uid="1215456937" data-biz="sing" data-tpl="16777217" data-type="4"  data-stat-parm1="6" data-stat-parm2="4" data-stat-parm3="65837274" data-stat-sid="65837274" data-stat-hostid="1215456937">
-					<a class="video-box" href="/65837274/65837274?tempId=16777217" target="_blank" title="翻版刘涛小金娃" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="翻版刘涛小金娃"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/YjI3MjcwNTEtZjYzMi00ZWQxLTgyNjktOWYzNGQ1MTkzYWFk.jpg?imageview/4/0/w/363/h/330/blur/1" alt="翻版刘涛小金娃" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/65837274/65837274?tempId=16777217" target="_blank" title="翻版刘涛小金娃" data-stat-act-type="3">翻版刘涛小金娃</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>8670</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/天籁之音" target="_blank">天籁之音</a>
-									<a href="/impression/女神" target="_blank">女神</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="15232055" data-ssid="15232055" data-uid="1088921272" data-biz="sing" data-tpl="16777217" data-type="4"  data-stat-parm1="7" data-stat-parm2="4" data-stat-parm3="15232055" data-stat-sid="15232055" data-stat-hostid="1088921272">
-					<a class="video-box" href="/15232055/15232055?tempId=16777217" target="_blank" title="乐器牛人晓多艺" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="乐器牛人晓多艺"></div>
-							<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/a982f1eb89cb5cc40447116e72786868f0a4ced7?imageview/4/0/w/363/h/330/blur/1" alt="乐器牛人晓多艺" /></div></div>
-							<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">公会推荐</span>
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/15232055/15232055?tempId=16777217" target="_blank" title="乐器牛人晓多艺" data-stat-act-type="3">乐器牛人晓多艺</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>8060</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/乐器达人" target="_blank">乐器达人</a>
-									<a href="/impression/全能" target="_blank">全能</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="58695754" data-ssid="58695754" data-uid="1015751410" data-biz="sing" data-tpl="16777217" data-type="4"  data-stat-parm1="8" data-stat-parm2="4" data-stat-parm3="58695754" data-stat-sid="58695754" data-stat-hostid="1015751410">
-					<a class="video-box" href="/58695754/58695754?tempId=16777217" target="_blank" title="东北唱歌萌妹子" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="东北唱歌萌妹子"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MzMyYTkyNGItZDE1My00ZjZhLTgzZTktODhkNGI1NTVhOTZi.jpg?imageview/4/0/w/363/h/330/blur/1" alt="东北唱歌萌妹子" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/58695754/58695754?tempId=16777217" target="_blank" title="东北唱歌萌妹子" data-stat-act-type="3">东北唱歌萌妹子</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>6493</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/音乐精灵" target="_blank">音乐精灵</a>
-									<a href="/impression/软淑萌" target="_blank">软淑萌</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="61540821" data-ssid="61540821" data-uid="1267140559" data-pid="15013x03_61540821_1267140559_1495152035_1495152035" data-biz="sing" data-tpl="1" data-type="1"  data-stat-parm1="9" data-stat-parm2="1" data-stat-parm3="15013x03_61540821_1267140559_1495152035_1495152035" data-stat-sid="61540821" data-stat-hostid="1267140559">
-					<a class="video-box" href="/x/15013x03_61540821_1267140559_1495152035_1495152035" target="_blank" title="早，上，上，好～" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="早，上，上，好～"></div>
-							<div class="pic-real"><img class="lazy" data-original="//mobilelivephoto.bs2dl.yy.com/1267140559_1494640790.668131.jpg?ips_thumbnail/4/0/w/363/h/330/format=jpeg" alt="早，上，上，好～" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/x/15013x03_61540821_1267140559_1495152035_1495152035" target="_blank" title="早，上，上，好～" data-stat-act-type="3">早，上，上，好～</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>6142</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/偶像派" target="_blank">偶像派</a>
-									<a href="/impression/美丽动人" target="_blank">美丽动人</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="47441741" data-ssid="47441741" data-uid="70900603" data-biz="sing" data-tpl="16777217" data-type="4"  data-stat-parm1="10" data-stat-parm2="4" data-stat-parm3="47441741" data-stat-sid="47441741" data-stat-hostid="70900603">
-					<a class="video-box" href="/47441741/47441741?tempId=16777217" target="_blank" title="大众男友歌神宫俊" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="大众男友歌神宫俊"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/YjU2YmM2YWQtNDU5MS00YzlhLThiNGUtZWM2MjRkZTY1NzE5.jpg?imageview/4/0/w/363/h/330/blur/1" alt="大众男友歌神宫俊" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/47441741/47441741?tempId=16777217" target="_blank" title="大众男友歌神宫俊" data-stat-act-type="3">大众男友歌神宫俊</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>6055</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/歌神" target="_blank">歌神</a>
-									<a href="/impression/帅气" target="_blank">帅气</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="35600407" data-ssid="35600407" data-uid="842684734" data-biz="sing" data-tpl="16777217" data-type="4"  data-stat-parm1="11" data-stat-parm2="4" data-stat-parm3="35600407" data-stat-sid="35600407" data-stat-hostid="842684734">
-					<a class="video-box" href="/35600407/35600407?tempId=16777217" target="_blank" title="DJ不停播-yoyo" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="DJ不停播-yoyo"></div>
-							<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/408a32ca6e302c572242f6c10284c7ec633f1004?imageview/4/0/w/363/h/330/blur/1" alt="DJ不停播-yoyo" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/35600407/35600407?tempId=16777217" target="_blank" title="DJ不停播-yoyo" data-stat-act-type="3">DJ不停播-yoyo</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>5768</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/才艺DJ" target="_blank">才艺DJ</a>
-									<a href="/impression/激情四射" target="_blank">激情四射</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="31116434" data-ssid="31116434" data-uid="717264694" data-biz="sing" data-tpl="16777217" data-type="4"  data-stat-parm1="12" data-stat-parm2="4" data-stat-parm3="31116434" data-stat-sid="31116434" data-stat-hostid="717264694">
-					<a class="video-box" href="/31116434/31116434?tempId=16777217" target="_blank" title="综艺歌手大米哥" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="综艺歌手大米哥"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ODZlM2EzN2UtMmUzNS00NDFiLThhMTAtYjU4MmU4Y2Q4OTcy.jpg?imageview/4/0/w/363/h/330/blur/1" alt="综艺歌手大米哥" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/31116434/31116434?tempId=16777217" target="_blank" title="综艺歌手大米哥" data-stat-act-type="3">综艺歌手大米哥</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>5693</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/草根歌神" target="_blank">草根歌神</a>
-									<a href="/impression/接地气" target="_blank">接地气</a>
-									</div>
-					</li>
-			</ul>
+    <ul class="video-list ">
+    @if(empty($detailed[1]))
+    还未有主播入驻，敬请期待！
+    @else
+    @foreach($detailed[1] as $key => $val )
+    @if ($key <= 10)
+        <li class="video-item">
+            <a class="video-box" href="{{ url('studio/livestudio') }}?id={{$val -> user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
+                <div class="video-pic">
+                    <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home')}}{{$val -> anchor_img}}" alt="{{$val -> username}}"></div>
+                    <div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/YzViOGJkYjMtNjUzMy00OWE4LWIxNjEtYTQ1NGNkOTJiNWY1.jpg?imageview/4/0/w/363/h/330/blur/1" alt="{{$val -> username}}" /></div></div>
+                    <div class="mask"></div>
+                    <i class="icon-play"></i>
+                </div>
+            </a>
+            <div class="video-info">
+                <p class="video-title"><a href="{{ url('studio/livestudio') }}?id={{$val -> user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">{{$val -> username}}</a></p>
+                <div class="audience-count">
+                    <i class="icon-people"></i>
+                    @if (strlen($val -> fans) <= 4 )
+                    {{$val->fans}}
+                    @elseif (strlen($val -> fans) > 4)
+                    {{substr($val -> fans ,0,-4)}} 万
+                    @endif
+                </div>
+            </div>
+        </li>
+    @endif
+    @endforeach
+    @endif
+    </ul>
+</div>
+</div>
+<div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="26" data-stat-name="舞蹈">
+<div class="column-hd">
+    <h3 class="column-title">
+            <a href="{{url('index/index')}}?id=2" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-202"></i>舞蹈</a>
+            </h3>
+    <div class="hd-tags">
+        <a>热舞</a>
+            </div>
+    <a href="{{url('/list/livelist')}}?id=2" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+    </div>
+<div class="column-bd">
+    <ul class="video-list ">
+        @if(empty($detailed[2]))
+        还未有主播入驻，敬请期待！
+        @else
+        @foreach($detailed[2] as $key => $val )
+        @if ($key <= 10)
+        <li class="video-item" data-sid="22490906" data-ssid="22490906" data-uid="1616091973" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="22490906" data-stat-sid="22490906" data-stat-hostid="1616091973">
+            <a class="video-box" href="{{url('studio/livestudio')}}?id={{ $val -> user_id }}" target="_blank" title="{{$val -> username }}" data-stat-act-type="3">
+                <div class="video-pic">
+                    <div class="video-pic-inner"><div class="pic-default"><img src="{{ URL::asset('home')}}{{$val -> anchor_img }}" alt="{{$val -> username }}"></div>
+                    <div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZDM2NjFiNTUtYjhlMi00ZWY5LTk1YWEtMzJjNTRmNzMyYTNk.jpg?imageview/4/0/w/363/h/330/blur/1" alt="热舞姐妹淘" /></div></div>
+                    <div class="mask"></div>
+                    <i class="icon-play"></i>
+                </div>
+            </a>
+            <div class="video-info">
+                <p class="video-title"><a href="/22490906/22490906?tempId=16777217" target="_blank" title="{{$val -> username }}" data-stat-act-type="3">{{$val -> username }}</a></p>
+                <div class="audience-count">
+                    <i class="icon-people"></i>
+                    @if (strlen($val -> fans) <= 4 )
+                    {{$val->fans}}
+                    @elseif (strlen($val -> fans) > 4)
+                    {{substr($val -> fans ,0,-4)}} 万
+                    @endif
+                </div>
+            </div>
+        </li>
+        @endif
+        @endforeach
+        @endif
+    </ul>
+</div>
+<div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="33" data-stat-name="脱口秀">
+<div class="column-hd">
+    <h3 class="column-title">
+            <a href="{{url('/list/livelist')}}?id=3" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-203"></i>脱口秀</a>
+            </h3>
+    <div class="hd-tags">
+        <a>逗比</a>
+        <span class="divide">|</span><a>八卦天王</a>
+        <span class="divide">|</span><a>套路神</a>
+    </div>
+    <a href="{{url('/list/livelist')}}?id=3" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+</div>
+<div class="column-bd">
+    <ul class="video-list ">
+    @if(empty($detailed[3]))
+    还未有主播入驻，敬请期待！
+    @else
+    @foreach($detailed[3] as $key => $val )
+    @if ($key <= 10)
+        <li class="video-item">
+            <a class="video-box" href="{{url('studio/livestudio')}}?id={{$val->user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
+                <div class="video-pic">
+                    <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home')}}{{$val -> anchor_img}}" alt="{{$val -> username}}"></div>
+                    <div class="pic-real"><img class="lazy" data-original="" alt="{{$val -> username}}" /></div></div>
+                    <div class="mask"></div>
+                    <i class="icon-play"></i>
+                </div>
+            </a>
+            <div class="video-info">
+                <p class="video-title"><a href="/93479716/93479716?tempId=16777217" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">{{$val -> username}}</a></p>
+                <div class="audience-count">
+                    <i class="icon-people"></i>
+                    @if (strlen($val -> fans) <= 4 )
+                    {{$val->fans}}
+                    @elseif (strlen($val -> fans) > 4)
+                    {{substr($val -> fans ,0,-4)}} 万
+                    @endif
+                </div>
+            </div>
+        </li>
+    @endif
+    @endforeach
+    @endif
+    </ul>
 </div>
 </div>
 <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="27" data-stat-name="户外">
 <div class="column-hd">
 	<h3 class="column-title">
-			<a href="/travel/" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
+			<a href="{{url('list/livelist')}}?id=4" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
 			</h3>
 	<div class="hd-tags">
-		<a href="/impression/%E6%88%B7%E5%A4%96%E6%90%9E%E7%AC%91" target="_blank" data-stat-parm1="2" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">户外搞笑</a>
-			<span class="divide">|</span><a href="/impression/%E9%92%93%E9%B1%BC%E8%BE%BE%E4%BA%BA" target="_blank" data-stat-parm1="3" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">钓鱼达人</a>
-			<span class="divide">|</span><a href="/impression/%E7%BE%8E%E9%A3%9F" target="_blank" data-stat-parm1="4" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">美食</a>
-			</div>
-	<a href="/travel/" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+		<a>户外搞笑</a>
+		<span class="divide">|</span><a>钓鱼达人</a>
+		<span class="divide">|</span><a >美食</a>
+	</div>
+	<a href="{{url('list/livelist')}}?id=4" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
 	</div>
 <div class="column-bd">
 	<ul class="video-list ">
-		<li class="video-item" data-sid="41545176" data-ssid="41545176" data-uid="1241373569" data-biz="red" data-tpl="16777217" data-type="4"  data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="41545176" data-stat-sid="41545176" data-stat-hostid="1241373569">
-					<a class="video-box" href="/41545176/41545176?tempId=16777217" target="_blank" title="峰少街头逗路人" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="峰少街头逗路人"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MTFmYzdkMDUtYTQ5MS00YjZkLThiZjAtMjA5ZWVkYTZjMjcz.jpg?imageview/4/0/w/363/h/330/blur/1" alt="峰少街头逗路人" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
+    @if(empty($detailed[4]))
+    还未有主播入驻，敬请期待！
+    @else
+    @foreach($detailed[4] as $key => $val )
+    @if ($key <= 10)
+		<li class="video-item">
+			<a class="video-box" href="{{url('studio/livestudio')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
+				<div class="video-pic">
+					<div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home')}}{{$val->anchor_img}}" alt="{{$val->username}}"></div>
+					<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MTFmYzdkMDUtYTQ5MS00YjZkLThiZjAtMjA5ZWVkYTZjMjcz.jpg?imageview/4/0/w/363/h/330/blur/1" alt="{{$val->username}}" /></div></div>
+					<div class="video-tag tag-color-0">
 						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/41545176/41545176?tempId=16777217" target="_blank" title="峰少街头逗路人" data-stat-act-type="3">峰少街头逗路人</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>4440</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/户外搞笑" target="_blank">户外搞笑</a>
-									<a href="/impression/闷骚" target="_blank">闷骚</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="52249586" data-ssid="52249586" data-uid="1258671196" data-biz="red" data-tpl="16777217" data-type="4"  data-stat-parm1="2" data-stat-parm2="4" data-stat-parm3="52249586" data-stat-sid="52249586" data-stat-hostid="1258671196">
-					<a class="video-box" href="/52249586/52249586?tempId=16777217" target="_blank" title="赶紧上车！搞..." data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="赶紧上车！搞..."></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/NWNmNjQ1M2UtM2VlZS00NzJmLWJiYmUtMWI3N2M5OTUyNzcw.jpg?imageview/4/0/w/363/h/330/blur/1" alt="赶紧上车！搞..." /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/52249586/52249586?tempId=16777217" target="_blank" title="赶紧上车！搞..." data-stat-act-type="3">赶紧上车！搞...</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>9830</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/逗比" target="_blank">逗比</a>
-									<a href="/impression/街头卖唱" target="_blank">街头卖唱</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="28659783" data-ssid="28659783" data-uid="1510918259" data-biz="red" data-tpl="16777217" data-type="4"  data-stat-parm1="3" data-stat-parm2="4" data-stat-parm3="28659783" data-stat-sid="28659783" data-stat-hostid="1510918259">
-					<a class="video-box" href="/28659783/28659783?tempId=16777217" target="_blank" title="0.0" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="0.0"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/NTQ5MDc3NjctMDVlNC00NzRhLWJmYWUtZDRhOTVkNTNmYTMw.jpg?imageview/4/0/w/363/h/330/blur/1" alt="0.0" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/28659783/28659783?tempId=16777217" target="_blank" title="0.0" data-stat-act-type="3">0.0</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>10</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/女王" target="_blank">女王</a>
-									<a href="/impression/闷骚" target="_blank">闷骚</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="61795155" data-ssid="61795155" data-uid="233524989" data-biz="red" data-tpl="16777217" data-type="4"  data-stat-parm1="4" data-stat-parm2="4" data-stat-parm3="61795155" data-stat-sid="61795155" data-stat-hostid="233524989">
-					<a class="video-box" href="/61795155/61795155?tempId=16777217" target="_blank" title="山哥 户外航模飞行" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="山哥 户外航模飞行"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/NDVhYTU0MjAtMDM1NS00NGU0LWFmN2MtYmYwODQxNThhZjMy.jpg?imageview/4/0/w/363/h/330/blur/1" alt="山哥 户外航模飞行" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/61795155/61795155?tempId=16777217" target="_blank" title="山哥 户外航模飞行" data-stat-act-type="3">山哥 户外航模飞行</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>1951</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/户外搞笑" target="_blank">户外搞笑</a>
-									<a href="/impression/实在" target="_blank">实在</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="1331579092" data-ssid="1331579092" data-uid="1531342620" data-pid="15013x03_1331579092_1531342620_1495150687_1495150687" data-biz="red" data-tpl="1" data-type="1"  data-stat-parm1="5" data-stat-parm2="1" data-stat-parm3="15013x03_1331579092_1531342620_1495150687_1495150687" data-stat-sid="1331579092" data-stat-hostid="1531342620">
-					<a class="video-box" href="/x/15013x03_1331579092_1531342620_1495150687_1495150687" target="_blank" title="农夫神犬大比斗" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="农夫神犬大比斗"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MzU0YzE1ZDctNGU1Yy00ZmI0LWI2MzQtM2ZkZmIzMDRlNGRh.jpg?imageview/4/0/w/363/h/330/blur/1" alt="农夫神犬大比斗" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/x/15013x03_1331579092_1531342620_1495150687_1495150687" target="_blank" title="农夫神犬大比斗" data-stat-act-type="3">农夫神犬大比斗</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>454</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/撩妹高手" target="_blank">撩妹高手</a>
-									<a href="/impression/爷们" target="_blank">爷们</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="52959516" data-ssid="52959516" data-uid="924825333" data-pid="15013x03_52959516_924825333_1495156127_1495156127" data-biz="red" data-tpl="1" data-type="1"  data-stat-parm1="6" data-stat-parm2="1" data-stat-parm3="15013x03_52959516_924825333_1495156127_1495156127" data-stat-sid="52959516" data-stat-hostid="924825333">
-					<a class="video-box" href="/x/15013x03_52959516_924825333_1495156127_1495156127" target="_blank" title="早上好，上班啦" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="早上好，上班啦"></div>
-							<div class="pic-real"><img class="lazy" data-original="//mobilelivephoto.bs2dl.yy.com/924825333_1494849710.845281.jpg?ips_thumbnail/4/0/w/363/h/330/format=jpeg" alt="早上好，上班啦" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/x/15013x03_52959516_924825333_1495156127_1495156127" target="_blank" title="早上好，上班啦" data-stat-act-type="3">早上好，上班啦</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>358</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/傻白甜" target="_blank">傻白甜</a>
-									<a href="/impression/甜美" target="_blank">甜美</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="56989108" data-ssid="56989108" data-uid="114287977" data-pid="15013x03_56989108_114287977_1495155662_1495152028" data-biz="red" data-tpl="1" data-type="1"  data-stat-parm1="7" data-stat-parm2="1" data-stat-parm3="15013x03_56989108_114287977_1495155662_1495152028" data-stat-sid="56989108" data-stat-hostid="114287977">
-					<a class="video-box" href="/x/15013x03_56989108_114287977_1495155662_1495152028" target="_blank" title="山鸡一哥农村养鸡" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="山鸡一哥农村养鸡"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/N2JhOWNhNTItZTk4My00ZmE5LTlhMWItNmM3MTY3MDZjMjg2.jpg?imageview/4/0/w/363/h/330/blur/1" alt="山鸡一哥农村养鸡" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/x/15013x03_56989108_114287977_1495155662_1495152028" target="_blank" title="山鸡一哥农村养鸡" data-stat-act-type="3">山鸡一哥农村养鸡</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>1327</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/唠嗑" target="_blank">唠嗑</a>
-									<a href="/impression/励志青年" target="_blank">励志青年</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="52737300" data-ssid="52737300" data-uid="390608675" data-biz="red" data-tpl="16777217" data-type="4"  data-stat-parm1="8" data-stat-parm2="4" data-stat-parm3="52737300" data-stat-sid="52737300" data-stat-hostid="390608675">
-					<a class="video-box" href="/52737300/52737300?tempId=16777217" target="_blank" title="YY第一汽车解说" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="YY第一汽车解说"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZGRkZTY2M2YtMDUzZS00YTI4LWI3NDItOThjZWU1ZjkyNDUw.jpg?imageview/4/0/w/363/h/330/blur/1" alt="YY第一汽车解说" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/52737300/52737300?tempId=16777217" target="_blank" title="YY第一汽车解说" data-stat-act-type="3">YY第一汽车解说</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>10162</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/汽车达人" target="_blank">汽车达人</a>
-									<a href="/impression/正能量" target="_blank">正能量</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="69233529" data-ssid="69233529" data-uid="1481557280" data-pid="15013x03_69233529_1481557280_1495152849_1495152849" data-biz="red" data-tpl="1" data-type="1"  data-stat-parm1="9" data-stat-parm2="1" data-stat-parm3="15013x03_69233529_1481557280_1495152849_1495152849" data-stat-sid="69233529" data-stat-hostid="1481557280">
-					<a class="video-box" href="/x/15013x03_69233529_1481557280_1495152849_1495152849" target="_blank" title="山东美小护" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="山东美小护"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZWFkMmJlOTYtZjhiNS00ZGFkLWJkN2QtZTYyY2Q2YTkwNzdk.jpg?imageview/4/0/w/363/h/330/blur/1" alt="山东美小护" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/x/15013x03_69233529_1481557280_1495152849_1495152849" target="_blank" title="山东美小护" data-stat-act-type="3">山东美小护</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>1197</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/套路神" target="_blank">套路神</a>
-									<a href="/impression/傻白甜" target="_blank">傻白甜</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="58063889" data-ssid="58063889" data-uid="1503619767" data-biz="red" data-tpl="16777217" data-type="4"  data-stat-parm1="10" data-stat-parm2="4" data-stat-parm3="58063889" data-stat-sid="58063889" data-stat-hostid="1503619767">
-					<a class="video-box" href="/58063889/58063889?tempId=16777217" target="_blank" title="家宝户外功夫表演" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="家宝户外功夫表演"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MTA3NWU2OGItZjAwOS00YzRiLWJmM2EtYmZkMzM3OTUyMTlm.jpg?imageview/4/0/w/363/h/330/blur/1" alt="家宝户外功夫表演" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/58063889/58063889?tempId=16777217" target="_blank" title="家宝户外功夫表演" data-stat-act-type="3">家宝户外功夫表演</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>3024</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/模仿达人" target="_blank">模仿达人</a>
-									<a href="/impression/型男" target="_blank">型男</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="1338041389" data-ssid="1338041389" data-uid="1642842617" data-pid="15013x03_1338041389_1642842617_1495156301_1495156173" data-biz="red" data-tpl="1" data-type="1"  data-stat-parm1="11" data-stat-parm2="1" data-stat-parm3="15013x03_1338041389_1642842617_1495156301_1495156173" data-stat-sid="1338041389" data-stat-hostid="1642842617">
-					<a class="video-box" href="/x/15013x03_1338041389_1642842617_1495156301_1495156173" target="_blank" title="聚雅斋精品书画拍卖，送名家书法！" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="聚雅斋精品书画拍卖，送名家书法！"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZWM0ZGFlYmEtMjQxYS00YWFjLTg1ZWItOWNlZDNmOGZiYTY3.jpg?imageview/4/0/w/363/h/330/blur/1" alt="聚雅斋精品书画拍卖，送名家书法！" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/x/15013x03_1338041389_1642842617_1495156301_1495156173" target="_blank" title="聚雅斋精品书画拍卖，送名家书法！" data-stat-act-type="3">聚雅斋精品书画拍卖，送名家书法！</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>366</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/画家" target="_blank">画家</a>
-									<a href="/impression/德艺双馨" target="_blank">德艺双馨</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="24979555" data-ssid="24979555" data-uid="1190608584" data-pid="15013x03_24979555_1190608584_1495156384_1495156384" data-biz="red" data-tpl="1" data-type="1"  data-stat-parm1="12" data-stat-parm2="1" data-stat-parm3="15013x03_24979555_1190608584_1495156384_1495156384" data-stat-sid="24979555" data-stat-hostid="1190608584">
-					<a class="video-box" href="/x/15013x03_24979555_1190608584_1495156384_1495156384" target="_blank" title="新晋运动达人烂烂宝" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="新晋运动达人烂烂宝"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/M2Q3NjlmODItZDYyNS00OTFjLTk2YTItNGQyNGVlMGUzYzll.jpg?imageview/4/0/w/363/h/330/blur/1" alt="新晋运动达人烂烂宝" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/x/15013x03_24979555_1190608584_1495156384_1495156384" target="_blank" title="新晋运动达人烂烂宝" data-stat-act-type="3">新晋运动达人烂烂宝</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>2179</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/女神" target="_blank">女神</a>
-									<a href="/impression/美丽动人" target="_blank">美丽动人</a>
-									</div>
-					</li>
-			</ul>
-</div>
-</div>
-<div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="33" data-stat-name="脱口秀">
-<div class="column-hd">
-	<h3 class="column-title">
-			<a href="/show/" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-203"></i>脱口秀</a>
-			</h3>
-	<div class="hd-tags">
-		<a href="/impression/%E9%80%97%E6%AF%94" target="_blank" data-stat-parm1="2" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">逗比</a>
-			<span class="divide">|</span><a href="/impression/%E5%85%AB%E5%8D%A6%E5%A4%A9%E7%8E%8B" target="_blank" data-stat-parm1="3" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">八卦天王</a>
-			<span class="divide">|</span><a href="/impression/%E5%A5%97%E8%B7%AF%E7%A5%9E" target="_blank" data-stat-parm1="4" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">套路神</a>
+					<div class="mask"></div>
+					<i class="icon-play"></i>
+					
+				</div>
+			</a>
+			<div class="video-info">
+				<p class="video-title"><a href="{{url('studio/livestudio')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">{{$val->username}}</a></p>
+				<div class="audience-count">
+					<i class="icon-people"></i>
+                    @if (strlen($val -> fans) <= 4 )
+                    {{$val->fans}}
+                    @elseif (strlen($val -> fans) > 4)
+                    {{substr($val -> fans ,0,-4)}} 万
+                    @endif
+                </div>
 			</div>
-	<a href="/show/" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
-	</div>
-<div class="column-bd">
-	<ul class="video-list ">
-		<li class="video-item" data-sid="93479716" data-ssid="93479716" data-uid="4122207" data-biz="talk" data-tpl="16777217" data-type="4"  data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="93479716" data-stat-sid="93479716" data-stat-hostid="4122207">
-					<a class="video-box" href="/93479716/93479716?tempId=16777217" target="_blank" title="59欢乐逗不停" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="59欢乐逗不停"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/Y2IwNjU0N2YtNDA0Ny00YWUwLTlhZjEtZWFiNjJlZTQwOTg5.jpg?imageview/4/0/w/363/h/330/blur/1" alt="59欢乐逗不停" /></div></div>
-							<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">段子手的聚集地</span>
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/93479716/93479716?tempId=16777217" target="_blank" title="59欢乐逗不停" data-stat-act-type="3">59欢乐逗不停</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>16.0万</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/综艺" target="_blank">综艺</a>
-									<a href="/impression/逗比" target="_blank">逗比</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="58606163" data-ssid="58606163" data-uid="1180645212" data-biz="talk" data-tpl="16777217" data-type="4"  data-stat-parm1="2" data-stat-parm2="4" data-stat-parm3="58606163" data-stat-sid="58606163" data-stat-hostid="1180645212">
-					<a class="video-box" href="/58606163/58606163?tempId=16777217" target="_blank" title="知心姐姐空小白" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="知心姐姐空小白"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZjY5NTdlMWItN2Q4ZC00Nzk3LThhNzUtOGRhZDQ0MDBiYTE3.jpg?imageview/4/0/w/363/h/330/blur/1" alt="知心姐姐空小白" /></div></div>
-							<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">全天情感连线</span>
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/58606163/58606163?tempId=16777217" target="_blank" title="知心姐姐空小白" data-stat-act-type="3">知心姐姐空小白</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>15.7万</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/情感" target="_blank">情感</a>
-									<a href="/impression/女神" target="_blank">女神</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="79978677" data-ssid="79978677" data-uid="426083936" data-biz="talk" data-tpl="16777217" data-type="4"  data-stat-parm1="3" data-stat-parm2="4" data-stat-parm3="79978677" data-stat-sid="79978677" data-stat-hostid="426083936">
-					<a class="video-box" href="/79978677/79978677?tempId=16777217" target="_blank" title="你的小夭夭上线了" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="你的小夭夭上线了"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MTBiNjQwZmUtZWZmZC00OGQxLWFiMDktZGY2MjdkNWNhZDAy.jpg?imageview/4/0/w/363/h/330/blur/1" alt="你的小夭夭上线了" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/79978677/79978677?tempId=16777217" target="_blank" title="你的小夭夭上线了" data-stat-act-type="3">你的小夭夭上线了</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>14858</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/喜剧天王" target="_blank">喜剧天王</a>
-									<a href="/impression/逗比" target="_blank">逗比</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="87014289" data-ssid="87014289" data-uid="1278406634" data-biz="talk" data-tpl="16777217" data-type="4"  data-stat-parm1="4" data-stat-parm2="4" data-stat-parm3="87014289" data-stat-sid="87014289" data-stat-hostid="1278406634">
-					<a class="video-box" href="/87014289/87014289?tempId=16777217" target="_blank" title="搞笑天王天奕" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="搞笑天王天奕"></div>
-							<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/C5/1B/tz0M9VbPuvgAAAAAAAA_1SMD7OU722.jpg" alt="搞笑天王天奕" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/87014289/87014289?tempId=16777217" target="_blank" title="搞笑天王天奕" data-stat-act-type="3">搞笑天王天奕</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>14819</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/八卦天王" target="_blank">八卦天王</a>
-									<a href="/impression/逗比" target="_blank">逗比</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="95658355" data-ssid="95658355" data-uid="210445448" data-biz="talk" data-tpl="16777217" data-type="4"  data-stat-parm1="5" data-stat-parm2="4" data-stat-parm3="95658355" data-stat-sid="95658355" data-stat-hostid="210445448">
-					<a class="video-box" href="/95658355/95658355?tempId=16777217" target="_blank" title="一路向前-Mc河云" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="一路向前-Mc河云"></div>
-							<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/6160/20170502_0308152771465.jpg" alt="一路向前-Mc河云" /></div></div>
-							<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">公会推荐</span>
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/95658355/95658355?tempId=16777217" target="_blank" title="一路向前-Mc河云" data-stat-act-type="3">一路向前-Mc河云</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>12987</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/户外搞笑" target="_blank">户外搞笑</a>
-									<a href="/impression/逗比" target="_blank">逗比</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="21718060" data-ssid="21718060" data-uid="193010203" data-biz="talk" data-tpl="16777217" data-type="4"  data-stat-parm1="6" data-stat-parm2="4" data-stat-parm3="21718060" data-stat-sid="21718060" data-stat-hostid="193010203">
-					<a class="video-box" href="/21718060/21718060?tempId=16777217" target="_blank" title="歪歪第一新闻直播" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="歪歪第一新闻直播"></div>
-							<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/A8/61/d7wtWVZMOScAAAAAAABKMX6AdqI625.jpg" alt="歪歪第一新闻直播" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/21718060/21718060?tempId=16777217" target="_blank" title="歪歪第一新闻直播" data-stat-act-type="3">歪歪第一新闻直播</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>12619</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/八卦天王" target="_blank">八卦天王</a>
-									<a href="/impression/帅气" target="_blank">帅气</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="79088480" data-ssid="79088480" data-uid="106297728" data-biz="talk" data-tpl="16777217" data-type="4"  data-stat-parm1="7" data-stat-parm2="4" data-stat-parm3="79088480" data-stat-sid="79088480" data-stat-hostid="106297728">
-					<a class="video-box" href="/79088480/79088480?tempId=16777217" target="_blank" title="逗比二人转 毛驴驴嫂" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="逗比二人转 毛驴驴嫂"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZGE5NWZjMzEtMjU3Yy00ODA0LThkMWUtY2U4OGZmNjdkZTYw.jpg?imageview/4/0/w/363/h/330/blur/1" alt="逗比二人转 毛驴驴嫂" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/79088480/79088480?tempId=16777217" target="_blank" title="逗比二人转 毛驴驴嫂" data-stat-act-type="3">逗比二人转 毛驴驴嫂</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>10418</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/二人转" target="_blank">二人转</a>
-									<a href="/impression/逗比" target="_blank">逗比</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="22633600" data-ssid="22633600" data-uid="918967519" data-biz="talk" data-tpl="16777217" data-type="4"  data-stat-parm1="8" data-stat-parm2="4" data-stat-parm3="22633600" data-stat-sid="22633600" data-stat-hostid="918967519">
-					<a class="video-box" href="/22633600/22633600?tempId=16777217" target="_blank" title="真实恐怖事件再现" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="真实恐怖事件再现"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/YWU3OWFiNDQtNjE3YS00ZjFiLTkyOGUtNTEwYjA2MTc4ZmY0.jpg?imageview/4/0/w/363/h/330/blur/1" alt="真实恐怖事件再现" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/22633600/22633600?tempId=16777217" target="_blank" title="真实恐怖事件再现" data-stat-act-type="3">真实恐怖事件再现</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>10305</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/说书人" target="_blank">说书人</a>
-									<a href="/impression/女汉子" target="_blank">女汉子</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="72249249" data-ssid="72249249" data-uid="434447499" data-biz="talk" data-tpl="16777217" data-type="4"  data-stat-parm1="9" data-stat-parm2="4" data-stat-parm3="72249249" data-stat-sid="72249249" data-stat-hostid="434447499">
-					<a class="video-box" href="/72249249/72249249?tempId=16777217" target="_blank" title="搞笑幽默聚集地" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="搞笑幽默聚集地"></div>
-							<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/1396/20170514_1857065412973.jpg" alt="搞笑幽默聚集地" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/72249249/72249249?tempId=16777217" target="_blank" title="搞笑幽默聚集地" data-stat-act-type="3">搞笑幽默聚集地</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>9983</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/八卦天王" target="_blank">八卦天王</a>
-									<a href="/impression/逗比" target="_blank">逗比</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="32551221" data-ssid="32551221" data-uid="1243493299" data-biz="talk" data-tpl="16777217" data-type="4"  data-stat-parm1="10" data-stat-parm2="4" data-stat-parm3="32551221" data-stat-sid="32551221" data-stat-hostid="1243493299">
-					<a class="video-box" href="/32551221/32551221?tempId=16777217" target="_blank" title="YY第一女逗B大脚" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="YY第一女逗B大脚"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/NjhmMDkwNmYtZDkyOC00M2JlLTg2MGQtN2M2M2ZiYTJlZmFj.jpg?imageview/4/0/w/363/h/330/blur/1" alt="YY第一女逗B大脚" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/32551221/32551221?tempId=16777217" target="_blank" title="YY第一女逗B大脚" data-stat-act-type="3">YY第一女逗B大脚</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>7290</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/八卦天王" target="_blank">八卦天王</a>
-									<a href="/impression/女汉子" target="_blank">女汉子</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="53757896" data-ssid="53757896" data-uid="1424932611" data-biz="talk" data-tpl="16777217" data-type="4"  data-stat-parm1="11" data-stat-parm2="4" data-stat-parm3="53757896" data-stat-sid="53757896" data-stat-hostid="1424932611">
-					<a class="video-box" href="/53757896/53757896?tempId=16777217" target="_blank" title="演员刘老根震宇" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="演员刘老根震宇"></div>
-							<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/1D/96/tz0M9VhgblsAAAAAAAAsxyJRKWs749.jpg" alt="演员刘老根震宇" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/53757896/53757896?tempId=16777217" target="_blank" title="演员刘老根震宇" data-stat-act-type="3">演员刘老根震宇</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>7228</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/演员" target="_blank">演员</a>
-									<a href="/impression/爽朗直率" target="_blank">爽朗直率</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="72968544" data-ssid="72968544" data-uid="129390025" data-biz="talk" data-tpl="16777217" data-type="4"  data-stat-parm1="12" data-stat-parm2="4" data-stat-parm3="72968544" data-stat-sid="72968544" data-stat-hostid="129390025">
-					<a class="video-box" href="/72968544/72968544?tempId=16777217" target="_blank" title="我就是MC天命" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="我就是MC天命"></div>
-							<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/7029/20170322_0727598187633.jpg" alt="我就是MC天命" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/72968544/72968544?tempId=16777217" target="_blank" title="我就是MC天命" data-stat-act-type="3">我就是MC天命</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>7028</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/实力麦手" target="_blank">实力麦手</a>
-									<a href="/impression/霸道总裁" target="_blank">霸道总裁</a>
-									</div>
-					</li>
-			</ul>
+		</li>
+        @endif
+        @endforeach    
+        @endif
+	</ul>
 </div>
-</div>
-<div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="26" data-stat-name="舞蹈">
-<div class="column-hd">
-	<h3 class="column-title">
-			<a href="/music/" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-202"></i>舞蹈</a>
-			</h3>
-	<div class="hd-tags">
-		<a href="/impression/%E7%83%AD%E8%88%9E" target="_blank" data-stat-parm1="2" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">热舞</a>
-			</div>
-	<a href="/music/" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
-	</div>
-<div class="column-bd">
-	<ul class="video-list ">
-		<li class="video-item" data-sid="22490906" data-ssid="22490906" data-uid="1616091973" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="22490906" data-stat-sid="22490906" data-stat-hostid="1616091973">
-					<a class="video-box" href="/22490906/22490906?tempId=16777217" target="_blank" title="热舞姐妹淘" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="热舞姐妹淘"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZDM2NjFiNTUtYjhlMi00ZWY5LTk1YWEtMzJjNTRmNzMyYTNk.jpg?imageview/4/0/w/363/h/330/blur/1" alt="热舞姐妹淘" /></div></div>
-							<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">看热舞就来993</span>
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/22490906/22490906?tempId=16777217" target="_blank" title="热舞姐妹淘" data-stat-act-type="3">热舞姐妹淘</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>15.3万</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/舞姬" target="_blank">舞姬</a>
-									<a href="/impression/女神" target="_blank">女神</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="10677325" data-ssid="10677325" data-uid="1756321453" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="2" data-stat-parm2="4" data-stat-parm3="10677325" data-stat-sid="10677325" data-stat-hostid="1756321453">
-					<a class="video-box" href="/10677325/10677325?tempId=16777217" target="_blank" title="主播在你隔壁" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="主播在你隔壁"></div>
-							<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/187f9cb843d9c6a6b04b903659648dc8f5aba8e4?imageview/4/0/w/363/h/330/blur/1" alt="主播在你隔壁" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/10677325/10677325?tempId=16777217" target="_blank" title="主播在你隔壁" data-stat-act-type="3">主播在你隔壁</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>8300</div>
-						</div>
-					<div class="anchor-tags">
-							<span class="no-impression">暂无标签</span>
-								</div>
-					</li>
-			<li class="video-item" data-sid="10720268" data-ssid="10720268" data-uid="1733997394" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="3" data-stat-parm2="4" data-stat-parm3="10720268" data-stat-sid="10720268" data-stat-hostid="1733997394">
-					<a class="video-box" href="/10720268/10720268?tempId=16777217" target="_blank" title="扣6免费卡皇" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="扣6免费卡皇"></div>
-							<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/a273aac0727dedf03bb2c2906b316cf5f05ed517?imageview/4/0/w/363/h/330/blur/1" alt="扣6免费卡皇" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/10720268/10720268?tempId=16777217" target="_blank" title="扣6免费卡皇" data-stat-act-type="3">扣6免费卡皇</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>8182</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/女神" target="_blank">女神</a>
-									<a href="/impression/萌娃" target="_blank">萌娃</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="35972313" data-ssid="35972313" data-uid="1556444084" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="4" data-stat-parm2="4" data-stat-parm3="35972313" data-stat-sid="35972313" data-stat-hostid="1556444084">
-					<a class="video-box" href="/35972313/35972313?tempId=16777217" target="_blank" title="性感热舞组合月亮" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="性感热舞组合月亮"></div>
-							<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/E6/EF/tz0M9VdqHg4AAAAAAAA20yZOBqA832.jpg" alt="性感热舞组合月亮" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/35972313/35972313?tempId=16777217" target="_blank" title="性感热舞组合月亮" data-stat-act-type="3">性感热舞组合月亮</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>8099</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/热舞" target="_blank">热舞</a>
-									<a href="/impression/女神" target="_blank">女神</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="10515904" data-ssid="10515904" data-uid="1754081497" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="5" data-stat-parm2="4" data-stat-parm3="10515904" data-stat-sid="10515904" data-stat-hostid="1754081497">
-					<a class="video-box" href="/10515904/10515904?tempId=16777217" target="_blank" title="新人来报道520" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="新人来报道520"></div>
-							<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/f4cf74ed06b35c0d0d365dbdeb18aff600e3c009?imageview/4/0/w/363/h/330/blur/1" alt="新人来报道520" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/10515904/10515904?tempId=16777217" target="_blank" title="新人来报道520" data-stat-act-type="3">新人来报道520</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>7983</div>
-						</div>
-					<div class="anchor-tags">
-							<span class="no-impression">暂无标签</span>
-								</div>
-					</li>
-			<li class="video-item" data-sid="10650951" data-ssid="10650951" data-uid="1695369017" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="6" data-stat-parm2="4" data-stat-parm3="10650951" data-stat-sid="10650951" data-stat-hostid="1695369017">
-					<a class="video-box" href="/10650951/10650951?tempId=16777217" target="_blank" title="主播离你100米" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="主播离你100米"></div>
-							<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/70baad3252b04522e6d097299bb0e2352832b1ac?imageview/4/0/w/363/h/330/blur/1" alt="主播离你100米" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/10650951/10650951?tempId=16777217" target="_blank" title="主播离你100米" data-stat-act-type="3">主播离你100米</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>7898</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/舞姬" target="_blank">舞姬</a>
-									<a href="/impression/女神" target="_blank">女神</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="10581864" data-ssid="10581864" data-uid="1754081314" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="7" data-stat-parm2="4" data-stat-parm3="10581864" data-stat-sid="10581864" data-stat-hostid="1754081314">
-					<a class="video-box" href="/10581864/10581864?tempId=16777217" target="_blank" title="180大长腿  主播新人" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="180大长腿  主播新人"></div>
-							<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/70390b36ed0c37723519e6055f347fe6f91081f9?imageview/4/0/w/363/h/330/blur/1" alt="180大长腿  主播新人" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/10581864/10581864?tempId=16777217" target="_blank" title="180大长腿  主播新人" data-stat-act-type="3">180大长腿  主播新人</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>7876</div>
-						</div>
-					<div class="anchor-tags">
-							<span class="no-impression">暂无标签</span>
-								</div>
-					</li>
-			<li class="video-item" data-sid="10713202" data-ssid="10713202" data-uid="1733996611" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="8" data-stat-parm2="4" data-stat-parm3="10713202" data-stat-sid="10713202" data-stat-hostid="1733996611">
-					<a class="video-box" href="/10713202/10713202?tempId=16777217" target="_blank" title="热舞女神组合" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="热舞女神组合"></div>
-							<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/658b45d27d001a6bb53cba90be389c0138aab614?imageview/4/0/w/363/h/330/blur/1" alt="热舞女神组合" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/10713202/10713202?tempId=16777217" target="_blank" title="热舞女神组合" data-stat-act-type="3">热舞女神组合</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>7840</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/女王" target="_blank">女王</a>
-									<a href="/impression/傻白甜" target="_blank">傻白甜</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="69508039" data-ssid="69508039" data-uid="404836587" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="9" data-stat-parm2="4" data-stat-parm3="69508039" data-stat-sid="69508039" data-stat-hostid="404836587">
-					<a class="video-box" href="/69508039/69508039?tempId=16777217" target="_blank" title="热情女神小猪蛋" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="热情女神小猪蛋"></div>
-							<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/9330/20170517_1345277587889.jpg" alt="热情女神小猪蛋" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/69508039/69508039?tempId=16777217" target="_blank" title="热情女神小猪蛋" data-stat-act-type="3">热情女神小猪蛋</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>6913</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/舞姬" target="_blank">舞姬</a>
-									<a href="/impression/萝莉" target="_blank">萝莉</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="98262033" data-ssid="98262033" data-uid="1632684693" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="10" data-stat-parm2="4" data-stat-parm3="98262033" data-stat-sid="98262033" data-stat-hostid="1632684693">
-					<a class="video-box" href="/98262033/98262033?tempId=16777217" target="_blank" title="沁儿爱笑爱舞蹈" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="沁儿爱笑爱舞蹈"></div>
-							<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/5388/20170223_1027591583293.jpg" alt="沁儿爱笑爱舞蹈" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/98262033/98262033?tempId=16777217" target="_blank" title="沁儿爱笑爱舞蹈" data-stat-act-type="3">沁儿爱笑爱舞蹈</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>6418</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/热舞" target="_blank">热舞</a>
-									<a href="/impression/激情四射" target="_blank">激情四射</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="66618950" data-ssid="66618950" data-uid="870878727" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="11" data-stat-parm2="4" data-stat-parm3="66618950" data-stat-sid="66618950" data-stat-hostid="870878727">
-					<a class="video-box" href="/66618950/66618950?tempId=16777217" target="_blank" title="甜进你心一菲二菲" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="甜进你心一菲二菲"></div>
-							<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/754/20170223_2329075385957.jpg" alt="甜进你心一菲二菲" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/66618950/66618950?tempId=16777217" target="_blank" title="甜进你心一菲二菲" data-stat-act-type="3">甜进你心一菲二菲</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>5890</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/热舞" target="_blank">热舞</a>
-									<a href="/impression/女神" target="_blank">女神</a>
-									</div>
-					</li>
-			<li class="video-item" data-sid="70218896" data-ssid="70218896" data-uid="1494526656" data-pid="15013x03_70218896_1494526656_1495144491_1495119299" data-biz="dance" data-tpl="1" data-type="1"  data-stat-parm1="12" data-stat-parm2="1" data-stat-parm3="15013x03_70218896_1494526656_1495144491_1495119299" data-stat-sid="70218896" data-stat-hostid="1494526656">
-					<a class="video-box" href="/x/15013x03_70218896_1494526656_1495144491_1495119299" target="_blank" title="无辜可爱的小蜜糖" data-stat-act-type="3">
-						<div class="video-pic">
-							<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="无辜可爱的小蜜糖"></div>
-							<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZWQ5MGE1MTgtNjgyYy00YTc2LTk2NzQtZmFjZjRmMDBiY2I2.jpg?imageview/4/0/w/363/h/330/blur/1" alt="无辜可爱的小蜜糖" /></div></div>
-							<div class="video-tag tag-color-0">
-								</div>
-							<div class="mask"></div>
-							<i class="icon-play"></i>
-							
-						</div>
-					</a>
-					<div class="video-info">
-						<p class="video-title"><a href="/x/15013x03_70218896_1494526656_1495144491_1495119299" target="_blank" title="无辜可爱的小蜜糖" data-stat-act-type="3">无辜可爱的小蜜糖</a></p>
-						<div class="audience-count">
-							<i class="icon-people"></i>5374</div>
-						</div>
-					<div class="anchor-tags">
-							<a href="/impression/热舞" target="_blank">热舞</a>
-									<a href="/impression/女神" target="_blank">女神</a>
-									</div>
-					</li>
-			</ul>
 </div>
 </div>
 <div class="column live-tabBox" data-stat-bak2="1005" data-stat-bak3="57" data-stat-name="大家都在看">
@@ -2270,11 +1146,8 @@ if(typeof require == 'undefined'){
 			<li class="video-item" data-sid="80266156" data-ssid="80266156" data-uid="1358070450" data-biz="sport" data-tpl="16777217" data-type="4"  data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="80266156" data-stat-sid="80266156" data-stat-hostid="1358070450">
 				<a class="video-box" href="/80266156/80266156?tempId=16777217" title="清新瑜伽女神惠美" target="_blank" data-stat-act-type="3">
 					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="清新瑜伽女神惠美"></div>
+						<div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="清新瑜伽女神惠美"></div>
 						<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MzdiYWEwMDEtYTZjMC00NWY4LWI3NGUtMzM3ZDY0ZWMwZTkz.jpg?imageview/4/0/w/363/h/330/blur/1" alt="清新瑜伽女神惠美" /></div></div>
-						<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">36体育竞技</span>
-							</div>
 						<div class="video-type">
 									体育</div>
 							<div class="mask"></div>
@@ -2286,508 +1159,6 @@ if(typeof require == 'undefined'){
 					<div class="audience-count">
 						<i class="icon-people"></i>22056</div>
 					</div>
-				<div class="anchor-tags">
-						<a href="/impression/美女瑜伽" target="_blank">美女瑜伽</a>
-								<a href="/impression/美丽动人" target="_blank">美丽动人</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="69566714" data-ssid="69566714" data-uid="484753076" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="2" data-stat-parm2="4" data-stat-parm3="69566714" data-stat-sid="69566714" data-stat-hostid="484753076">
-				<a class="video-box" href="/69566714/69566714?tempId=16777217" title="相亲 交友 收徒弟" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="相亲 交友 收徒弟"></div>
-						<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/7421/20170305_0103493844127.jpg" alt="相亲 交友 收徒弟" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/69566714/69566714?tempId=16777217" href="" title="相亲 交友 收徒弟"  data-stat-act-type="3">相亲 交友 收徒弟</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>924</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/撩妹高手" target="_blank">撩妹高手</a>
-								<a href="/impression/闷骚" target="_blank">闷骚</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="68269527" data-ssid="68269527" data-uid="1484831850" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="3" data-stat-parm2="4" data-stat-parm3="68269527" data-stat-sid="68269527" data-stat-hostid="1484831850">
-				<a class="video-box" href="/68269527/68269527?tempId=16777217" title="妩媚性感逗小妖" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="妩媚性感逗小妖"></div>
-						<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/76175cec6305a2cd29b9511f03a390203a0fc65d?imageview/4/0/w/363/h/330/blur/1" alt="妩媚性感逗小妖" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/68269527/68269527?tempId=16777217" href="" title="妩媚性感逗小妖"  data-stat-act-type="3">妩媚性感逗小妖</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>4999</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/舞姬" target="_blank">舞姬</a>
-								<a href="/impression/女神" target="_blank">女神</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="624624" data-ssid="624624" data-uid="498670" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="4" data-stat-parm2="4" data-stat-parm3="624624" data-stat-sid="624624" data-stat-hostid="498670">
-				<a class="video-box" href="/624624/624624?tempId=16777217" title="安安制作唯美沙画" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="安安制作唯美沙画"></div>
-						<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/YWE0OGE5N2MtNmU0Ny00Njg4LThiNWQtMjhmZTZkNmVmODM3.jpg?imageview/4/0/w/363/h/330/blur/1" alt="安安制作唯美沙画" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/624624/624624?tempId=16777217" href="" title="安安制作唯美沙画"  data-stat-act-type="3">安安制作唯美沙画</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>1064</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/沙画" target="_blank">沙画</a>
-								<a href="/impression/全能" target="_blank">全能</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="36438988" data-ssid="36438988" data-uid="1207589764" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="5" data-stat-parm2="4" data-stat-parm3="36438988" data-stat-sid="36438988" data-stat-hostid="1207589764">
-				<a class="video-box" href="/36438988/36438988?tempId=16777217" title="38E胸模热舞" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="38E胸模热舞"></div>
-						<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/E0/52/d7wtWVgTABIAAAAAAABISRei10Q534.jpg" alt="38E胸模热舞" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/36438988/36438988?tempId=16777217" href="" title="38E胸模热舞"  data-stat-act-type="3">38E胸模热舞</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>743</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/舞姬" target="_blank">舞姬</a>
-								<a href="/impression/萝莉" target="_blank">萝莉</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="29877108" data-ssid="29877108" data-uid="1225194217" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="6" data-stat-parm2="4" data-stat-parm3="29877108" data-stat-sid="29877108" data-stat-hostid="1225194217">
-				<a class="video-box" href="/29877108/29877108?tempId=16777217" title="户外  菜鸟钓鱼" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="户外  菜鸟钓鱼"></div>
-						<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/6477dfab4889103e8091872eacf08efd386146dd?imageview/4/0/w/363/h/330/blur/1" alt="户外  菜鸟钓鱼" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/29877108/29877108?tempId=16777217" href="" title="户外  菜鸟钓鱼"  data-stat-act-type="3">户外  菜鸟钓鱼</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>809</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/逗比" target="_blank">逗比</a>
-								<a href="/impression/闷骚" target="_blank">闷骚</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="95464247" data-ssid="95464247" data-uid="1344720714" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="7" data-stat-parm2="4" data-stat-parm3="95464247" data-stat-sid="95464247" data-stat-hostid="1344720714">
-				<a class="video-box" href="/95464247/95464247?tempId=16777217" title="云南辣妹性感来袭" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="云南辣妹性感来袭"></div>
-						<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/12/74/tz0M9Vgj_OwAAAAAAAA8IgUMdbA093.jpg" alt="云南辣妹性感来袭" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/95464247/95464247?tempId=16777217" href="" title="云南辣妹性感来袭"  data-stat-act-type="3">云南辣妹性感来袭</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>2985</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/舞姬" target="_blank">舞姬</a>
-								<a href="/impression/女神" target="_blank">女神</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="77967899" data-ssid="77967899" data-uid="221973175" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="8" data-stat-parm2="4" data-stat-parm3="77967899" data-stat-sid="77967899" data-stat-hostid="221973175">
-				<a class="video-box" href="/77967899/77967899?tempId=16777217" title="亲情母女 欢乐时光" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="亲情母女 欢乐时光"></div>
-						<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/46/28/d7wtWVTvzsYAAAAAAABG3zTso30441.jpg" alt="亲情母女 欢乐时光" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/77967899/77967899?tempId=16777217" href="" title="亲情母女 欢乐时光"  data-stat-act-type="3">亲情母女 欢乐时光</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>2210</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/天籁之音" target="_blank">天籁之音</a>
-								<a href="/impression/傻白甜" target="_blank">傻白甜</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="72883254" data-ssid="72883254" data-uid="1025536677" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="9" data-stat-parm2="4" data-stat-parm3="72883254" data-stat-sid="72883254" data-stat-hostid="1025536677">
-				<a class="video-box" href="/72883254/72883254?tempId=16777217" title="素颜热舞子伊" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="素颜热舞子伊"></div>
-						<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/YTAzMmQzODAtY2I2Zi00MGM2LWI0YzYtMGRiZDM0ZjExYjk1.jpg?imageview/4/0/w/363/h/330/blur/1" alt="素颜热舞子伊" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/72883254/72883254?tempId=16777217" href="" title="素颜热舞子伊"  data-stat-act-type="3">素颜热舞子伊</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>1204</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/舞姬" target="_blank">舞姬</a>
-								<a href="/impression/女神" target="_blank">女神</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="30889636" data-ssid="30889636" data-uid="1487333717" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="10" data-stat-parm2="4" data-stat-parm3="30889636" data-stat-sid="30889636" data-stat-hostid="1487333717">
-				<a class="video-box" href="/30889636/30889636?tempId=16777217" title="搞笑摔跤小八带您嗨" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="搞笑摔跤小八带您嗨"></div>
-						<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/Zjg0YTU4NDQtZjg2OC00M2VlLWFmZjEtOWZjMWI5OGJmYWRl.jpg?imageview/4/0/w/363/h/330/blur/1" alt="搞笑摔跤小八带您嗨" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/30889636/30889636?tempId=16777217" href="" title="搞笑摔跤小八带您嗨"  data-stat-act-type="3">搞笑摔跤小八带您嗨</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>1474</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/搏击格斗" target="_blank">搏击格斗</a>
-								<a href="/impression/逗比" target="_blank">逗比</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="18875028" data-ssid="18875028" data-uid="6528190" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="11" data-stat-parm2="4" data-stat-parm3="18875028" data-stat-sid="18875028" data-stat-hostid="6528190">
-				<a class="video-box" href="/18875028/18875028?tempId=16777217" title="沙画美人来袭" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="沙画美人来袭"></div>
-						<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/YWRhOTRiMGQtNzM4Yy00MDgzLTg0NmItZDdmZWY5ZDZlODQx.jpg?imageview/4/0/w/363/h/330/blur/1" alt="沙画美人来袭" /></div></div>
-						<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">公会推荐</span>
-							</div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/18875028/18875028?tempId=16777217" href="" title="沙画美人来袭"  data-stat-act-type="3">沙画美人来袭</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>891</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/画家" target="_blank">画家</a>
-								<a href="/impression/二次元" target="_blank">二次元</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="80160517" data-ssid="80160517" data-uid="1499014700" data-pid="15013x03_80160517_1499014700_1495156669_1495156669" data-biz="other" data-tpl="1" data-type="1"  data-stat-parm1="12" data-stat-parm2="1" data-stat-parm3="15013x03_80160517_1499014700_1495156669_1495156669" data-stat-sid="80160517" data-stat-hostid="1499014700">
-				<a class="video-box" href="/x/15013x03_80160517_1499014700_1495156669_1495156669" title="渔夫 农家河钓" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="渔夫 农家河钓"></div>
-						<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZGZjMzdhMTUtOGM4YS00NmRiLWIzNmEtYTVmMThhNmUzMDVh.jpg?imageview/4/0/w/363/h/330/blur/1" alt="渔夫 农家河钓" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/x/15013x03_80160517_1499014700_1495156669_1495156669" href="" title="渔夫 农家河钓"  data-stat-act-type="3">渔夫 农家河钓</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>1700</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/钓鱼达人" target="_blank">钓鱼达人</a>
-								<a href="/impression/实在" target="_blank">实在</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="87537522" data-ssid="87537522" data-uid="1044567212" data-pid="15013x03_87537522_1044567212_1495153393_1495141176" data-biz="other" data-tpl="1" data-type="1"  data-stat-parm1="13" data-stat-parm2="1" data-stat-parm3="15013x03_87537522_1044567212_1495153393_1495141176" data-stat-sid="87537522" data-stat-hostid="1044567212">
-				<a class="video-box" href="/x/15013x03_87537522_1044567212_1495153393_1495141176" title="主播距离1米" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="主播距离1米"></div>
-						<div class="pic-real"><img class="lazy" data-original="//mobilelivephoto.bs2dl.yy.com/1044567212_1495153338.695778.jpg?ips_thumbnail/4/0/w/363/h/330/format=jpeg" alt="主播距离1米" /></div></div>
-						<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">公会推荐</span>
-							</div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/x/15013x03_87537522_1044567212_1495153393_1495141176" href="" title="主播距离1米"  data-stat-act-type="3">主播距离1米</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>1107</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/天籁之音" target="_blank">天籁之音</a>
-								<a href="/impression/女神" target="_blank">女神</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="47485699" data-ssid="47485699" data-uid="881961908" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="14" data-stat-parm2="4" data-stat-parm3="47485699" data-stat-sid="47485699" data-stat-hostid="881961908">
-				<a class="video-box" href="/47485699/47485699?tempId=16777217" title="火辣热舞欣儿" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="火辣热舞欣儿"></div>
-						<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/@composite=ms1_f_NGNjMjA2NTIxNzE3NGI3M2NkZDMxZmE3ZjYwYjFlYzQ3YzA1ZjcxNg_f_ZjJhYjY4NjFhMjNmMTA5ZjhkNzhhYzc0NjU5ZjUxZTFlZmRmODM3Mg?imageview/4/0/w/363/h/330/blur/1" alt="火辣热舞欣儿" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/47485699/47485699?tempId=16777217" href="" title="火辣热舞欣儿"  data-stat-act-type="3">火辣热舞欣儿</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>899</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/热舞" target="_blank">热舞</a>
-								<a href="/impression/闷骚" target="_blank">闷骚</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="43184390" data-ssid="43184390" data-uid="1281617471" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="15" data-stat-parm2="4" data-stat-parm3="43184390" data-stat-sid="43184390" data-stat-hostid="1281617471">
-				<a class="video-box" href="/43184390/43184390?tempId=16777217" title="歌声动人魅力先女" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="歌声动人魅力先女"></div>
-						<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/OTQ1OGY3MDMtN2JhMC00ZDBjLTgyMTAtZTlmM2I0NGRjYTUw.jpg?imageview/4/0/w/363/h/330/blur/1" alt="歌声动人魅力先女" /></div></div>
-						<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">公会推荐</span>
-							</div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/43184390/43184390?tempId=16777217" href="" title="歌声动人魅力先女"  data-stat-act-type="3">歌声动人魅力先女</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>4762</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/天籁之音" target="_blank">天籁之音</a>
-								<a href="/impression/清纯" target="_blank">清纯</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="10377125" data-ssid="10377125" data-uid="1141774157" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="16" data-stat-parm2="4" data-stat-parm3="10377125" data-stat-sid="10377125" data-stat-hostid="1141774157">
-				<a class="video-box" href="/10377125/10377125?tempId=16777217" title="性感热舞小柒柒" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="性感热舞小柒柒"></div>
-						<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/1677/20170326_0003282741642.jpg" alt="性感热舞小柒柒" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/10377125/10377125?tempId=16777217" href="" title="性感热舞小柒柒"  data-stat-act-type="3">性感热舞小柒柒</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>3638</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/热舞" target="_blank">热舞</a>
-								<a href="/impression/女神" target="_blank">女神</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="20261089" data-ssid="20261089" data-uid="917414140" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="17" data-stat-parm2="4" data-stat-parm3="20261089" data-stat-sid="20261089" data-stat-hostid="917414140">
-				<a class="video-box" href="/20261089/20261089?tempId=16777217" title="520皇马 求守护" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="520皇马 求守护"></div>
-						<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/1428/20170411_1717183440.jpg" alt="520皇马 求守护" /></div></div>
-						<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">公会推荐</span>
-							</div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/20261089/20261089?tempId=16777217" href="" title="520皇马 求守护"  data-stat-act-type="3">520皇马 求守护</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>1059</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/天籁之音" target="_blank">天籁之音</a>
-								<a href="/impression/女神" target="_blank">女神</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="66354049" data-ssid="66354049" data-uid="136202984" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="18" data-stat-parm2="4" data-stat-parm3="66354049" data-stat-sid="66354049" data-stat-hostid="136202984">
-				<a class="video-box" href="/66354049/66354049?tempId=16777217" title="MC傍晚为你而来" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="MC傍晚为你而来"></div>
-						<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MDkzYzBlYTUtNTc2Yi00MDA1LTlmNTYtZDZmYjQyNjQwM2Vh.jpg?imageview/4/0/w/363/h/330/blur/1" alt="MC傍晚为你而来" /></div></div>
-						<div class="video-tag tag-color-1">
-								<span class="arrow arrow-down"></span><span class="tag-txt">感情麦手</span>
-							</div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/66354049/66354049?tempId=16777217" href="" title="MC傍晚为你而来"  data-stat-act-type="3">MC傍晚为你而来</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>213</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/实力麦手" target="_blank">实力麦手</a>
-								<a href="/impression/帅气" target="_blank">帅气</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="85298838" data-ssid="85298838" data-uid="1198277503" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="19" data-stat-parm2="4" data-stat-parm3="85298838" data-stat-sid="85298838" data-stat-hostid="1198277503">
-				<a class="video-box" href="/85298838/85298838?tempId=16777217" title="此人已疯没毛病" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="此人已疯没毛病"></div>
-						<div class="pic-real"><img class="lazy" data-original="//screenshot.dwstatic.com/yysnapshot/925544ab03fa7c719747225b31865c9614a0e95d?imageview/4/0/w/363/h/330/blur/1" alt="此人已疯没毛病" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/85298838/85298838?tempId=16777217" href="" title="此人已疯没毛病"  data-stat-act-type="3">此人已疯没毛病</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>4881</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/唠嗑" target="_blank">唠嗑</a>
-								<a href="/impression/帅气" target="_blank">帅气</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="51042459" data-ssid="51042459" data-uid="1384987212" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="20" data-stat-parm2="4" data-stat-parm3="51042459" data-stat-sid="51042459" data-stat-hostid="1384987212">
-				<a class="video-box" href="/51042459/51042459?tempId=16777217" title="丑的一绝" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="丑的一绝"></div>
-						<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/2070/20170513_1912032545987.jpg" alt="丑的一绝" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/51042459/51042459?tempId=16777217" href="" title="丑的一绝"  data-stat-act-type="3">丑的一绝</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>243</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/软淑萌" target="_blank">软淑萌</a>
-								<a href="/impression/爽朗直率" target="_blank">爽朗直率</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="13400275" data-ssid="13400275" data-uid="1402657255" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="21" data-stat-parm2="4" data-stat-parm3="13400275" data-stat-sid="13400275" data-stat-hostid="1402657255">
-				<a class="video-box" href="/13400275/13400275?tempId=16777217" title="魔鬼身材的销魂舞" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="魔鬼身材的销魂舞"></div>
-						<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/6027/20170208_1138351233974.jpg" alt="魔鬼身材的销魂舞" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/13400275/13400275?tempId=16777217" href="" title="魔鬼身材的销魂舞"  data-stat-act-type="3">魔鬼身材的销魂舞</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>509</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/女神" target="_blank">女神</a>
-								<a href="/impression/甜美" target="_blank">甜美</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="76053867" data-ssid="76053867" data-uid="1608291551" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="22" data-stat-parm2="4" data-stat-parm3="76053867" data-stat-sid="76053867" data-stat-hostid="1608291551">
-				<a class="video-box" href="/76053867/76053867?tempId=16777217" title="冰涵K歌现场" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="冰涵K歌现场"></div>
-						<div class="pic-real"><img class="lazy" data-original="https://zonemin.bs2cdn.yy.com/group16/M00/2434/20170420_1814195342421.jpg" alt="冰涵K歌现场" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/76053867/76053867?tempId=16777217" href="" title="冰涵K歌现场"  data-stat-act-type="3">冰涵K歌现场</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>530</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/天籁之音" target="_blank">天籁之音</a>
-								<a href="/impression/激情四射" target="_blank">激情四射</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="51137727" data-ssid="51137727" data-uid="1643575156" data-pid="15013x03_51137727_1643575156_1495155330_1495155330" data-biz="other" data-tpl="1" data-type="1"  data-stat-parm1="23" data-stat-parm2="1" data-stat-parm3="15013x03_51137727_1643575156_1495155330_1495155330" data-stat-sid="51137727" data-stat-hostid="1643575156">
-				<a class="video-box" href="/x/15013x03_51137727_1643575156_1495155330_1495155330" title="小艾正在直播" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="小艾正在直播"></div>
-						<div class="pic-real"><img class="lazy" data-original="//mobilelivephoto.bs2dl.yy.com/1643575156_1492434695.298358.jpg?ips_thumbnail/4/0/w/363/h/330/format=jpeg" alt="小艾正在直播" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/x/15013x03_51137727_1643575156_1495155330_1495155330" href="" title="小艾正在直播"  data-stat-act-type="3">小艾正在直播</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>504</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/女神" target="_blank">女神</a>
-								<a href="/impression/调皮" target="_blank">调皮</a>
-								</div>
-				</li>
-			<li class="video-item" data-sid="95618878" data-ssid="95618878" data-uid="1192125072" data-biz="other" data-tpl="16777217" data-type="4"  data-stat-parm1="24" data-stat-parm2="4" data-stat-parm3="95618878" data-stat-sid="95618878" data-stat-hostid="1192125072">
-				<a class="video-box" href="/95618878/95618878?tempId=16777217" title="萌妹MC小芽芽" target="_blank" data-stat-act-type="3">
-					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="picture/default_load-7889f80ae2.png" alt="萌妹MC小芽芽"></div>
-						<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/OTQ4ZDVkNWMtMGY3MC00ZmRhLThiY2UtMjcxN2JmY2M4OGNl.jpg?imageview/4/0/w/363/h/330/blur/1" alt="萌妹MC小芽芽" /></div></div>
-						<div class="video-type">
-									其他</div>
-							<div class="mask"></div>
-						<i class="icon-play"></i>
-					</div>
-				</a>
-				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/95618878/95618878?tempId=16777217" href="" title="萌妹MC小芽芽"  data-stat-act-type="3">萌妹MC小芽芽</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>264</div>
-					</div>
-				<div class="anchor-tags">
-						<a href="/impression/说唱" target="_blank">说唱</a>
-								<a href="/impression/美丽动人" target="_blank">美丽动人</a>
-								</div>
 				</li>
 			</ul>
 	</div>
@@ -2833,7 +1204,7 @@ if(typeof require == 'undefined'){
                         href="/1207/206018597708.html"  rel="nofollow">用户服务协议</a><span>|</span>客服频道：<strong><a href="yy://pd-[sid=10&subid=845374350]"  rel="nofollow">10</a></strong><span>|</span><a href="http://kf.yy.com/"  rel="nofollow">YY客服中心</a><span>|</span><a href="http://investors.yy.com/"  rel="nofollow">Investor Relations</a><span>|</span>
                             <a
                             href="http://www.100.com/"  rel="nofollow">100教育</a><span>|</span><a href="http://www.edu24ol.com/"  rel="nofollow">环球网校</a></p>
-                    <p><a href="http://www.miibeian.gov.cn/"  rel="nofollow">粤ICP备09075143号</a><span>|</span><a href="http://res.yy.com/common/company_license/4.jpg" rel="nofollow">粤B2-20050785</a><span>|</span><a href="http://res.yy.com/common/company_license/3.jpg" rel="nofollow">增值电信业务经营许可证B2-20120219</a><span>|</span><a href="http://file.do.yy.com/group3/M02/CB/3A/tz0MYFZpIk-AatvLAAFwJNWoiww685.jpg" rel="nofollow">粤网文[2015]1712-302号</a><span>|</span><a href="javascript:;" rel="nofollow"><img src="picture/j.gif"/> 粤公网安备44011302000069号</a><span>|</span><a href="http://jubao.12377.cn:13225/reportinputcommon.do">中国互联网举报中心</a><span>|</span><a href="http://jb.ccm.gov.cn/" rel="nofollow">12318 全国文化市场举报网站</a>
+                    <p><a href="http://www.miibeian.gov.cn/"  rel="nofollow">粤ICP备09075143号</a><span>|</span><a href="http://res.yy.com/common/company_license/4.jpg" rel="nofollow">粤B2-20050785</a><span>|</span><a href="http://res.yy.com/common/company_license/3.jpg" rel="nofollow">增值电信业务经营许可证B2-20120219</a><span>|</span><a href="http://file.do.yy.com/group3/M02/CB/3A/tz0MYFZpIk-AatvLAAFwJNWoiww685.jpg" rel="nofollow">粤网文[2015]1712-302号</a><span>|</span><a href="javascript:;" rel="nofollow"><img src="{{URL::asset('home/images/j.gif')}}"/> 粤公网安备44011302000069号</a><span>|</span><a href="http://jubao.12377.cn:13225/reportinputcommon.do">中国互联网举报中心</a><span>|</span><a href="http://jb.ccm.gov.cn/" rel="nofollow">12318 全国文化市场举报网站</a>
                     </p>
                     <p><!-- <a href="//yyweb.yystatic.com/pc/images/company/4.jpg" rel="nofollow">视听许可证1910441号</a><span>|</span>--><a href="//yyweb.yystatic.com/pc/images/company/1.jpg" rel="nofollow">（总）出网证（粤）字014号</a><span>|</span><a href="//yyweb.yystatic.com/pc/images/company/2.jpg" rel="nofollow">节目制作经营许可证（粤）字01022号</a></p>
                     <p>广州华多网络科技有限公司 版权所有 © 2005-2017 YY.com , All rights reserved. 联系电话：020-82120010</p>

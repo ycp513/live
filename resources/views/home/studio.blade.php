@@ -2073,7 +2073,7 @@ var rechargeUrl="//pay.duowan.com/userDepositDWAction.action";
         </div>
         <!-- - 侧栏-->
         <!-- + userinfo-->
-        <script id="wLiveplayerUserInfoTmpl" type="text/html">{{if data}}<a href="{{data.homePage}}" target="_blank" yy-on="click: userInfoAvatarClick" class="cover"><span class="w-liveplayer-sprite"></span><img src="picture/{{data.cover}}" alt="{{data.nick}}" width="58" height="58" />{{if data.v_type}}<img src="picture/v-type16-{{data.v_type}}.png" class="v-type16" />{{/if}}</a>
+        <script id="wLiveplayerUserInfoTmpl" type="text/html"><a href="{{data.homePage}}" target="_blank" yy-on="click: userInfoAvatarClick" class="cover"><span class="w-liveplayer-sprite"></span><img src="picture/{{data.cover}}" alt="{{data.nick}}" width="58" height="58" />{{if data.v_type}}<img src="picture/v-type16-{{data.v_type}}.png" class="v-type16" />{{/if}}</a>
         <div class="basic">
             <div id="cherishIcon" class="icon-identity" yy-el="cherishIcon" {{if data.cherishIcon}}style="display:block;"{{/if}}>
                 <img class="icon-cherish" src="picture/{{data.cherishicon}}" width="16" height="15" alt="" />
