@@ -51,6 +51,7 @@ class IndexController extends Controller
         $data = $request ->all();
         echo '<pre>';
         print_r($data);
+        echo '111';
     }
 
 }
