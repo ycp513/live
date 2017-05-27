@@ -944,8 +944,12 @@ var stat = {
             </div>
 		</div> 
 	</div>
-
 </div>
+@if($detailed['success'] == 0)
+    <div class="content-wrap">
+    <h1 align="center">{{$detailed['mess']}}或者加入我们（请进入个人中心）</h1>
+    </div>
+@else
 <div class="content-wrap">
     
     <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="25" data-stat-name="音乐">
@@ -954,31 +958,29 @@ var stat = {
 			<a href="{{ url('/list/livelist/') }}?id=1" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-208"></i>音乐</a>
 			</h3>
 	<div class="hd-tags">
-		    <a>天籁之音</a>
-			<span class="divide">|</span><a>实力麦手</a>
-			<span class="divide">|</span><a>女神</a>
-			<span class="divide">|</span><a>歌神</a>
 			</div>
 	<a href="{{ url('/list/livelist/') }}?id=1" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
 	</div>
 <div class="column-bd">
     <ul class="video-list ">
     @if(empty($detailed[1]))
-    还未有主播入驻，敬请期待！
+    <li class="video-item">
+    <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
+    </li>
     @else
     @foreach($detailed[1] as $key => $val )
     @if ($key <= 10)
         <li class="video-item">
-            <a class="video-box" href="{{ url('studio/livestudio') }}?id={{$val -> user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
+            <a class="video-box" href="{{ url('liveroom/live') }}?id={{$val -> user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
                 <div class="video-pic">
-                    <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home')}}{{$val -> anchor_img}}" alt="{{$val -> username}}"></div>
+                    <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val -> username}}"></div>
                     <div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/YzViOGJkYjMtNjUzMy00OWE4LWIxNjEtYTQ1NGNkOTJiNWY1.jpg?imageview/4/0/w/363/h/330/blur/1" alt="{{$val -> username}}" /></div></div>
                     <div class="mask"></div>
                     <i class="icon-play"></i>
                 </div>
             </a>
             <div class="video-info">
-                <p class="video-title"><a href="{{ url('studio/livestudio') }}?id={{$val -> user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">{{$val -> username}}</a></p>
+                <p class="video-title"><a href="{{ url('liveroom/live') }}?id={{$val -> user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">{{$val -> username}}</a></p>
                 <div class="audience-count">
                     <i class="icon-people"></i>
                     @if (strlen($val -> fans) <= 4 )
@@ -998,25 +1000,25 @@ var stat = {
 <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="26" data-stat-name="舞蹈">
 <div class="column-hd">
     <h3 class="column-title">
-            <a href="{{url('index/index')}}?id=2" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-202"></i>舞蹈</a>
-            </h3>
-    <div class="hd-tags">
-        <a>热舞</a>
-            </div>
+        <a href="{{url('/list/livelist')}}?id=2" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-202"></i>舞蹈</a>
+    </h3>
+    <div class="hd-tags"></div>
     <a href="{{url('/list/livelist')}}?id=2" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
     </div>
 <div class="column-bd">
     <ul class="video-list ">
         @if(empty($detailed[2]))
-        还未有主播入驻，敬请期待！
+        <li class="video-item">
+        <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
+        </li>
         @else
         @foreach($detailed[2] as $key => $val )
         @if ($key <= 10)
         <li class="video-item" data-sid="22490906" data-ssid="22490906" data-uid="1616091973" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="22490906" data-stat-sid="22490906" data-stat-hostid="1616091973">
-            <a class="video-box" href="{{url('studio/livestudio')}}?id={{ $val -> user_id }}" target="_blank" title="{{$val -> username }}" data-stat-act-type="3">
+            <a class="video-box" href="{{url('liveroom/live')}}?id={{ $val -> user_id }}" target="_blank" title="{{$val -> username }}" data-stat-act-type="3">
                 <div class="video-pic">
-                    <div class="video-pic-inner"><div class="pic-default"><img src="{{ URL::asset('home')}}{{$val -> anchor_img }}" alt="{{$val -> username }}"></div>
-                    <div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZDM2NjFiNTUtYjhlMi00ZWY5LTk1YWEtMzJjNTRmNzMyYTNk.jpg?imageview/4/0/w/363/h/330/blur/1" alt="热舞姐妹淘" /></div></div>
+                    <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val -> username }}"></div>
+                    <div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZDM2NjFiNTUtYjhlMi00ZWY5LTk1YWEtMzJjNTRmNzMyYTNk.jpg?imageview/4/0/w/363/h/330/blur/1" alt="{{$val->username}}" /></div></div>
                     <div class="mask"></div>
                     <i class="icon-play"></i>
                 </div>
@@ -1044,23 +1046,22 @@ var stat = {
             <a href="{{url('/list/livelist')}}?id=3" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-203"></i>脱口秀</a>
             </h3>
     <div class="hd-tags">
-        <a>逗比</a>
-        <span class="divide">|</span><a>八卦天王</a>
-        <span class="divide">|</span><a>套路神</a>
     </div>
     <a href="{{url('/list/livelist')}}?id=3" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
 </div>
 <div class="column-bd">
     <ul class="video-list ">
     @if(empty($detailed[3]))
-    还未有主播入驻，敬请期待！
+    <li class="video-item">
+    <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
+    </li>
     @else
     @foreach($detailed[3] as $key => $val )
     @if ($key <= 10)
         <li class="video-item">
-            <a class="video-box" href="{{url('studio/livestudio')}}?id={{$val->user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
+            <a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
                 <div class="video-pic">
-                    <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home')}}{{$val -> anchor_img}}" alt="{{$val -> username}}"></div>
+                    <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val -> username}}"></div>
                     <div class="pic-real"><img class="lazy" data-original="" alt="{{$val -> username}}" /></div></div>
                     <div class="mask"></div>
                     <i class="icon-play"></i>
@@ -1090,23 +1091,21 @@ var stat = {
 			<a href="{{url('list/livelist')}}?id=4" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
 			</h3>
 	<div class="hd-tags">
-		<a>户外搞笑</a>
-		<span class="divide">|</span><a>钓鱼达人</a>
-		<span class="divide">|</span><a >美食</a>
 	</div>
 	<a href="{{url('list/livelist')}}?id=4" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
 	</div>
 <div class="column-bd">
 	<ul class="video-list ">
     @if(empty($detailed[4]))
-    还未有主播入驻，敬请期待！
+    <li class="video-item">
+    <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
+    </li>
     @else
     @foreach($detailed[4] as $key => $val )
     @if ($key <= 10)
-		<li class="video-item">
-			<a class="video-box" href="{{url('studio/livestudio')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
+			<a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
 				<div class="video-pic">
-					<div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home')}}{{$val->anchor_img}}" alt="{{$val->username}}"></div>
+					<div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val->username}}"></div>
 					<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MTFmYzdkMDUtYTQ5MS00YjZkLThiZjAtMjA5ZWVkYTZjMjcz.jpg?imageview/4/0/w/363/h/330/blur/1" alt="{{$val->username}}" /></div></div>
 					<div class="video-tag tag-color-0">
 						</div>
@@ -1116,7 +1115,7 @@ var stat = {
 				</div>
 			</a>
 			<div class="video-info">
-				<p class="video-title"><a href="{{url('studio/livestudio')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">{{$val->username}}</a></p>
+				<p class="video-title"><a href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">{{$val->username}}</a></p>
 				<div class="audience-count">
 					<i class="icon-people"></i>
                     @if (strlen($val -> fans) <= 4 )
@@ -1128,7 +1127,7 @@ var stat = {
 			</div>
 		</li>
         @endif
-        @endforeach    
+        @endforeach   
         @endif
 	</ul>
 </div>
@@ -1139,30 +1138,30 @@ var stat = {
 		<h3 class="column-title">
 				<span><i class="icon-207"></i>大家都在看</span>
 				</h3>
-			<a href="/index/more/57" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
 			</div>
 	<div class="column-bd">
 		<ul class="video-list ">
-			<li class="video-item" data-sid="80266156" data-ssid="80266156" data-uid="1358070450" data-biz="sport" data-tpl="16777217" data-type="4"  data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="80266156" data-stat-sid="80266156" data-stat-hostid="1358070450">
-				<a class="video-box" href="/80266156/80266156?tempId=16777217" title="清新瑜伽女神惠美" target="_blank" data-stat-act-type="3">
+        @foreach($anchors as $key => $val)
+			<li class="video-item">
+				<a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" title="{{$val->username}}" target="_blank" data-stat-act-type="3">
 					<div class="video-pic">
-						<div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="清新瑜伽女神惠美"></div>
-						<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MzdiYWEwMDEtYTZjMC00NWY4LWI3NGUtMzM3ZDY0ZWMwZTkz.jpg?imageview/4/0/w/363/h/330/blur/1" alt="清新瑜伽女神惠美" /></div></div>
-						<div class="video-type">
-									体育</div>
+						<div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val->username}}"></div>
+						<div class="pic-real"><img class="lazy" data-original="" alt="{{$val->username}}" /></div></div>
+						<div class="video-type">{{$val->username}}</div>
 							<div class="mask"></div>
 						<i class="icon-play"></i>
 					</div>
 				</a>
 				<div class="video-info">
-					<p class="video-title"><a target="_blank" href="/80266156/80266156?tempId=16777217" href="" title="清新瑜伽女神惠美"  data-stat-act-type="3">清新瑜伽女神惠美</a></p>
-					<div class="audience-count">
-						<i class="icon-people"></i>22056</div>
-					</div>
-				</li>
-			</ul>
+					<p class="video-title"><a target="_blank" href="{{url('liveroom/live')}}?id={{$val->user_id}}" href="" title="{{$val->username}}"  data-stat-act-type="3">{{$val->username}}</a></p>
+					<div class="audience-count"><i class="icon-people"></i>22056</div>
+				</div>
+			</li>
+        @endforeach        
+		</ul>
 	</div>
 </div>
+@endif
 </div>
         </div>
 
