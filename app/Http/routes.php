@@ -47,3 +47,8 @@ Route::get('per/{action}', function(App\Http\Controllers\Home\PersonalController
 Route::get('liveroom/{action}', function(App\Http\Controllers\Home\StudioController $index, $action){
     return $index->$action();
 });
+
+//error
+Route::get('/error',function(){
+   abort(404);
+});

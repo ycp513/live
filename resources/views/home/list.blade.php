@@ -49,7 +49,6 @@ var stat = {
         };
     }
 })();
-    
 </script>
 <!-- + head-->
 <div class="w-head" id="wHead" data-stat-eventid="10009039">
@@ -653,12 +652,16 @@ var stat = {
         <div class="w-head-nav-main">
             <div class="w-head-nav-main-l">
                 <ul id="wHeadNav">
-                    <li data-biz="index" data-stat-bak1="index" data-stat-act-type="1" >
+                    <li data-biz="index" class="index" data-stat-bak1="index" data-stat-act-type="1" >
                             <a href="{{ url('/index/index') }}" class="t"><span>首页</span><i class="line-b"></i>
                                 </a>
                             </li>
                     @foreach ($category as $key => $val)
+                    @if($key == $id)
+                    <li data-biz="talk"class="cur" data-stat-bak1="talk" data-stat-act-type="1" >
+                    @else    
                     <li data-biz="talk" data-stat-bak1="talk" data-stat-act-type="1" >
+                    @endif
                         <a href="{{ url('/list/livelist') }}?id={{$key}}" class="t"><span>{{$val}}</span><i class="line-b"></i>
                         </a>
                     </li>
@@ -1003,7 +1006,7 @@ var stat = {
     <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="27" data-stat-name="手游">
 <div class="column-hd">
     <h3 class="column-title">
-            <a href="{{url('list/livelist')}}?id=5" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
+            <a href="{{url('list/livelist')}}?id=5" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">手游</a>
             </h3>
     <div class="hd-tags">
     </div>
@@ -1013,7 +1016,7 @@ var stat = {
     <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="27" data-stat-name="端游">
 <div class="column-hd">
     <h3 class="column-title">
-            <a href="{{url('list/livelist')}}?id=6" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
+            <a href="{{url('list/livelist')}}?id=6" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">端游</a>
             </h3>
     <div class="hd-tags">
     </div>
@@ -1033,11 +1036,13 @@ var stat = {
 <div class="column-bd">
 	<ul class="video-list ">
 	@if(empty($data))
+    <li class="video-item">
     还未有主播入驻，敬请期待！
+    </li>
     @else
     @foreach($data as $key => $val )
         <li class="video-item">
-            <a class="video-box" href="{{url('studio/livestudio')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
+            <a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
                 <div class="video-pic">
                     <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home')}}{{$val->anchor_img}}" alt="{{$val->username}}"></div>
                     <div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MTFmYzdkMDUtYTQ5MS00YjZkLThiZjAtMjA5ZWVkYTZjMjcz.jpg?imageview/4/0/w/363/h/330/blur/1" alt="{{$val->username}}" /></div></div>
@@ -1049,7 +1054,7 @@ var stat = {
                 </div>
             </a>
             <div class="video-info">
-                <p class="video-title"><a href="{{url('studio/livestudio')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">{{$val->username}}</a></p>
+                <p class="video-title"><a href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">{{$val->username}}</a></p>
                 <div class="audience-count">
                     <i class="icon-people"></i>
                     @if (strlen($val -> fans) <= 4 )
@@ -1126,4 +1131,10 @@ var stat = {
                 </div>
             </div>
 </div>  
+<script>
+    $(function(){
+        var index = $('.index');
+        index.removeClass('cur');
+    })
+</script>
 </html>
