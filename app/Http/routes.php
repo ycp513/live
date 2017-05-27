@@ -47,8 +47,14 @@ Route::get('per/{action}', function(App\Http\Controllers\Home\PersonalController
 Route::get('liveroom/{action}', function(App\Http\Controllers\Home\StudioController $index, $action){
     return $index->$action();
 });
+//短信接口
+Route::group(['middleware' => ['web']], function()
+{
 
-//error
-Route::get('/error',function(){
-   abort(404);
 });
+Route::get('/getSms','Home\PersonalController@getSms');
+Route::get('/getCode','Home\PersonalController@getCode');
+//修改用户信息
+Route::get('/upUser','Home\PersonalController@upUser');
+//添加主播
+Route::post('addAnchor','Home\PersonalController@addAnchor');

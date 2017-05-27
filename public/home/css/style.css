@@ -2111,7 +2111,7 @@ table.dataTable thead .sorting:after {
     border-radius: 2px;
       width: 100%;
       height: 30px;
-      padding: 6px 12px;
+      padding: 3px 12px;
       font-size: 14px;
       line-height: 1.42857143;
       color: #555;
@@ -7935,4 +7935,40 @@ body.skin-3 {
     overflow: hidden;
     font-size: 0;
     background-color: #131e26;
+}
+
+
+.btn_addPic{
+display: inline-block;
+position: relative;
+height: 39px;
+overflow: hidden;
+padding: 0 30px;
+border: 1px solid #EBEBEB;
+background: none repeat scroll 0 0 #F3F3F3;
+color: #999999;
+font: 14px/39px 'MicroSoft Yahei','Simhei';
+cursor: pointer;
+text-align: center;
+}
+.btn_addPic em {
+
+width: 18px;
+height: 18px;
+overflow: hidden;
+margin: 10px 5px 10px 0;
+color:#fff;
+vertical-align: middle;
+}
+.btn_addPic:hover em{
+background-position:-19px 0;}
+.filePrew {
+position: absolute;
+top: 0;
+width: 140px;
+cursor: pointer;
+display: block;
+height: 29px;
+left: 0;
+margin-left: 15px;
 }
