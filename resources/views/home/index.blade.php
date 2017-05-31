@@ -963,12 +963,12 @@ var stat = {
 	</div>
 <div class="column-bd">
     <ul class="video-list ">
-    @if(empty($detailed[1]))
+    @if(empty($detailed[0]))
     <li class="video-item">
     <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
     </li>
     @else
-    @foreach($detailed[1] as $key => $val )
+    @foreach($detailed[0] as $key => $val )
     @if ($key <= 10)
         <li class="video-item">
             <a class="video-box" href="{{ url('liveroom/live') }}?id={{$val -> user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
@@ -1007,12 +1007,12 @@ var stat = {
     </div>
 <div class="column-bd">
     <ul class="video-list ">
-        @if(empty($detailed[2]))
+        @if(empty($detailed[1]))
         <li class="video-item">
         <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
         </li>
         @else
-        @foreach($detailed[2] as $key => $val )
+        @foreach($detailed[1] as $key => $val )
         @if ($key <= 10)
         <li class="video-item" data-sid="22490906" data-ssid="22490906" data-uid="1616091973" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="22490906" data-stat-sid="22490906" data-stat-hostid="1616091973">
             <a class="video-box" href="{{url('liveroom/live')}}?id={{ $val -> user_id }}" target="_blank" title="{{$val -> username }}" data-stat-act-type="3">
@@ -1051,12 +1051,12 @@ var stat = {
 </div>
 <div class="column-bd">
     <ul class="video-list ">
-    @if(empty($detailed[3]))
+    @if(empty($detailed[2]))
     <li class="video-item">
     <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
     </li>
     @else
-    @foreach($detailed[3] as $key => $val )
+    @foreach($detailed[2] as $key => $val )
     @if ($key <= 10)
         <li class="video-item">
             <a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
@@ -1096,12 +1096,12 @@ var stat = {
 	</div>
 <div class="column-bd">
 	<ul class="video-list ">
-    @if(empty($detailed[4]))
+    @if(empty($detailed[3]))
     <li class="video-item">
     <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
     </li>
     @else
-    @foreach($detailed[4] as $key => $val )
+    @foreach($detailed[3] as $key => $val )
     @if ($key <= 10)
 			<a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
 				<div class="video-pic">

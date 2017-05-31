@@ -7,16 +7,25 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Category;
 
 class IndexController extends Controller
 {
+
     //主页渲染
     public function index()
     {
-
+        $category = new Category();
+//        $arr = [
+//            '7' => '天天向上',
+//        ];
+//        $category -> write($arr);
+        $category ->initconfig();
+        $cate = $category->category_config;
+        //var_dump($cate);die;
         //主页分类数据
-        $app_path = app_path();
-        include $app_path.'/category.php';
+//        $app_path = app_path();
+//        include $app_path.'/category.php';
         
         //主播数据(房间号、名称、粉丝、封面、)
         $anchors = DB::table('live_anchor') 
@@ -26,13 +35,14 @@ class IndexController extends Controller
 	        -> get();
         if ($anchors) {
             //数据处理
-            foreach ($data_category as $key => $value) {
+            foreach ($cate as $key => $value) {
                 foreach ($anchors as $k => $val) {
                     if ($val -> category_id == $key ) {
                         $detailed[$key][] = $val;
                     }                   
                 }           
             }
+            //var_dump($detailed);die;
             $detailed['success'] = 1;
         }else {
             $detailed['success'] = 0;
@@ -40,7 +50,7 @@ class IndexController extends Controller
         }
 
         //渲染主页、赋值
-    	return view('home.index',['category' => $data_category ,'detailed' => $detailed ,'anchors' => $anchors]);
+    	return view('home.index',['category' => $cate ,'detailed' => $detailed ,'anchors' => $anchors]);
     }
 
     //分类详情页

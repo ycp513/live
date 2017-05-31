@@ -294,7 +294,7 @@
             (function(){
                 var key='all',mkey;
                 var users={};
-                var url='ws://192.168.1.95:8000';
+                var url='ws://192.168.1.5:8000';
                 var so=false,n=false;
                 var lus=A.$('zx'),lct=A.$('ct');
                 function st(){
