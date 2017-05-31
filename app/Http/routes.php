@@ -58,3 +58,30 @@ Route::get('/getCode','Home\PersonalController@getCode');
 Route::get('/upUser','Home\PersonalController@upUser');
 //添加主播
 Route::post('addAnchor','Home\PersonalController@addAnchor');
+
+
+//index
+Route::get('index/{action}', function(App\Http\Controllers\Home\IndexController $index, $action){
+    return $index->$action();
+});
+//login
+Route::get('login/{action}', function(App\Http\Controllers\Admin\LoginController $index, $action){
+    return $index->$action();
+});
+//list
+Route::get('list/{action}', function(App\Http\Controllers\Home\ListController $index, $action){
+    return $index->$action();
+});
+//Personal
+
+//Admin
+Route::get('admin/{action}', function(App\Http\Controllers\Admin\AdminController $index, $action){
+    return $index->$action();
+});
+Route::get('admin/empty_page','Admin\AdminController@Empty_Page');
+Route::get('admin/adminshow','Admin\AdminController@AdminShow');
+Route::post('login/login','Admin\LoginController@login');
+//支付宝支付处理路由
+Route::get('alipay/alipay','Home\alipayController@Alipay');  // 发起支付请求
+Route::any('alipay/notify','Home\alipayController@AliPayNotify'); //服务器异步通知页面路径
+Route::any('alipay/return','Home\alipayController@AliPayReturn');  //页面跳转同步通知页面路径
