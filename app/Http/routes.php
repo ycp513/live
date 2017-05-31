@@ -14,6 +14,22 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('index/verify/{tmp}','Home\IndexController@verify');
+Route::get('index/getCode','Home\IndexController@getCode');
+Route::get('index/sendTemplate','Home\IndexController@sendTemplate');
+Route::get('index/telCheck','Home\IndexController@telCheck');
+Route::get('index/checkName','Home\IndexController@checkName');
+
+Route::get('index/register','Home\IndexController@register');
+Route::get('index/message','Home\IndexController@message');
+
+
+Route::group(['middleware'=>'web'],function() {
+    Route::get('index/index','Home\IndexController@index');//把需要用到session的路由请求全部放在web组里。
+     Route::get('index/login','Home\IndexController@login');
+});
 //index
 Route::get('index/{action}', function(App\Http\Controllers\Home\IndexController $index, $action){
     return $index->$action();
@@ -26,3 +42,4 @@ Route::get('list/{action}', function(App\Http\Controllers\Home\ListController $i
 Route::get('per/{action}', function(App\Http\Controllers\Home\PersonalController $index, $action){
     return $index->$action();
 });
+
