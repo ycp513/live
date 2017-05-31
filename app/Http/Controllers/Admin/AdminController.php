@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
+use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -20,20 +20,22 @@ class AdminController extends Controller
    //  }
     
    public function AdminShow()
-    {  
+    {   echo phpinfo();returns;
     	 if(empty(Session::get('user')))
     	  {
      	  	return redirect()->action('Admin\LoginController@login');
     	  }else{
     	  	return view('admin.index');
     	  }
-     
+
     	 
     }
     //用户统计
     public function Graph_Metrics()
     {
-    	 return view('admin.graph_metrics');
+        $data['register'] = DB::table('live_user')->count();
+        $data['direct'] = DB::table('live_live')->count();
+    	return view('admin.graph_metrics',['data'=>$data]);
     }
    //主页
     public function Empty_Page()
@@ -43,7 +45,13 @@ class AdminController extends Controller
     //用户充值订单列表
     public function Table()
     {
-    	 return view('admin.table');
+        $data =  DB::table('live_order')->get();
+        foreach($data as $k => $v){
+            $username= DB::table('live_user')->where('user_id','=',$v->user_id)->lists('username','user_id');
+            $v->username = $username[$v->user_id];
+            $v->addtime= date('Y-m-d H:i:s',$v->addtime);
+        }
+    	return view('admin.table',['data'=>$data]);
     }
   
      //主播体现列表

@@ -55,9 +55,9 @@
                                         <div class="ibox-content">
                                             <h5 class="m-b-md">注册人数</h5>
                                             <h2 class="text-navy">
-                                                        <i class="fa fa-circle text-navy"></i> 1000
+                                                        <i class="fa fa-circle text-navy"></i> {{$data['register']}}
                                                     </h2>
-                                            <small>更新时间：12天以前</small>
+                                            <small>更新时间：当前时间</small>
                                         </div>
                                     </div>
                                 </div>
@@ -77,9 +77,9 @@
                                         <div class="ibox-content">
                                             <h5 class="m-b-md">直播房间数</h5>
                                             <h2 class="text-danger">
-                                                        <i class="fa fa-circle text-navy"></i> 1000
+                                                        <i class="fa fa-circle text-navy"></i> {{$data['direct']}}
                                                     </h2>
-                                            <small>更新时间：12天以前</small>
+                                            <small>更新时间：当前时间</small>
                                         </div>
                                     </div>
                                 </div>
