@@ -18,7 +18,7 @@ class ListController extends Controller
         //主页分类数据
         $category = new Category;
         $category -> initconfig();
-        $data_category = $category ->config;
+        $data_category = $category ->category_config;
         //轮播图数据
         $carousel = new Carousel;
         $carousel -> initconfig();

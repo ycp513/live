@@ -1,5 +1,5 @@
 <?php
-namespace Config;
+namespace  Config;
 /**
  * @copyright (c) 2011 aircheng.com
  * @file file_class.php

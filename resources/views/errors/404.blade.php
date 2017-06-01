@@ -14,6 +14,9 @@
     <link rel="shortcut icon" href="favicon.ico"> <link href="{{URL::asset('home/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('home/css/font-awesome.css')}}" rel="stylesheet">
 
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{{URL::asset('home/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('home/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{URL::asset('home/css/animate.css')}}" rel="stylesheet">
     <link href="{{URL::asset('home/css/style.css?v=4.1.0')}}" rel="stylesheet">
 
