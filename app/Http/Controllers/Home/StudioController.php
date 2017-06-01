@@ -8,6 +8,7 @@ use DB;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Session;
 
 class StudioController extends Controller
 {
@@ -20,6 +21,15 @@ class StudioController extends Controller
    	}
    	public function live()
    	{
+        $users = [];
+        $author = [];
+        //获取session
+        if(Session::has('username')){
+            $users = Session::get('username');
+            $author['users'] = $users[0];
+        }else{
+            $author['users']['username'] = '';
+        }
         //获取主播id
         $user_id = Input::get('id');
         //查询主播信息
@@ -36,9 +46,12 @@ class StudioController extends Controller
                 $author['user_img'] = $value -> anchor_img;
             }
         } else { 
-            $url = trim($_SERVER['SCRIPT_NAME'],'index.php');
-            $url = $_SERVER['APP_URL'].$url.'index/index';
-            exit('<script>alert("未找到相关信息,将返回首页");location.href="'.$url.'"</script>');
+//            $url = trim($_SERVER['SCRIPT_NAME'],'index.php');
+//            $url = $_SERVER['HTTP_HOST'].$url.'index/index';
+//            var_dump($url);return;
+//            echo '<script>alert("未找到相关信息,将返回首页");</script>';
+//            $arr_url = array('url'=>"{{url('index/index')}}",'urlname'=>'返回首页');
+            return view('errors.404');
         }
         /* = [
             'id' => 'test',
@@ -46,6 +59,7 @@ class StudioController extends Controller
             'user_id' => '1',
             'user_img' => '1.jpg',
         ];*/
+        //var_dump($author);die;
    		return view('home.live',$author);
    	}
 
