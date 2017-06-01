@@ -6,22 +6,31 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-
+use App\Http\Category;
 use Gregwar\Captcha\CaptchaBuilder;
 use Session;
-
+use Illuminate\Support\Facades\Redis;
 use App\Lijie\message;
+
 
 class IndexController extends Controller
 {
+
     //主页渲染
     public function index()
     {
-	  
+        $category = new Category();
+//        $arr = [
+//            '7' => '天天向上',
+//        ];
+//        $category -> write($arr);
+        $category ->initconfig();
+        $cate = $category->category_config;
+        //var_dump($cate);die;
+
         //主页分类数据
-        $app_path = app_path();
-        include $app_path.'/category.php';
+//        $app_path = app_path();
+//        include $app_path.'/category.php';
         
         //主播数据(房间号、名称、粉丝、封面、)
         $anchors = DB::table('live_anchor') 
@@ -31,28 +40,28 @@ class IndexController extends Controller
 	        -> get();
         if ($anchors) {
             //数据处理
-            foreach ($data_category as $key => $value) {
+            foreach ($cate as $key => $value) {
                 foreach ($anchors as $k => $val) {
                     if ($val -> category_id == $key ) {
                         $detailed[$key][] = $val;
                     }                   
                 }           
             }
+            //var_dump($detailed);die;
             $detailed['success'] = 1;
         }else {
             $detailed['success'] = 0;
             $detailed['mess'] = '尚未有主播加入，敬请期待！';
         }
-
       $user = Session::get('username');
       if(!empty($user)){
               $use = json_encode($user);
               $arr_user = json_decode($use,true); 
               $arr_user = array_reverse($arr_user,true);
               //var_dump($arr_user);die;
-         return view('home.index',['category' => $data_category ,'detailed' => $detailed ,'anchors' => $anchors,'user' =>  $arr_user[0]]);
+         return view('home.index',['category' => $cate ,'detailed' => $detailed ,'anchors' => $anchors,'user' =>  $arr_user[0]]);
       }else{
-         return view('home.index',['category' => $data_category ,'detailed' => $detailed ,'anchors' => $anchors]);
+         return view('home.index',['category' => $cate ,'detailed' => $detailed ,'anchors' => $anchors]);
       }  
     }
 
@@ -63,15 +72,28 @@ class IndexController extends Controller
          $password = $request->get('password');
          //echo "$account"," $password";
          $password = md5($password);
-         $select = DB::select('select * from live_user where username=? or telphone=? and password = ?',["$account","$account","$password"]);
+         $select = DB::select('select * from live_user where (username=? or telphone=?) and password = ?',["$account","$account","$password"]);
          //var_dump($select);die;
          if($select){
-            Session::set('username', $select);
+             //在线人数统计
+             $key='user:'.date('Y-m-d');
+             Redis::setBit($key,$select[0]->user_id,1);
+             $select = json_encode($select);
+             $select = json_decode($select,true);
+             unset($select[0]['password']);
+             //var_dump($select);return;
+             Session::set('username', $select);
 
           return(json_encode($select));
+         }else{
+             return(json_encode('2'));
          }
     }
-
+    //退出登录
+    public function loginout(){
+        Session::forget('username');
+        return redirect('index/index');
+    }
     //生成验证码
   public function verify($tmp)
   {
@@ -208,14 +230,14 @@ class IndexController extends Controller
        $telephone = $get['telephone'];
        $reg_time = time();
 
-     $insert = DB::insert('insert into live_user (username, password ,telphone,reg_time) values (?,?,?,?)', ["$username","$password",$telephone,$reg_time]); 
-     $get[] = $get;
-     //var_dump($insert);die;
-     if($insert){
-       Session::flash('username', $get);
-
-        return (json_encode($get));
-     }
+     $insert = DB::insert('insert into live_user (username, password ,telphone,reg_time) values (?,?,?,?)', ["$username","$password",$telephone,$reg_time]);
+        $arr = [];
+        $arr[] = $get;
+        //var_dump($arr);die;
+         if($insert){
+           Session::set('username', $arr);
+            return (json_encode($arr));
+         }
    }
    
 

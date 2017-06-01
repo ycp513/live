@@ -643,16 +643,28 @@ var stat = {
 
 
             <script type="text/tmpl" id="wHeadTplLogout">
-                <div class="w-head-info-nologin">
+            <div class="w-head-nologin">
+                <div class="w-head-info-nologin ">
                     <a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="13" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i>登录</a>
                 </div>
+                <div class="w-head-menu-cnt w-head-drag w-head-focus-drag" style="left:-90px;top:46px;">
+                <i class="w-head-drag-tri"></i>
+                <i class="w-head-drag-tri2"></i>
+                <i class="w-head-drag-enterstage"></i>
+                <div class="w-head-drag-main">
+                <div class="w-head-blank-cnt current">
+                    <div class="login-btn" style="margin-top:20px;"><a href="{{ url('/per/getshow') }}" data-statistic-module="5" data-statistic-moduleid="3" rel="nofollow">个人主页</a> </div>
+                    <div class="login-btn"><a href="{{ url('/index/loginout') }}" data-statistic-module="5" data-statistic-moduleid="3" rel="nofollow">退出</a> </div>
+                </div>
+
+                </div>
+            </div>
             </script>
 <script>
         $(function(){
            var a ="<?php if(!empty($user)){ echo $user['username'];} ?>";
-           alert(a);
             if(a!=''){
-                $('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i>'+a+'</a>');
+                $('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i><span id="login_user">'+a+'</span></a>');
             }
        })
 </script>
@@ -674,8 +686,6 @@ var stat = {
                         </a>
                     </li>
                     @endforeach
-
-                   
                     </ul>
             </div>
         </div>
@@ -705,14 +715,15 @@ var stat = {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><input  placeholder="密码" type="password" style="width:300px;height:40px;margin-bottom:20px" id="passwords"></td> 
+                                        <td><input  placeholder="密码" type="password" style="width:300px;height:40px;margin-bottom:20px" id="passwords"></td>
                                     </tr>
+                                    <tbody class="tbody"></tbody>
                                     <tr>
                                         <td>
                                             <a href="javascript:;" id="login_do">登录</a>
                                        </td>
                                     </tr>
-                                </table>             
+                                </table>
                             </div>                                    
                         </div>
                         </div>
@@ -731,17 +742,27 @@ var stat = {
                type:"get",
                url:"login",
                success:function(e){
-                  if(e){
-                    $('#loginWrap').toggle();
-                    $('.account-login-mask').toggle();
-                       $.each(e,function(i,v){
-                             $('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i>'+v.username+'</a>');  
-
-                       })                                         
-                    }                
+                  if(e==2){
+                      var str ='<tr><td><strong>用户名或密码错误请重新登录</strong></td></tr>'
+                      $('.tbody').html(str);
+                  }else{
+                      $('#loginWrap').toggle();
+                      $('.account-login-mask').toggle();
+                      $.each(e,function(i,v){
+                          $('.s1').html('<i class="icon-people"></i><span id="login_user">'+v.username+'</span>');
+                      })
+                  }
                }
            })
        }
+   })
+   $(document).on('mouseover','#login_user',function(){
+       $('.w-head-nologin').removeClass().addClass('w-head-nologin current');
+
+   })
+   $(document).on('mouseleave','.w-head-menu-cnt',function(){
+
+       $('.w-head-nologin').removeClass().addClass('w-head-nologin');
    })
 </script>
 
@@ -1046,7 +1067,6 @@ function check_yan()
 
         if(falg==false){
             return false;
-            alert(0);
         }else{
             $.ajax({
                 data:obj,
@@ -1055,11 +1075,9 @@ function check_yan()
                 url:"register",
                 success:function(e){
                     if(e){
-                           //alert(1);
                          $('#loginWrap').toggle();
                          $('.account-login-mask').toggle();
-                            
-                               $('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i>'+e.username+'</a>');
+                        $('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i><span id="login_user">'+obj.username+'</span></a>');
                                                                               
                     }
                 }
@@ -1150,12 +1168,12 @@ function check_yan()
 	</div>
 <div class="column-bd">
     <ul class="video-list ">
-    @if(empty($detailed[1]))
+    @if(empty($detailed[0]))
     <li class="video-item">
     <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
     </li>
     @else
-    @foreach($detailed[1] as $key => $val )
+    @foreach($detailed[0] as $key => $val )
     @if ($key <= 10)
         <li class="video-item">
             <a class="video-box" href="{{ url('liveroom/live') }}?id={{$val -> user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
@@ -1194,12 +1212,12 @@ function check_yan()
     </div>
 <div class="column-bd">
     <ul class="video-list ">
-        @if(empty($detailed[2]))
+        @if(empty($detailed[1]))
         <li class="video-item">
         <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
         </li>
         @else
-        @foreach($detailed[2] as $key => $val )
+        @foreach($detailed[1] as $key => $val )
         @if ($key <= 10)
         <li class="video-item" data-sid="22490906" data-ssid="22490906" data-uid="1616091973" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="22490906" data-stat-sid="22490906" data-stat-hostid="1616091973">
             <a class="video-box" href="{{url('liveroom/live')}}?id={{ $val -> user_id }}" target="_blank" title="{{$val -> username }}" data-stat-act-type="3">
@@ -1238,12 +1256,12 @@ function check_yan()
 </div>
 <div class="column-bd">
     <ul class="video-list ">
-    @if(empty($detailed[3]))
+    @if(empty($detailed[2]))
     <li class="video-item">
     <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
     </li>
     @else
-    @foreach($detailed[3] as $key => $val )
+    @foreach($detailed[2] as $key => $val )
     @if ($key <= 10)
         <li class="video-item">
             <a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
@@ -1283,12 +1301,12 @@ function check_yan()
 	</div>
 <div class="column-bd">
 	<ul class="video-list ">
-    @if(empty($detailed[4]))
+    @if(empty($detailed[3]))
     <li class="video-item">
     <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
     </li>
     @else
-    @foreach($detailed[4] as $key => $val )
+    @foreach($detailed[3] as $key => $val )
     @if ($key <= 10)
 			<a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
 				<div class="video-pic">
