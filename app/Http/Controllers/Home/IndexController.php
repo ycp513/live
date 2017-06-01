@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use DB;
 use App\Http\Requests;
+use App\Http\Category;
+use App\Http\Carousel;
 use App\Http\Controllers\Controller;
 
 class IndexController extends Controller
@@ -13,11 +15,14 @@ class IndexController extends Controller
     //主页渲染
     public function index()
     {
-
         //主页分类数据
-        $app_path = app_path();
-        include $app_path.'/category.php';
-        
+        $category = new Category;
+        $category -> initconfig();
+        $data_category = $category ->config;
+        //轮播图
+        $carousel = new Carousel;
+        $carousel -> initconfig();
+        $data_carousel = $carousel ->config;
         //主播数据(房间号、名称、粉丝、封面、)
         $anchors = DB::table('live_anchor') 
 	        -> select('live_anchor.user_id','username','fans','live_rend','category_id','anchor_img') 
@@ -40,22 +45,30 @@ class IndexController extends Controller
         }
 
         //渲染主页、赋值
-    	return view('home.index',['category' => $data_category ,'detailed' => $detailed ,'anchors' => $anchors]);
-    }
-
-    //分类详情页
-    public function cate(Request $request)
-    {
-        $cate_id = $request ->input('id');
-        print_r($cate_id);
+    	return view('home.index',['carousel' => $data_carousel , 'category' => $data_category ,'detailed' => $detailed ,'anchors' => $anchors]);
     }
 
     //搜索详情页
     public function search(Request $request)
     {
+        //主页分类数据
+        $category = new Category;
+        $category -> initconfig();
+        $data_category = $category ->config;
+
         $data = $request ->all();
-        echo '<pre>';
-        print_r($data);
+        $user = $data['user'];
+        $anchors = DB::table('live_anchor') 
+          -> select('live_anchor.user_id','username','fans','live_rend','category_id','anchor_img') 
+          -> join('live_user', 'live_anchor.user_id', '=', 'live_user.user_id')
+          -> where('live_anchor.user_id','like','%'.$user.'%')
+          -> orwhere('live_rend','like','%'.$user.'%')
+          -> orwhere('username','like','%'.$user.'%')
+          -> get();
+        if (empty($anchors)) { 
+            return view('errors.found');
+        }
+        return view('home.search',['category'=>$data_category,'data' => $anchors]);
     }
 
 }

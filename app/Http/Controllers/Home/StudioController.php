@@ -36,9 +36,7 @@ class StudioController extends Controller
                 $author['user_img'] = $value -> anchor_img;
             }
         } else { 
-            $url = trim($_SERVER['SCRIPT_NAME'],'index.php');
-            $url = $_SERVER['APP_URL'].$url.'index/index';
-            exit('<script>alert("未找到相关信息,将返回首页");location.href="'.$url.'"</script>');
+            return view('errors.found');
         }
         /* = [
             'id' => 'test',

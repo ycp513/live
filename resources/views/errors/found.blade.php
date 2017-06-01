@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title> - 404 页面</title>
+    <title>YY LIVE-全民娱乐视频直播平台</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
 
@@ -23,11 +23,9 @@
 
 
     <div class="middle-box text-center animated fadeInDown">
-        <h1>404</h1>
-        <h3 class="font-bold">页面未找到！</h3>
+        <h3 class="font-bold">未找到相关内容！</h3>
 
         <div class="error-desc">
-            抱歉，页面好像去火星了~
                 <a href="{{url('index/index')}}"><button class="btn btn-primary">返回首页</button></a>
         </div>
     </div>

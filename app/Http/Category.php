@@ -8,11 +8,11 @@ use Config\Category_Config;
 class Category 
 {
 	private $configFile;
-	private $config;
+	public $config;
 	//初始化对应的config文件
 	public function initconfig()
 	{
-		$this->configFile = __DIR__ . '../config/category_config.php';
+		$this->configFile = app_path().'/Category.php';
 		if (file_exists($this->configFile)) {
 			
         	$this->config = require($this->configFile);

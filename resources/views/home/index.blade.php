@@ -65,7 +65,7 @@ var stat = {
                     <div class="w-head-drag-main">
                         <ul class="w-head-menu-cnt-main-intro">
                         @foreach ($category as $key => $val)
-                             @if( $key%3 == 1 || $key ==1)
+                             @if( $key%3 == 0 || $key == 0)
                              <li class="w-head-menu-cnt-main-item clear">
                                     <h3 class="tl">
                                             <a href="{{ url('/list/livelist') }}?id={{$key}}" class="tl-link" data-statistic-module="2" data-statistic-moduleid="sing">
@@ -77,7 +77,7 @@ var stat = {
                                             </a>
                                     </h3>
                              </li>
-                            @elseif( $key %3 == 2 || $key ==2)
+                            @elseif( $key %3 == 1 || $key == 1)
                             <li class="w-head-menu-cnt-main-item ">
                                         <h3 class="tl">
                                             <a href="{{ url('/list/livelist') }}?id={{$key}}" class="tl-link" data-statistic-module="2" data-statistic-moduleid="talk">
@@ -88,7 +88,7 @@ var stat = {
                                                 {{$val}}</a>
                                         </h3>
                                     </li>
-                             @elseif($key %3 == 0 )
+                             @elseif($key %3 == 2 || $key == 2 )
                             <li class="w-head-menu-cnt-main-item ">
                                         <h3 class="tl">
                                             <a href="{{ url('/list/livelist') }}?id={{$key}}" class="tl-link" data-statistic-module="2" data-statistic-moduleid="red">
@@ -663,178 +663,6 @@ var stat = {
                         </a>
                     </li>
                     @endforeach
-
-                   <!-- <li data-biz="sing" data-stat-bak1="sing" data-stat-act-type="1" class="cur-withsub">
-                            <a href="/music/" class="t"><span>歌舞</span><i class="line-b"></i>
-                                <i class="tri"></i>
-                                <i class="tri2"></i>
-                                </a>
-                            <div class="w-head-drag w-head-subnav" data-stat-eventid="10008897" data-stat-bak1=""><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="w-head-drag-enterstage"></i>
-                                <div class="w-head-drag-main">
-                                    <ul>
-                                        <li data-stat-bak1="sing_all"><a href="/music/">全部</a></li>
-                                    <li data-stat-bak1="sing_dance">
-                                            <a href="/music/dance" data-biz="dance" data-stat-act-type="11"   >舞蹈</a>
-                                        </li>
-                                        <li data-stat-bak1="sing_pop">
-                                            <a href="/music/pop" data-biz="pop" data-stat-act-type="11"   >流行</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                           </div>
-                           </li>
-                    <li data-biz="talk" data-stat-bak1="talk" data-stat-act-type="1" >
-                            <a href="/show/" class="t"><span>脱口秀</span><i class="line-b"></i>
-                                </a>
-                            </li>
-                    <li data-biz="red" data-stat-bak1="red" data-stat-act-type="1" class="cur-withsub">
-                            <a href="/travel/" class="t"><span>户外</span><i class="line-b"></i>
-                                <i class="tri"></i>
-                                <i class="tri2"></i>
-                                </a>
-                            <div class="w-head-drag w-head-subnav" data-stat-eventid="10008897" data-stat-bak1=""><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="w-head-drag-enterstage"></i>
-                                <div class="w-head-drag-main">
-                                    <ul>
-                                        <li data-stat-bak1="red_all"><a href="/travel/">全部</a></li>
-                                    <li data-stat-bak1="red_dashan">
-                                            <a href="/travel/dashan" data-biz="dashan" data-stat-act-type="11"   >搭讪</a>
-                                        </li>
-                                        <li data-stat-bak1="red_daye">
-                                            <a href="/travel/daye" data-biz="daye" data-stat-act-type="11"   >打野</a>
-                                        </li>
-                                        <li data-stat-bak1="red_lvyou">
-                                            <a href="/travel/lvyou" data-biz="lvyou" data-stat-act-type="11"   >旅游</a>
-                                        </li>
-                                        <li data-stat-bak1="red_lieqi">
-                                            <a href="/travel/lieqi" data-biz="lieqi" data-stat-act-type="11"   >猎奇</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                           </div>
-                           </li>
-                    <li data-biz="mc" data-stat-bak1="mc" data-stat-act-type="1" >
-                            <a href="/mc/" class="t"><span>喊麦</span><i class="line-b"></i>
-                                </a>
-                            </li>
-                    <li data-biz="game" data-stat-bak1="game" data-stat-act-type="1" class="cur-withsub">
-                            <a href="/game/" class="t"><span>手游</span><i class="line-b"></i>
-                                <i class="tri"></i>
-                                <i class="tri2"></i>
-                                </a>
-                            <div class="w-head-drag w-head-subnav" data-stat-eventid="10008897" data-stat-bak1=""><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="w-head-drag-enterstage"></i>
-                                <div class="w-head-drag-main">
-                                    <ul>
-                                        <li data-stat-bak1="game_all"><a href="/game/">全部</a></li>
-                                    <li data-stat-bak1="game_glory">
-                                            <a href="/game/glory" data-biz="glory" data-stat-act-type="11"   >王者荣耀</a>
-                                        </li>
-                                        <li data-stat-bak1="game_ball">
-                                            <a href="/game/ball" data-biz="ball" data-stat-act-type="11"   >球球大作战</a>
-                                        </li>
-                                        <li data-stat-bak1="game_lsr">
-                                            <a href="/game/lsr" data-biz="lsr" data-stat-act-type="11"   >狼人杀</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                           </div>
-                           </li>
-                    <li data-biz="sport" data-stat-bak1="sport" data-stat-act-type="1" class="cur-withsub">
-                            <a href="/sport/" class="t"><span>体育</span><i class="line-b"></i>
-                                <i class="tri"></i>
-                                <i class="tri2"></i>
-                                </a>
-                            <div class="w-head-drag w-head-subnav" data-stat-eventid="10008897" data-stat-bak1=""><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="w-head-drag-enterstage"></i>
-                                <div class="w-head-drag-main">
-                                    <ul>
-                                        <li data-stat-bak1="sport_all"><a href="/sport/">全部</a></li>
-                                    <li data-stat-bak1="sport_CBA">
-                                            <a href="/cba" data-biz="CBA" data-stat-act-type="11"   >CBA</a>
-                                        </li>
-                                        <li data-stat-bak1="sport_KLF">
-                                            <a href="/c/klj/index.htm" data-biz="KLF" data-stat-act-type="11"   >昆仑决</a>
-                                        </li>
-                                        <li data-stat-bak1="sport_RoadFc">
-                                            <a href="/c/rlgd/index.htm" data-biz="RoadFc" data-stat-act-type="11"   >RoadFc</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                           </div>
-                           </li>
-                    <li data-biz="car" data-stat-bak1="car" data-stat-act-type="1" >
-                            <a href="/acg/" class="t"><span>二次元</span><i class="line-b"></i>
-                                </a>
-                            </li>
-                    <li data-biz="cgame" data-stat-bak1="cgame" data-stat-act-type="1" class="cur-withsub">
-                            <a href="/cgame/" class="t"><span>端游</span><i class="line-b"></i>
-                                <i class="tri"></i>
-                                <i class="tri2"></i>
-                                </a>
-                            <div class="w-head-drag w-head-subnav" data-stat-eventid="10008897" data-stat-bak1=""><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="w-head-drag-enterstage"></i>
-                                <div class="w-head-drag-main">
-                                    <ul>
-                                        <li data-stat-bak1="cgame_all"><a href="/cgame/">全部</a></li>
-                                    <li data-stat-bak1="cgame_lol">
-                                            <a href="/cgame/lol" data-biz="lol" data-stat-act-type="11"   >LOL</a>
-                                        </li>
-                                        <li data-stat-bak1="cgame_dnf">
-                                            <a href="/cgame/dnf" data-biz="dnf" data-stat-act-type="11"   >DNF</a>
-                                        </li>
-                                        <li data-stat-bak1="cgame_cf">
-                                            <a href="/cgame/cf" data-biz="cf" data-stat-act-type="11"   >CF</a>
-                                        </li>
-                                        <li data-stat-bak1="cgame_dota">
-                                            <a href="/cgame/dota" data-biz="dota" data-stat-act-type="11"   >DOTA</a>
-                                        </li>
-                                        <li data-stat-bak1="cgame_hearthstone">
-                                            <a href="/cgame/hearthstone" data-biz="hearthstone" data-stat-act-type="11"   >炉石</a>
-                                        </li>
-                                        <li data-stat-bak1="cgame_minecraft">
-                                            <a href="/cgame/minecraft" data-biz="minecraft" data-stat-act-type="11"   >我的世界</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                           </div>
-                           </li>
-                    <li data-biz="other" data-stat-bak1="other" data-stat-act-type="1" class="cur-withsub">
-                            <a href="/others/" class="t"><span>其他</span><i class="line-b"></i>
-                                <i class="tri"></i>
-                                <i class="tri2"></i>
-                                </a>
-                            <div class="w-head-drag w-head-subnav" data-stat-eventid="10008897" data-stat-bak1=""><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="w-head-drag-enterstage"></i>
-                                <div class="w-head-drag-main">
-                                    <ul>
-                                        <li data-stat-bak1="other_all"><a href="/others/">全部</a></li>
-                                    <li data-stat-bak1="other_others">
-                                            <a href="/others/others/" data-biz="others" data-stat-act-type="11"   >两性</a>
-                                        </li>
-                                        <li data-stat-bak1="other_star">
-                                            <a href="/others/star/" data-biz="star" data-stat-act-type="11"   >现场</a>
-                                        </li>
-                                        <li data-stat-bak1="other_xing">
-                                            <a href="/others/xing/" data-biz="xing" data-stat-act-type="11"   >星秀</a>
-                                        </li>
-                                        <li data-stat-bak1="other_shenqu">
-                                            <a href="/others/shenqu/" data-biz="shenqu" data-stat-act-type="11"   >神曲</a>
-                                        </li>
-                                        <li data-stat-bak1="other_duanpai">
-                                            <a href="/others/duanpai/" data-biz="duanpai" data-stat-act-type="11"   >小视频</a>
-                                        </li>
-                                        <li data-stat-bak1="other_wenwan">
-                                            <a href="/others/wenwan/" data-biz="wenwan" data-stat-act-type="11"   >文玩</a>
-                                        </li>
-                                        <li data-stat-bak1="other_daren">
-                                            <a href="/others/daren/" data-biz="daren" data-stat-act-type="11"   >达人</a>
-                                        </li>
-                                        <li data-stat-bak1="other_ASMR">
-                                            <a href="/others/ASMR/" data-biz="ASMR" data-stat-act-type="11"   >ASMR</a>
-                                        </li>
-                                        <li data-stat-bak1="other_school">
-                                            <a href="/others/school/" data-biz="school" data-stat-act-type="11"   >校园</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                           </div>
-                           </li>-->
                     </ul>
             </div>
         </div>
@@ -936,10 +764,9 @@ var stat = {
         <div class="banner-inner" data-tmpl-type="1001_1100">
             <div class="m">
                 <ul class="pgwSlider">
-                    <li> <img src="{{URL::asset('/home/images/phpQpUSyx1477290423.jpg')}}" alt="舞蹈" ></li>
-                    <li> <img src="{{URL::asset('/home/images/phpV53RyC1492413996.jpg')}}" alt="荒野求生" /></li>
-                    <li> <img src="{{URL::asset('/home/images/phpvsOO5N1488980196.jpg')}}" alt="老司机快上车" /></li>
-                    <li> <img src="{{URL::asset('/home/images/phpl362Yo1463645681.jpg')}}" alt="上！王者" /></li>
+                @foreach ($carousel as $val)
+                    <li><a href='{{url("$val[url]")}}' target="_blank"><img src="{{URL::asset('/home')}}{{$val['img_url']}}" alt="{{$val['name']}}" ></a></li>
+                @endforeach
                 </ul>
             </div>
 		</div> 
@@ -955,20 +782,20 @@ var stat = {
     <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="25" data-stat-name="音乐">
 <div class="column-hd">
 	<h3 class="column-title">
-			<a href="{{ url('/list/livelist/') }}?id=1" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-208"></i>音乐</a>
+			<a href="{{ url('/list/livelist/') }}?id=0" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-208"></i>音乐</a>
 			</h3>
 	<div class="hd-tags">
 			</div>
-	<a href="{{ url('/list/livelist/') }}?id=1" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+	<a href="{{ url('/list/livelist/') }}?id=0" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
 	</div>
 <div class="column-bd">
     <ul class="video-list ">
-    @if(empty($detailed[1]))
+    @if(empty($detailed[0]))
     <li class="video-item">
     <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
     </li>
     @else
-    @foreach($detailed[1] as $key => $val )
+    @foreach($detailed[0] as $key => $val )
     @if ($key <= 10)
         <li class="video-item">
             <a class="video-box" href="{{ url('liveroom/live') }}?id={{$val -> user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
@@ -1000,19 +827,19 @@ var stat = {
 <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="26" data-stat-name="舞蹈">
 <div class="column-hd">
     <h3 class="column-title">
-        <a href="{{url('/list/livelist')}}?id=2" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-202"></i>舞蹈</a>
+        <a href="{{url('/list/livelist')}}?id=1" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-202"></i>舞蹈</a>
     </h3>
     <div class="hd-tags"></div>
-    <a href="{{url('/list/livelist')}}?id=2" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+    <a href="{{url('/list/livelist')}}?id=1" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
     </div>
 <div class="column-bd">
     <ul class="video-list ">
-        @if(empty($detailed[2]))
+        @if(empty($detailed[1]))
         <li class="video-item">
         <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
         </li>
         @else
-        @foreach($detailed[2] as $key => $val )
+        @foreach($detailed[1] as $key => $val )
         @if ($key <= 10)
         <li class="video-item" data-sid="22490906" data-ssid="22490906" data-uid="1616091973" data-biz="dance" data-tpl="16777217" data-type="4"  data-stat-parm1="1" data-stat-parm2="4" data-stat-parm3="22490906" data-stat-sid="22490906" data-stat-hostid="1616091973">
             <a class="video-box" href="{{url('liveroom/live')}}?id={{ $val -> user_id }}" target="_blank" title="{{$val -> username }}" data-stat-act-type="3">
@@ -1043,20 +870,20 @@ var stat = {
 <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="33" data-stat-name="脱口秀">
 <div class="column-hd">
     <h3 class="column-title">
-            <a href="{{url('/list/livelist')}}?id=3" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-203"></i>脱口秀</a>
+            <a href="{{url('/list/livelist')}}?id=2" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-203"></i>脱口秀</a>
             </h3>
     <div class="hd-tags">
     </div>
-    <a href="{{url('/list/livelist')}}?id=3" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+    <a href="{{url('/list/livelist')}}?id=2" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
 </div>
 <div class="column-bd">
     <ul class="video-list ">
-    @if(empty($detailed[3]))
+    @if(empty($detailed[2]))
     <li class="video-item">
     <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
     </li>
     @else
-    @foreach($detailed[3] as $key => $val )
+    @foreach($detailed[2] as $key => $val )
     @if ($key <= 10)
         <li class="video-item">
             <a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
@@ -1088,20 +915,20 @@ var stat = {
 <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="27" data-stat-name="户外">
 <div class="column-hd">
 	<h3 class="column-title">
-			<a href="{{url('list/livelist')}}?id=4" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
+			<a href="{{url('list/livelist')}}?id=3" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
 			</h3>
 	<div class="hd-tags">
 	</div>
-	<a href="{{url('list/livelist')}}?id=4" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+	<a href="{{url('list/livelist')}}?id=3" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
 	</div>
 <div class="column-bd">
 	<ul class="video-list ">
-    @if(empty($detailed[4]))
+    @if(empty($detailed[3]))
     <li class="video-item">
     <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
     </li>
     @else
-    @foreach($detailed[4] as $key => $val )
+    @foreach($detailed[3] as $key => $val )
     @if ($key <= 10)
 			<a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
 				<div class="video-pic">
