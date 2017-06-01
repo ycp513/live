@@ -21,13 +21,15 @@ class StudioController extends Controller
    	}
    	public function live()
    	{
+        $users = [];
+        $author = [];
         //获取session
         if(Session::has('username')){
-            echo '111';
+            $users = Session::get('username');
+            $author['users'] = $users[0];
         }else{
-            echo '222';die;
+            $author['users']['username'] = '';
         }
-
         //获取主播id
         $user_id = Input::get('id');
         //查询主播信息
@@ -57,6 +59,7 @@ class StudioController extends Controller
             'user_id' => '1',
             'user_img' => '1.jpg',
         ];*/
+        //var_dump($author);die;
    		return view('home.live',$author);
    	}
 
