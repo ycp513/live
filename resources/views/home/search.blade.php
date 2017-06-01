@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -403,16 +403,12 @@ var stat = {
         <div class="w-head-nav-main">
             <div class="w-head-nav-main-l">
                 <ul id="wHeadNav">
-                    <li data-biz="index" class="index" data-stat-bak1="index" data-stat-act-type="1" >
+                    <li data-biz="index" data-stat-bak1="index" data-stat-act-type="1" >
                             <a href="{{ url('/index/index') }}" class="t"><span>首页</span><i class="line-b"></i>
                                 </a>
                             </li>
-                    @foreach ($category as $key => $val)
-                    @if($key == $id)
-                    <li data-biz="talk"class="cur" data-stat-bak1="talk" data-stat-act-type="1" >
-                    @else    
+                    @foreach ($category as $key => $val)    
                     <li data-biz="talk" data-stat-bak1="talk" data-stat-act-type="1" >
-                    @endif
                         <a href="{{ url('/list/livelist') }}?id={{$key}}" class="t"><span>{{$val}}</span><i class="line-b"></i>
                         </a>
                     </li>
@@ -510,47 +506,19 @@ var stat = {
                 }
             });
         </script>
-
-        <div class="bg-link" data-stat-bak2="1001" data-stat-bak3="17" data-stat-name="首页静默直播模块">
-                   <!-- <a href="/c/9696520/index.htm" target="_blank" class="b-lft" data-stat-parm1="157" data-stat-act-type="17"></a>
-                    <a href="/c/9696520/index.htm" target="_blank" class="b-rgt" data-stat-parm1="157" data-stat-act-type="17"></a> -->
-                </div>
-        <div class="banner-inner" data-tmpl-type="1001_1100">
-            <div class="m">
-                <ul class="pgwSlider">
-                    @foreach ($carousel as $val)
-                    <li><a href='{{url("$val[url]")}}' target="_blank"><img src="{{URL::asset('/home')}}{{$val['img_url']}}" alt="{{$val['name']}}" ></a></li>
-                    @endforeach
-                </ul>
-            </div>
-        </div> 
+        </div>
     </div>
 
 </div>
 <div class="content-wrap">
-            	<!-- others -->
-    
-    <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="27" data-stat-name="{{$category[$id]}}">
 <div class="column-hd">
-    <h3 class="column-title">
-            <a href="{{url('list/livelist')}}?id={{$id}}" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">{{$category["$id"]}}</a>
-            </h3>
-    <div class="hd-tags">
-    </div>
-    <a href="{{url('list/livelist')}}?id={{$id}}" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
-    </div>
-<div class="column-bd">
+    <div class="column live-tabBox">
 	<ul class="video-list ">
-	@if(empty($data))
-    <li class="video-item">
-    还未有主播入驻，敬请期待！
-    </li>
-    @else
     @foreach($data as $key => $val )
         <li class="video-item">
             <a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
                 <div class="video-pic">
-                    <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val->username}}"></div>
+                    <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}{{$val->anchor_img}}" alt="{{$val->username}}"></div>
                     <div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MTFmYzdkMDUtYTQ5MS00YjZkLThiZjAtMjA5ZWVkYTZjMjcz.jpg?imageview/4/0/w/363/h/330/blur/1" alt="{{$val->username}}" /></div></div>
                     <div class="video-tag tag-color-0">
                         </div>
@@ -572,13 +540,11 @@ var stat = {
             </div>
         </li>
         @endforeach    
-        @endif
 			</ul>
 </div>
 </div>
 
 </div>
-        </div>
 
         <!-- - body here-->
         <!-- + sidetool-->
@@ -636,11 +602,5 @@ var stat = {
                     <p>广州华多网络科技有限公司 版权所有 © 2005-2017 YY.com , All rights reserved. 联系电话：020-82120010</p>
                 </div>
             </div>
-</div>  
-<script>
-    $(function(){
-        var index = $('.index');
-        index.removeClass('cur');
-    })
-</script>
+</div>
 </html>

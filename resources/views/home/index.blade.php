@@ -65,7 +65,7 @@ var stat = {
                     <div class="w-head-drag-main">
                         <ul class="w-head-menu-cnt-main-intro">
                         @foreach ($category as $key => $val)
-                             @if( $key%3 == 1 || $key ==1)
+                             @if( $key%3 == 0 || $key == 0)
                              <li class="w-head-menu-cnt-main-item clear">
                                     <h3 class="tl">
                                             <a href="{{ url('/list/livelist') }}?id={{$key}}" class="tl-link" data-statistic-module="2" data-statistic-moduleid="sing">
@@ -77,7 +77,7 @@ var stat = {
                                             </a>
                                     </h3>
                              </li>
-                            @elseif( $key %3 == 2 || $key ==2)
+                            @elseif( $key %3 == 1 || $key == 1)
                             <li class="w-head-menu-cnt-main-item ">
                                         <h3 class="tl">
                                             <a href="{{ url('/list/livelist') }}?id={{$key}}" class="tl-link" data-statistic-module="2" data-statistic-moduleid="talk">
@@ -88,7 +88,7 @@ var stat = {
                                                 {{$val}}</a>
                                         </h3>
                                     </li>
-                             @elseif($key %3 == 0 )
+                             @elseif($key %3 == 2 || $key == 2 )
                             <li class="w-head-menu-cnt-main-item ">
                                         <h3 class="tl">
                                             <a href="{{ url('/list/livelist') }}?id={{$key}}" class="tl-link" data-statistic-module="2" data-statistic-moduleid="red">
@@ -1141,10 +1141,9 @@ function check_yan()
         <div class="banner-inner" data-tmpl-type="1001_1100">
             <div class="m">
                 <ul class="pgwSlider">
-                    <li> <img src="{{URL::asset('/home/images/phpQpUSyx1477290423.jpg')}}" alt="舞蹈" ></li>
-                    <li> <img src="{{URL::asset('/home/images/phpV53RyC1492413996.jpg')}}" alt="荒野求生" /></li>
-                    <li> <img src="{{URL::asset('/home/images/phpvsOO5N1488980196.jpg')}}" alt="老司机快上车" /></li>
-                    <li> <img src="{{URL::asset('/home/images/phpl362Yo1463645681.jpg')}}" alt="上！王者" /></li>
+                @foreach ($carousel as $val)
+                    <li><a href='{{url("$val[url]")}}' target="_blank"><img src="{{URL::asset('/home')}}{{$val['img_url']}}" alt="{{$val['name']}}" ></a></li>
+                @endforeach
                 </ul>
             </div>
 		</div> 
@@ -1160,11 +1159,11 @@ function check_yan()
     <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="25" data-stat-name="音乐">
 <div class="column-hd">
 	<h3 class="column-title">
-			<a href="{{ url('/list/livelist/') }}?id=1" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-208"></i>音乐</a>
+			<a href="{{ url('/list/livelist/') }}?id=0" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-208"></i>音乐</a>
 			</h3>
 	<div class="hd-tags">
 			</div>
-	<a href="{{ url('/list/livelist/') }}?id=1" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+	<a href="{{ url('/list/livelist/') }}?id=0" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
 	</div>
 <div class="column-bd">
     <ul class="video-list ">
@@ -1205,10 +1204,10 @@ function check_yan()
 <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="26" data-stat-name="舞蹈">
 <div class="column-hd">
     <h3 class="column-title">
-        <a href="{{url('/list/livelist')}}?id=2" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-202"></i>舞蹈</a>
+        <a href="{{url('/list/livelist')}}?id=1" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-202"></i>舞蹈</a>
     </h3>
     <div class="hd-tags"></div>
-    <a href="{{url('/list/livelist')}}?id=2" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+    <a href="{{url('/list/livelist')}}?id=1" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
     </div>
 <div class="column-bd">
     <ul class="video-list ">
@@ -1248,11 +1247,11 @@ function check_yan()
 <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="33" data-stat-name="脱口秀">
 <div class="column-hd">
     <h3 class="column-title">
-            <a href="{{url('/list/livelist')}}?id=3" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-203"></i>脱口秀</a>
+            <a href="{{url('/list/livelist')}}?id=2" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-203"></i>脱口秀</a>
             </h3>
     <div class="hd-tags">
     </div>
-    <a href="{{url('/list/livelist')}}?id=3" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+    <a href="{{url('/list/livelist')}}?id=2" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
 </div>
 <div class="column-bd">
     <ul class="video-list ">
@@ -1293,11 +1292,11 @@ function check_yan()
 <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="27" data-stat-name="户外">
 <div class="column-hd">
 	<h3 class="column-title">
-			<a href="{{url('list/livelist')}}?id=4" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
+			<a href="{{url('list/livelist')}}?id=3" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
 			</h3>
 	<div class="hd-tags">
 	</div>
-	<a href="{{url('list/livelist')}}?id=4" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+	<a href="{{url('list/livelist')}}?id=3" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
 	</div>
 <div class="column-bd">
 	<ul class="video-list ">

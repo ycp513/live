@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
-
+use DB;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Http\Category;
+use App\Http\Carousel;
+use App\Http\Controllers\Controller;
 use Gregwar\Captcha\CaptchaBuilder;
 use Session;
 use Illuminate\Support\Facades\Redis;
@@ -15,23 +16,17 @@ use App\Lijie\message;
 
 class IndexController extends Controller
 {
-
     //主页渲染
     public function index()
     {
-        $category = new Category();
-//        $arr = [
-//            '7' => '天天向上',
-//        ];
-//        $category -> write($arr);
-        $category ->initconfig();
-        $cate = $category->category_config;
-        //var_dump($cate);die;
-
         //主页分类数据
-//        $app_path = app_path();
-//        include $app_path.'/category.php';
-        
+        $category = new Category;
+        $category -> initconfig();
+        $cate = $category ->category_config;
+        //轮播图
+        $carousel = new Carousel;
+        $carousel -> initconfig();
+        $data_carousel = $carousel ->config;
         //主播数据(房间号、名称、粉丝、封面、)
         $anchors = DB::table('live_anchor') 
 	        -> select('live_anchor.user_id','username','fans','live_rend','category_id','anchor_img') 
@@ -47,24 +42,22 @@ class IndexController extends Controller
                     }                   
                 }           
             }
-            //var_dump($detailed);die;
             $detailed['success'] = 1;
         }else {
             $detailed['success'] = 0;
             $detailed['mess'] = '尚未有主播加入，敬请期待！';
         }
-      $user = Session::get('username');
-      if(!empty($user)){
-              $use = json_encode($user);
-              $arr_user = json_decode($use,true); 
-              $arr_user = array_reverse($arr_user,true);
-              //var_dump($arr_user);die;
-         return view('home.index',['category' => $cate ,'detailed' => $detailed ,'anchors' => $anchors,'user' =>  $arr_user[0]]);
-      }else{
-         return view('home.index',['category' => $cate ,'detailed' => $detailed ,'anchors' => $anchors]);
+        $user = Session::get('username');
+        if(!empty($user)){
+            $use = json_encode($user);
+            $arr_user = json_decode($use,true); 
+            $arr_user = array_reverse($arr_user,true);
+            //var_dump($arr_user);die;
+            return view('home.index',['category' => $cate ,'detailed' => $detailed ,'carousel' => $data_carousel,'anchors' => $anchors,'user' =>  $arr_user[0]]);
+        }else{
+            return view('home.index',['category' => $cate ,'detailed' => $detailed ,'carousel' => $data_carousel,'anchors' => $anchors]);
       }  
     }
-
    //ajax登录
     public function login(Request $request)
     {
@@ -84,7 +77,7 @@ class IndexController extends Controller
              //var_dump($select);return;
              Session::set('username', $select);
 
-          return(json_encode($select));
+            return(json_encode($select));
          }else{
              return(json_encode('2'));
          }
@@ -95,55 +88,63 @@ class IndexController extends Controller
         return redirect('index/index');
     }
     //生成验证码
-  public function verify($tmp)
-  {
-    //var_dump($tmp);die;
-    //生成验证码图片的Builder对象，配置相应属性
-    $builder = new CaptchaBuilder;
-    //可以设置图片宽高及字体
-    $builder->build($width = 100, $height = 32, $font = null);
-    //获取验证码的内容
-    $phrase = $builder->getPhrase();
-    // var_dump($phrase);
-    
-    //生成图片
-    header("Cache-Control: no-cache, must-revalidate");
-    header('Content-Type: image/jpeg');
-
-    //把内容存入session
-    Session::flash('milkcaptcha', $phrase);
-    $builder->output();
-  }
-
-
-  //验证码验证
-  public function getCode(Request $request)
-  {
-    $userInput = $request->get('captcha');
-    if (Session::get('milkcaptcha') == $userInput) {
-      //用户输入验证码正确
-      return(json_encode(1));
-    } else {
-      //用户输入验证码错误
-      return(json_encode(0));
-
-
-    }
-  }
-
-    //分类详情页
-    public function cate(Request $request)
+    public function verify($tmp)
     {
-        $cate_id = $request ->input('id');
-        print_r($cate_id);
+        //var_dump($tmp);die;
+        //生成验证码图片的Builder对象，配置相应属性
+        $builder = new CaptchaBuilder;
+        //可以设置图片宽高及字体
+        $builder->build($width = 100, $height = 32, $font = null);
+        //获取验证码的内容
+        $phrase = $builder->getPhrase();
+        // var_dump($phrase);
+        
+        //生成图片
+        header("Cache-Control: no-cache, must-revalidate");
+        header('Content-Type: image/jpeg');
+
+        //把内容存入session
+        Session::flash('milkcaptcha', $phrase);
+        $builder->output();
+    }
+
+
+    //验证码验证
+    public function getCode(Request $request)
+    {
+        $userInput = $request->get('captcha');
+        if (Session::get('milkcaptcha') == $userInput) {
+            //用户输入验证码正确
+            return(json_encode(1));
+        } else {
+            //用户输入验证码错误
+            return(json_encode(0));
+
+
+        }
     }
 
     //搜索详情页
     public function search(Request $request)
     {
+        //主页分类数据
+        $category = new Category;
+        $category -> initconfig();
+        $data_category = $category ->category_config;
+
         $data = $request ->all();
-        echo '<pre>';
-        print_r($data);
+        $user = $data['user'];
+        $anchors = DB::table('live_anchor') 
+          -> select('live_anchor.user_id','username','fans','live_rend','category_id','anchor_img') 
+          -> join('live_user', 'live_anchor.user_id', '=', 'live_user.user_id')
+          -> where('live_anchor.user_id','like','%'.$user.'%')
+          -> orwhere('live_rend','like','%'.$user.'%')
+          -> orwhere('username','like','%'.$user.'%')
+          -> get();
+        if (empty($anchors)) { 
+            return view('errors.found');
+        }
+        return view('home.search',['category'=>$data_category,'data' => $anchors]);
     }
 
 
