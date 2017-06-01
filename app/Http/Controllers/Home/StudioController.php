@@ -8,7 +8,8 @@ use DB;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+//use Illuminate\Support\Facades\Redis;
+use App\Jobs\RedisList;
 class StudioController extends Controller
 {
 
@@ -49,4 +50,23 @@ class StudioController extends Controller
    		return view('home.live',$author);
    	}
 
+
+    //刷礼物方法
+    public function sendGiff()
+    {
+        //用户id
+        $user_id = 1;
+        //主播ID
+        $anchor_id = 3;
+        //礼物id
+        $giff_id = 4;
+        //礼物数量
+        $giff_num = 5;
+        //礼物价格
+        $total_price =  ($giff_id * $giff_num);
+        //直播id
+        $live_id = 5;
+        $redis = $this->dispatch(new RedisList( $user_id, $anchor_id, $giff_id, $giff_num, $total_price, $live_id));
+        var_dump($redis);
+    }
 }

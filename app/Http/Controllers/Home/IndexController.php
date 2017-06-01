@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 
-use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -123,9 +122,7 @@ class IndexController extends Controller
         $data = $request ->all();
         echo '<pre>';
         print_r($data);
-
     }
-  }
 
 
   //手机号是否注册验证
