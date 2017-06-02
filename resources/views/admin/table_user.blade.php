@@ -65,20 +65,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($data as $k => $v)
                                 <tr class="gradeX">
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                  
+                                   <th>{{$v->user_id}}</th>
+                                   <th>{{$v->username}}</th>
+                                   <th>{{$v->telphone}}</th>
+                                   <th>{{$v->balance}}</th>
+                                   <th>{{$v->point}}</th>
+                                   <th>{{$v->fans}}</th>
+                                   <th>{{$v->reg_time}}</th>
+                                   <th>{{$v->user_vip}}</th>
+                                   <th>{{$v->concem}}</th>
                                 </tr>
-                               
-                              
+                              @endforeach
                             </tbody>
                           
                         </table>

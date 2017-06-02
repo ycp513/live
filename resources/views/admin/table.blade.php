@@ -58,20 +58,21 @@
                                     <th>订单号</th>
                                     <th>充值金额</th>
                                     <th>充值时间</th>
-                                    <th>操作</th>
+
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($data as $k => $v)
                                 <tr class="gradeX">
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
+                                   <th>{{$v->id}}</th>
+                                   <th>{{$v->username}}</th>
+                                   <th>{{$v->order_id}}</th>
+                                   <th>{{$v->price}}</th>
+                                   <th>{{$v->addtime}}</th>
+
                                   
                                 </tr>
-                               
+                           @endforeach
                               
                             </tbody>
                           

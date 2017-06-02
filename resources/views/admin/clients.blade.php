@@ -32,9 +32,8 @@
                         <h2>直播用户状态管理</h2>
                       
                         <div class="input-group">
-                            <input type="text" placeholder="查找客户" class="input form-control">
-                            <span class="input-group-btn">
-                                        <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> 搜索</button>
+                            <input type="text" placeholder="查找主播" class="input form-control" id="text">
+                            <span class="input-group-btn"><button type="button" class="btn btn btn-primary" id="bu"> <i class="fa fa-search"></i> 搜索</button>
                                 </span>
                         </div>
                         <div class="clients-list">
@@ -54,29 +53,46 @@
                                                        
                                                         <td>主播名称
                                                         </td>
+                                                     <td>直播房间号</td>
                                                         <td> 提现账号</td>
+                                                       <td>佣金</td>
+                                                        <td>身份证号</td>
                                                         <td class="contact-type"><i class="fa fa-envelope"> </i>
                                                         </td>
                                                         <td> 类型</td>
                                                         <td class="client-status">直播状态
                                                         </td>
-                                                        <td>操作</td>
+                                                     <td>可否提现</td>
+
                                                     </tr>
                                                 <tbody>
+                                                @if(isset($res))
+                                                @foreach($res as $k => $v)
                                                     <tr>
-                                                       
-                                                        <td>袁岳
+                                                        <td>
+                                                            {{$v->username}}
                                                         </td>
-                                                        <td> 546465465465465</td>
+                                                        <td>{{$v->live_rend}}</td>
+                                                        <td>{{$v->back_card}}</td>
+                                                        <td>{{$v->commision}}</td>
+                                                        <td>{{$v->number}}</td>
                                                         <td class="contact-type"><i class="fa fa-envelope"> </i>
                                                         </td>
-                                                        <td> 娱乐</td>
-                                                        <td class="client-status"><span class="label label-primary">正常</span>
+                                                        <td> {{$v->category_id}}</td>
+                                                        <td class="client-status">
+                                                            <a href="#" class="status" status="{{$v->force_status}}" user-id="{{$v->user_id}}">
+                                                                <span class="label label-primary">{{$v->force}}</span>
+                                                            </a>
                                                         </td>
-                                                         <td class="client-status"><a href="javascript:void(0)"><span class="label label-primary">修改状态</span></a>
+                                                        <td class="client-status">
+                                                            <a href="#" class="commision_status" commision-status="{{$v->commision_status}}" user-id="{{$v->user_id}}">
+                                                            <span class="label label-primary">{{$v->commisions}}</span>
+                                                                </a>
                                                         </td>
+
                                                     </tr>
-                                               
+                                               @endforeach
+                                                @endif
                                                 </tbody>
                                             </table>
                                         </div>
@@ -86,32 +102,47 @@
                                     <div class="full-height-scroll">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-hover">
-                                                           <tr>
-                                                               
-                                                                <td>主播名称
-                                                                </td>
-                                                                <td> 提现账号</td>
-                                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
-                                                                </td>
-                                                                <td> 类型</td>
-                                                                <td class="client-status">直播状态
-                                                                </td>
-                                                                <td>操作</td>
-                                                            </tr>
+                                                <tr>
+
+                                                    <td>主播名称
+                                                    </td>
+                                                    <td>直播房间号</td>
+                                                    <td> 提现账号</td>
+                                                    <td>佣金</td>
+                                                    <td>身份证号</td>
+                                                    <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                                    </td>
+                                                    <td> 类型</td>
+                                                    <td class="client-status">直播状态
+                                                    </td>
+                                                    <td>可否提现</td>
+
+                                                </tr>
                                                 <tbody>
-                                                   <tr>
-                                                       
-                                                        <td>超配
+                                                @if(isset($res))
+                                                @foreach($arr as $k => $v)
+                                                    <tr>
+                                                        <td>
+                                                            {{$v->username}}
                                                         </td>
-                                                        <td> 546465465465465</td>
+                                                        <td>{{$v->live_rend}}</td>
+                                                        <td>{{$v->back_card}}</td>
+                                                        <td>{{$v->commision}}</td>
+                                                        <td>{{$v->number}}</td>
                                                         <td class="contact-type"><i class="fa fa-envelope"> </i>
                                                         </td>
-                                                        <td> 娱乐</td>
-                                                        <td class="client-status"><span class="label label-primary">封杀</span>
+                                                        <td> {{$v->category_id}}</td>
+                                                        <td class="client-status"><a href="#" class="status" status="{{$v->force_status}}" user-id="{{$v->user_id}}"><span class="label label-primary">{{$v->force}}</span></a>
                                                         </td>
-                                                         <td class="client-status"><a href="javascript:void(0)"><span class="label label-primary">修改状态</span></a>
+                                                        <td class="client-status">
+                                                            <a href="#" class="commision_status" commision-status="{{$v->commision_status}}" user-id="{{$v->user_id}}">
+                                                            <span class="label label-primary">{{$v->commisions}}</span>
+                                                                </a>
                                                         </td>
+
                                                     </tr>
+                                                @endforeach
+                                                @endif
                                                  
                                                 </tbody>
                                             </table>
@@ -132,17 +163,101 @@
 
     <script src="{{URL::asset('/admin/js/jquery.min.js?v=2.1.4')}}"></script>
     <script src="{{URL::asset('/admin/js/bootstrap.min.js?v=3.3.6')}}"></script>
-    
-   
+  <script src="{{URL::asset('/admin/js/bootstrap.min.js?v=3.3.6')}}"></script>
 
     <!-- 自定义js -->
-    <script src="{{URL::asset('/admin/js/content.js?v=1.0.0')}}"></script>
+    <script src="{{URL::asset('/admin/js/jquery-1.9.1.min.js')}}"></script>
     <script>
-        // $(function () {
-        //     $('.full-height-scroll').slimScroll({
-        //         height: '100%'
-        //     });
-        // });
+  $(document).on('click','.status',function(){
+      var that=$(this);
+      //var force_status = that.attr('status');
+      var user_id = that.attr('user-id');
+      if(confirm("确认要修改吗？")){
+          $.ajax({
+              type:'get',
+              url:'update_status',
+              data:{user_id:user_id},
+              success:function(msg){
+                  if(msg==1){
+                      that.find('span').html('正常')
+                      window.location.reload()
+                  }else{
+                      that.find('span').html('封杀')
+                      window.location.reload()
+                  }
+              }
+          })
+      }else{
+          return false;
+      }
+  })
+
+  $(document).on('click','.commision_status',function(){
+      var that=$(this);
+      var user_id = that.attr('user-id');
+      if(confirm("确认要修改吗？")){
+          $.ajax({
+              type:'get',
+              url:'update_commision',
+              data:{user_id:user_id},
+              success:function(msg){
+                  if(msg==1){
+                      that.find('span').html('是')
+                      //alert('修改成功');
+                      //window.location.reload()
+                  }else{
+                      that.find('span').html('否')
+                      //window.location.reload()
+                  }
+              }
+          })
+      }else{
+          return false;
+      }
+  })
+
+   $(document).on('click','#bu',function(){
+       var text = $('#text').val();
+       $.ajax({
+           type:'get',
+           url:"search_anchor",
+           data:{text:text},
+           //dagaType:'json',
+           success:function(msg){
+               if(msg){
+                   var str='<table class="table table-striped table-hover">'
+                   str+='<tr>'
+                   str+='<td>主播名称</td>'
+                   str+='<td>直播房间号</td>'
+                   str+='<td> 提现账号</td>'
+                   str+='<td>佣金</td>'
+                   str+='<td>身份证号</td>'
+                   str+='<td class="contact-type"><i class="fa fa-envelope"> </i></td>'
+                   str+='<td> 类型</td>'
+                   str+='<td class="client-status">直播状态 </td>'
+                   str+='<td>可否提现</td>'
+                   str+='</tr>'
+                   str+='<tbody>'
+                   $.each(msg,function(i,v){
+                       str+='<tr>'
+                       str+='<td>'+ v.username+'</td>'
+                       str+='<td>'+v.live_rend+'</td>'
+                       str+='<td>'+v.back_card+'</td>'
+                       str+='<td>'+v.commision+'</td>'
+                       str+='<td>'+v.number+'</td>'
+                       str+='<td class="contact-type"><i class="fa fa-envelope"> </i></td>'
+                       str+='<td>'+v.category_id+'</td>'
+                       str+='<td class="client-status"><a href="#" class="status"  user-id='+v.user_id+'><span class="label label-primary">'+v.force+'</span></a></td>'
+                       str+='<td class="client-status"><a href="#" class="commision_status" user-id='+v.user_id+'><span class="label label-primary">'+v.commisions+'</span></a></td>'
+                       str+='</tr>'
+                   })
+                   str+='</tbody>'
+                   str+='</table>'
+                   $('.clients-list').html(str)
+               }
+           }
+       })
+   })
     </script>
 
     

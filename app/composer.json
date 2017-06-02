@@ -1,0 +1,6 @@
+{
+"require": {
+"latrell/alipay": "dev-master",
+"predis/predis":"1.0.*"
+}
+}
