@@ -49,7 +49,6 @@ var stat = {
         };
     }
 })();
-    
 </script>
 <!-- + head-->
 <div class="w-head" id="wHead" data-stat-eventid="10009039">
@@ -65,7 +64,7 @@ var stat = {
                     <div class="w-head-drag-main">
                         <ul class="w-head-menu-cnt-main-intro">
                         @foreach ($category as $key => $val)
-                             @if( $key%3 == 1 || $key ==1)
+                             @if( $key%3 == 0 || $key ==0)
                              <li class="w-head-menu-cnt-main-item clear">
                                     <h3 class="tl">
                                             <a href="{{ url('/list/livelist') }}?id={{$key}}" class="tl-link" data-statistic-module="2" data-statistic-moduleid="sing">
@@ -77,7 +76,7 @@ var stat = {
                                             </a>
                                     </h3>
                              </li>
-                            @elseif( $key %3 == 2 || $key ==2)
+                            @elseif( $key %3 == 1 || $key == 1)
                             <li class="w-head-menu-cnt-main-item ">
                                         <h3 class="tl">
                                             <a href="{{ url('/list/livelist') }}?id={{$key}}" class="tl-link" data-statistic-module="2" data-statistic-moduleid="talk">
@@ -88,7 +87,7 @@ var stat = {
                                                 {{$val}}</a>
                                         </h3>
                                     </li>
-                             @elseif($key %3 == 0 )
+                             @elseif($key %3 == 2 || $key == 2 )
                             <li class="w-head-menu-cnt-main-item ">
                                         <h3 class="tl">
                                             <a href="{{ url('/list/livelist') }}?id={{$key}}" class="tl-link" data-statistic-module="2" data-statistic-moduleid="red">
@@ -101,255 +100,6 @@ var stat = {
                                     </li>
                              @endif
                         @endforeach
-                            <!--<li class="w-head-menu-cnt-main-item clear">
-                                        <h3 class="tl">
-                                            <a href="/music/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="sing">
-                                                <i class="icon-btn"
-                                                   style="background-image: url('images/njfinmq1ngmtnmqzys00ytgwlthjzgmtoddknzjjmzhintrm.png');"
-                                                >
-                                                </i>
-                                                歌舞</a>
-                                        </h3>
-                                        <div class="l">
-                                            <ul>
-                                                <li>
-                                                            <a href="/music/dance" target="_blank" data-statistic-module="2" data-statistic-moduleid="sing_dance">
-                                                                舞蹈</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/music/pop" target="_blank" data-statistic-module="2" data-statistic-moduleid="sing_pop">
-                                                                流行</a>
-                                                        </li>
-                                                    </ul>
-                                        </div>
-                                    </li>
-                            <li class="w-head-menu-cnt-main-item ">
-                                        <h3 class="tl">
-                                            <a href="/show/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="talk">
-                                                <i class="icon-btn"
-                                                   style="background-image: url('images/m2nizdrkodutyti3oc00ndlilwi4ywitzjayywflmju4zgm4.png');"
-                                                >
-                                                </i>
-                                                脱口秀</a>
-                                        </h3>
-                                        <div class="l">
-                                            <ul>
-                                                <li>
-                                                        <a href="/show/" target="_blank" data-statistic-module="2" data-statistic-moduleid="talk">
-                                                            全部
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                        </div>
-                                    </li>
-                            <li class="w-head-menu-cnt-main-item ">
-                                        <h3 class="tl">
-                                            <a href="/travel/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="red">
-                                                <i class="icon-btn"
-                                                   style="background-image: url('images/zjgzmjk3otqtzta3yi00ymnjlwe1owitymfkztm5ndywzdrl.png');"
-                                                >
-                                                </i>
-                                                户外</a>
-                                        </h3>
-                                        <div class="l">
-                                            <ul>
-                                                <li>
-                                                            <a href="/travel/dashan" target="_blank" data-statistic-module="2" data-statistic-moduleid="red_dashan">
-                                                                搭讪</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/travel/daye" target="_blank" data-statistic-module="2" data-statistic-moduleid="red_daye">
-                                                                打野</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/travel/lvyou" target="_blank" data-statistic-module="2" data-statistic-moduleid="red_lvyou">
-                                                                旅游</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/travel/lieqi" target="_blank" data-statistic-module="2" data-statistic-moduleid="red_lieqi">
-                                                                猎奇</a>
-                                                        </li>
-                                                    </ul>
-                                        </div>
-                                    </li>
-                            <li class="w-head-menu-cnt-main-item clear">
-                                        <h3 class="tl">
-                                            <a href="/mc/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="mc">
-                                                <i class="icon-btn"
-                                                   style="background-image: url('images/zdfkyzgxmwutzdbinc00ymzkltk5ztutztizyje5nzaynza2.png');"
-                                                >
-                                                </i>
-                                                喊麦</a>
-                                        </h3>
-                                        <div class="l">
-                                            <ul>
-                                                <li>
-                                                        <a href="/mc/" target="_blank" data-statistic-module="2" data-statistic-moduleid="mc">
-                                                            全部
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                        </div>
-                                    </li>
-                            <li class="w-head-menu-cnt-main-item ">
-                                        <h3 class="tl">
-                                            <a href="/game/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="game">
-                                                <i class="icon-btn"
-                                                   style="background-image: url('images/y2njntq3zwutzmuzys00zgqzlthlowitmmeyotq0yjy4mju5.png');"
-                                                >
-                                                </i>
-                                                手游</a>
-                                        </h3>
-                                        <div class="l">
-                                            <ul>
-                                                <li>
-                                                            <a href="/game/glory" target="_blank" data-statistic-module="2" data-statistic-moduleid="game_glory">
-                                                                王者荣耀</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/game/ball" target="_blank" data-statistic-module="2" data-statistic-moduleid="game_ball">
-                                                                球球大作战</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/game/lsr" target="_blank" data-statistic-module="2" data-statistic-moduleid="game_lsr">
-                                                                狼人杀</a>
-                                                        </li>
-                                                    </ul>
-                                        </div>
-                                    </li>
-                            <li class="w-head-menu-cnt-main-item ">
-                                        <h3 class="tl">
-                                            <a href="/sport/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="sport">
-                                                <i class="icon-btn"
-                                                   style="background-image: url('images/mthlnty3otmtytniyy00ytlllwiznwqtmtlkntuzyzhkndbh.png');"
-                                                >
-                                                </i>
-                                                体育</a>
-                                        </h3>
-                                        <div class="l">
-                                            <ul>
-                                                <li>
-                                                            <a href="/cba" target="_blank" data-statistic-module="2" data-statistic-moduleid="sport_CBA">
-                                                                CBA</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/c/klj/index.htm" target="_blank" data-statistic-module="2" data-statistic-moduleid="sport_KLF">
-                                                                昆仑决</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/c/rlgd/index.htm" target="_blank" data-statistic-module="2" data-statistic-moduleid="sport_RoadFc">
-                                                                RoadFc</a>
-                                                        </li>
-                                                    </ul>
-                                        </div>
-                                    </li>
-                            <li class="w-head-menu-cnt-main-item clear">
-                                        <h3 class="tl">
-                                            <a href="/acg/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="car">
-                                                <i class="icon-btn"
-                                                   style="background-image: url('images/mge3ntdlztatotbjoc00zmy1ltg5mtitowflntuxzgmwnme1.png');"
-                                                >
-                                                </i>
-                                                二次元</a>
-                                        </h3>
-                                        <div class="l">
-                                            <ul>
-                                                <li>
-                                                        <a href="/acg/" target="_blank" data-statistic-module="2" data-statistic-moduleid="car">
-                                                            全部
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                        </div>
-                                    </li>
-                            <li class="w-head-menu-cnt-main-item ">
-                                        <h3 class="tl">
-                                            <a href="/cgame/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="cgame">
-                                                <i class="icon-btn"
-                                                   style="background-image: url('images/zdfkyzgxmwutzdbinc00ymzkltk5ztutztizyje5nzaynza2.png');"
-                                                >
-                                                </i>
-                                                端游</a>
-                                        </h3>
-                                        <div class="l">
-                                            <ul>
-                                                <li>
-                                                            <a href="/cgame/lol" target="_blank" data-statistic-module="2" data-statistic-moduleid="cgame_lol">
-                                                                LOL</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/cgame/dnf" target="_blank" data-statistic-module="2" data-statistic-moduleid="cgame_dnf">
-                                                                DNF</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/cgame/cf" target="_blank" data-statistic-module="2" data-statistic-moduleid="cgame_cf">
-                                                                CF</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/cgame/dota" target="_blank" data-statistic-module="2" data-statistic-moduleid="cgame_dota">
-                                                                DOTA</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/cgame/hearthstone" target="_blank" data-statistic-module="2" data-statistic-moduleid="cgame_hearthstone">
-                                                                炉石</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/cgame/minecraft" target="_blank" data-statistic-module="2" data-statistic-moduleid="cgame_minecraft">
-                                                                我的世界</a>
-                                                        </li>
-                                                    </ul>
-                                        </div>
-                                    </li>
-                            <li class="w-head-menu-cnt-main-item ">
-                                        <h3 class="tl">
-                                            <a href="/others/" class="tl-link" data-statistic-module="2" data-statistic-moduleid="other">
-                                                <i class="icon-btn"
-                                                   style="background-image: url('images/nwqwn2u0owytnme4mi00ztq3lwfkmtatmzyynzaxnde4zte3.png');"
-                                                >
-                                                </i>
-                                                其他</a>
-                                        </h3>
-                                        <div class="l">
-                                            <ul>
-                                                <li>
-                                                            <a href="/others/others/" target="_blank" data-statistic-module="2" data-statistic-moduleid="other_others">
-                                                                两性</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/others/star/" target="_blank" data-statistic-module="2" data-statistic-moduleid="other_star">
-                                                                现场</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/others/xing/" target="_blank" data-statistic-module="2" data-statistic-moduleid="other_xing">
-                                                                星秀</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/others/shenqu/" target="_blank" data-statistic-module="2" data-statistic-moduleid="other_shenqu">
-                                                                神曲</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/others/duanpai/" target="_blank" data-statistic-module="2" data-statistic-moduleid="other_duanpai">
-                                                                小视频</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/others/wenwan/" target="_blank" data-statistic-module="2" data-statistic-moduleid="other_wenwan">
-                                                                文玩</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/others/daren/" target="_blank" data-statistic-module="2" data-statistic-moduleid="other_daren">
-                                                                达人</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/others/ASMR/" target="_blank" data-statistic-module="2" data-statistic-moduleid="other_ASMR">
-                                                                ASMR</a>
-                                                        </li>
-                                                    <li>
-                                                            <a href="/others/school/" target="_blank" data-statistic-module="2" data-statistic-moduleid="other_school">
-                                                                校园</a>
-                                                        </li>
-                                                    </ul>
-                                        </div>
-                                    </li>-->
                         </ul>
                         <div class="w-head-kan-cnt">
                             <ul>
@@ -653,188 +403,20 @@ var stat = {
         <div class="w-head-nav-main">
             <div class="w-head-nav-main-l">
                 <ul id="wHeadNav">
-                    <li data-biz="index" data-stat-bak1="index" data-stat-act-type="1" >
+                    <li data-biz="index" class="index" data-stat-bak1="index" data-stat-act-type="1" >
                             <a href="{{ url('/index/index') }}" class="t"><span>首页</span><i class="line-b"></i>
                                 </a>
                             </li>
                     @foreach ($category as $key => $val)
+                    @if($key == $id)
+                    <li data-biz="talk"class="cur" data-stat-bak1="talk" data-stat-act-type="1" >
+                    @else    
                     <li data-biz="talk" data-stat-bak1="talk" data-stat-act-type="1" >
+                    @endif
                         <a href="{{ url('/list/livelist') }}?id={{$key}}" class="t"><span>{{$val}}</span><i class="line-b"></i>
                         </a>
                     </li>
                     @endforeach
-
-                   <!-- <li data-biz="sing" data-stat-bak1="sing" data-stat-act-type="1" class="cur-withsub">
-                            <a href="/music/" class="t"><span>歌舞</span><i class="line-b"></i>
-                                <i class="tri"></i>
-                                <i class="tri2"></i>
-                                </a>
-                            <div class="w-head-drag w-head-subnav" data-stat-eventid="10008897" data-stat-bak1=""><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="w-head-drag-enterstage"></i>
-                                <div class="w-head-drag-main">
-                                    <ul>
-                                        <li data-stat-bak1="sing_all"><a href="/music/">全部</a></li>
-                                    <li data-stat-bak1="sing_dance">
-                                            <a href="/music/dance" data-biz="dance" data-stat-act-type="11"   >舞蹈</a>
-                                        </li>
-                                        <li data-stat-bak1="sing_pop">
-                                            <a href="/music/pop" data-biz="pop" data-stat-act-type="11"   >流行</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                           </div>
-                           </li>
-                    <li data-biz="talk" data-stat-bak1="talk" data-stat-act-type="1" >
-                            <a href="/show/" class="t"><span>脱口秀</span><i class="line-b"></i>
-                                </a>
-                            </li>
-                    <li data-biz="red" data-stat-bak1="red" data-stat-act-type="1" class="cur-withsub">
-                            <a href="/travel/" class="t"><span>户外</span><i class="line-b"></i>
-                                <i class="tri"></i>
-                                <i class="tri2"></i>
-                                </a>
-                            <div class="w-head-drag w-head-subnav" data-stat-eventid="10008897" data-stat-bak1=""><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="w-head-drag-enterstage"></i>
-                                <div class="w-head-drag-main">
-                                    <ul>
-                                        <li data-stat-bak1="red_all"><a href="/travel/">全部</a></li>
-                                    <li data-stat-bak1="red_dashan">
-                                            <a href="/travel/dashan" data-biz="dashan" data-stat-act-type="11"   >搭讪</a>
-                                        </li>
-                                        <li data-stat-bak1="red_daye">
-                                            <a href="/travel/daye" data-biz="daye" data-stat-act-type="11"   >打野</a>
-                                        </li>
-                                        <li data-stat-bak1="red_lvyou">
-                                            <a href="/travel/lvyou" data-biz="lvyou" data-stat-act-type="11"   >旅游</a>
-                                        </li>
-                                        <li data-stat-bak1="red_lieqi">
-                                            <a href="/travel/lieqi" data-biz="lieqi" data-stat-act-type="11"   >猎奇</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                           </div>
-                           </li>
-                    <li data-biz="mc" data-stat-bak1="mc" data-stat-act-type="1" >
-                            <a href="/mc/" class="t"><span>喊麦</span><i class="line-b"></i>
-                                </a>
-                            </li>
-                    <li data-biz="game" data-stat-bak1="game" data-stat-act-type="1" class="cur-withsub">
-                            <a href="/game/" class="t"><span>手游</span><i class="line-b"></i>
-                                <i class="tri"></i>
-                                <i class="tri2"></i>
-                                </a>
-                            <div class="w-head-drag w-head-subnav" data-stat-eventid="10008897" data-stat-bak1=""><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="w-head-drag-enterstage"></i>
-                                <div class="w-head-drag-main">
-                                    <ul>
-                                        <li data-stat-bak1="game_all"><a href="/game/">全部</a></li>
-                                    <li data-stat-bak1="game_glory">
-                                            <a href="/game/glory" data-biz="glory" data-stat-act-type="11"   >王者荣耀</a>
-                                        </li>
-                                        <li data-stat-bak1="game_ball">
-                                            <a href="/game/ball" data-biz="ball" data-stat-act-type="11"   >球球大作战</a>
-                                        </li>
-                                        <li data-stat-bak1="game_lsr">
-                                            <a href="/game/lsr" data-biz="lsr" data-stat-act-type="11"   >狼人杀</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                           </div>
-                           </li>
-                    <li data-biz="sport" data-stat-bak1="sport" data-stat-act-type="1" class="cur-withsub">
-                            <a href="/sport/" class="t"><span>体育</span><i class="line-b"></i>
-                                <i class="tri"></i>
-                                <i class="tri2"></i>
-                                </a>
-                            <div class="w-head-drag w-head-subnav" data-stat-eventid="10008897" data-stat-bak1=""><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="w-head-drag-enterstage"></i>
-                                <div class="w-head-drag-main">
-                                    <ul>
-                                        <li data-stat-bak1="sport_all"><a href="/sport/">全部</a></li>
-                                    <li data-stat-bak1="sport_CBA">
-                                            <a href="/cba" data-biz="CBA" data-stat-act-type="11"   >CBA</a>
-                                        </li>
-                                        <li data-stat-bak1="sport_KLF">
-                                            <a href="/c/klj/index.htm" data-biz="KLF" data-stat-act-type="11"   >昆仑决</a>
-                                        </li>
-                                        <li data-stat-bak1="sport_RoadFc">
-                                            <a href="/c/rlgd/index.htm" data-biz="RoadFc" data-stat-act-type="11"   >RoadFc</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                           </div>
-                           </li>
-                    <li data-biz="car" data-stat-bak1="car" data-stat-act-type="1" >
-                            <a href="/acg/" class="t"><span>二次元</span><i class="line-b"></i>
-                                </a>
-                            </li>
-                    <li data-biz="cgame" data-stat-bak1="cgame" data-stat-act-type="1" class="cur-withsub">
-                            <a href="/cgame/" class="t"><span>端游</span><i class="line-b"></i>
-                                <i class="tri"></i>
-                                <i class="tri2"></i>
-                                </a>
-                            <div class="w-head-drag w-head-subnav" data-stat-eventid="10008897" data-stat-bak1=""><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="w-head-drag-enterstage"></i>
-                                <div class="w-head-drag-main">
-                                    <ul>
-                                        <li data-stat-bak1="cgame_all"><a href="/cgame/">全部</a></li>
-                                    <li data-stat-bak1="cgame_lol">
-                                            <a href="/cgame/lol" data-biz="lol" data-stat-act-type="11"   >LOL</a>
-                                        </li>
-                                        <li data-stat-bak1="cgame_dnf">
-                                            <a href="/cgame/dnf" data-biz="dnf" data-stat-act-type="11"   >DNF</a>
-                                        </li>
-                                        <li data-stat-bak1="cgame_cf">
-                                            <a href="/cgame/cf" data-biz="cf" data-stat-act-type="11"   >CF</a>
-                                        </li>
-                                        <li data-stat-bak1="cgame_dota">
-                                            <a href="/cgame/dota" data-biz="dota" data-stat-act-type="11"   >DOTA</a>
-                                        </li>
-                                        <li data-stat-bak1="cgame_hearthstone">
-                                            <a href="/cgame/hearthstone" data-biz="hearthstone" data-stat-act-type="11"   >炉石</a>
-                                        </li>
-                                        <li data-stat-bak1="cgame_minecraft">
-                                            <a href="/cgame/minecraft" data-biz="minecraft" data-stat-act-type="11"   >我的世界</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                           </div>
-                           </li>
-                    <li data-biz="other" data-stat-bak1="other" data-stat-act-type="1" class="cur-withsub">
-                            <a href="/others/" class="t"><span>其他</span><i class="line-b"></i>
-                                <i class="tri"></i>
-                                <i class="tri2"></i>
-                                </a>
-                            <div class="w-head-drag w-head-subnav" data-stat-eventid="10008897" data-stat-bak1=""><i class="w-head-drag-tri"></i><i class="w-head-drag-tri2"></i><i class="w-head-drag-enterstage"></i>
-                                <div class="w-head-drag-main">
-                                    <ul>
-                                        <li data-stat-bak1="other_all"><a href="/others/">全部</a></li>
-                                    <li data-stat-bak1="other_others">
-                                            <a href="/others/others/" data-biz="others" data-stat-act-type="11"   >两性</a>
-                                        </li>
-                                        <li data-stat-bak1="other_star">
-                                            <a href="/others/star/" data-biz="star" data-stat-act-type="11"   >现场</a>
-                                        </li>
-                                        <li data-stat-bak1="other_xing">
-                                            <a href="/others/xing/" data-biz="xing" data-stat-act-type="11"   >星秀</a>
-                                        </li>
-                                        <li data-stat-bak1="other_shenqu">
-                                            <a href="/others/shenqu/" data-biz="shenqu" data-stat-act-type="11"   >神曲</a>
-                                        </li>
-                                        <li data-stat-bak1="other_duanpai">
-                                            <a href="/others/duanpai/" data-biz="duanpai" data-stat-act-type="11"   >小视频</a>
-                                        </li>
-                                        <li data-stat-bak1="other_wenwan">
-                                            <a href="/others/wenwan/" data-biz="wenwan" data-stat-act-type="11"   >文玩</a>
-                                        </li>
-                                        <li data-stat-bak1="other_daren">
-                                            <a href="/others/daren/" data-biz="daren" data-stat-act-type="11"   >达人</a>
-                                        </li>
-                                        <li data-stat-bak1="other_ASMR">
-                                            <a href="/others/ASMR/" data-biz="ASMR" data-stat-act-type="11"   >ASMR</a>
-                                        </li>
-                                        <li data-stat-bak1="other_school">
-                                            <a href="/others/school/" data-biz="school" data-stat-act-type="11"   >校园</a>
-                                        </li>
-                                        </ul>
-                                </div>
-                           </div>
-                           </li>-->
                     </ul>
             </div>
         </div>
@@ -936,10 +518,9 @@ var stat = {
         <div class="banner-inner" data-tmpl-type="1001_1100">
             <div class="m">
                 <ul class="pgwSlider">
-                    <li> <img src="{{URL::asset('/home/images/phpQpUSyx1477290423.jpg')}}" alt="舞蹈" ></li>
-                    <li> <img src="{{URL::asset('/home/images/phpV53RyC1492413996.jpg')}}" alt="荒野求生" /></li>
-                    <li> <img src="{{URL::asset('/home/images/phpvsOO5N1488980196.jpg')}}" alt="老司机快上车" /></li>
-                    <li> <img src="{{URL::asset('/home/images/phpl362Yo1463645681.jpg')}}" alt="上！王者" /></li>
+                    @foreach ($carousel as $val)
+                    <li><a href='{{url("$val[url]")}}' target="_blank"><img src="{{URL::asset('/home')}}{{$val['img_url']}}" alt="{{$val['name']}}" ></a></li>
+                    @endforeach
                 </ul>
             </div>
         </div> 
@@ -948,98 +529,28 @@ var stat = {
 </div>
 <div class="content-wrap">
             	<!-- others -->
-    @if($id == 1)        	
-    <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="25" data-stat-name="音乐">
+    
+    <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="27" data-stat-name="{{$category[$id]}}">
 <div class="column-hd">
     <h3 class="column-title">
-            <a href="{{ url('/list/livelist/') }}?id=1" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-208"></i>音乐</a>
-            </h3>
-    <div class="hd-tags">
-            <a>天籁之音</a>
-            <span class="divide">|</span><a>实力麦手</a>
-            <span class="divide">|</span><a>女神</a>
-            <span class="divide">|</span><a>歌神</a>
-            </div>
-    <a href="{{ url('/list/livelist/') }}?id=1" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
-    </div>
-    @elseif($id ==2)
-    <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="26" data-stat-name="舞蹈">
-<div class="column-hd">
-    <h3 class="column-title">
-            <a href="{{url('/list/livelist/')}}?id=2" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-202"></i>舞蹈</a>
-            </h3>
-    <div class="hd-tags">
-        <a>热舞</a>
-            </div>
-    <a href="{{url('/list/livelist')}}?id=2" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
-    </div>
-    @elseif($id ==3)
-    <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="33" data-stat-name="脱口秀">
-<div class="column-hd">
-    <h3 class="column-title">
-            <a href="{{url('/list/livelist')}}?id=3" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-203"></i>脱口秀</a>
-            </h3>
-    <div class="hd-tags">
-        <a>逗比</a>
-        <span class="divide">|</span><a>八卦天王</a>
-        <span class="divide">|</span><a>套路神</a>
-    </div>
-    <a href="{{url('/list/livelist')}}?id=3" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
-    </div>
-    @elseif($id ==4)
-    <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="27" data-stat-name="户外">
-<div class="column-hd">
-    <h3 class="column-title">
-            <a href="{{url('list/livelist')}}?id=4" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
-            </h3>
-    <div class="hd-tags">
-        <a>户外搞笑</a>
-        <span class="divide">|</span><a>钓鱼达人</a>
-        <span class="divide">|</span><a >美食</a>
-    </div>
-    <a href="{{url('list/livelist')}}?id=4" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
-    </div>
-    @elseif($id ==5)
-    <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="27" data-stat-name="手游">
-<div class="column-hd">
-    <h3 class="column-title">
-            <a href="{{url('list/livelist')}}?id=5" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
+            <a href="{{url('list/livelist')}}?id={{$id}}" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5">{{$category["$id"]}}</a>
             </h3>
     <div class="hd-tags">
     </div>
-    <a href="{{url('list/livelist')}}?id=5" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
+    <a href="{{url('list/livelist')}}?id={{$id}}" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
     </div>
-    @elseif($id ==6)
-    <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="27" data-stat-name="端游">
-<div class="column-hd">
-    <h3 class="column-title">
-            <a href="{{url('list/livelist')}}?id=6" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
-            </h3>
-    <div class="hd-tags">
-    </div>
-    <a href="{{url('list/livelist')}}?id=6" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
-    </div>
-    @elseif($id ==7)
-    <div class="column live-tabBox" data-stat-bak2="1102" data-stat-bak3="27" data-stat-name="其他">
-<div class="column-hd">
-    <h3 class="column-title">
-            <a href="{{url('list/livelist')}}?id=7" target="_blank" data-stat-parm1="1" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="5"><i class="icon-212"></i>户外</a>
-            </h3>
-    <div class="hd-tags">
-    </div>
-    <a href="{{url('list/livelist')}}?id=7" target="_blank" class="more" data-stat-parm2="" data-stat-parm3="" data-stat-act-type="14">更多</a>
-    </div>
-    @endif
 <div class="column-bd">
 	<ul class="video-list ">
 	@if(empty($data))
+    <li class="video-item">
     还未有主播入驻，敬请期待！
+    </li>
     @else
     @foreach($data as $key => $val )
         <li class="video-item">
-            <a class="video-box" href="{{url('studio/livestudio')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
+            <a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
                 <div class="video-pic">
-                    <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home')}}{{$val->anchor_img}}" alt="{{$val->username}}"></div>
+                    <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val->username}}"></div>
                     <div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MTFmYzdkMDUtYTQ5MS00YjZkLThiZjAtMjA5ZWVkYTZjMjcz.jpg?imageview/4/0/w/363/h/330/blur/1" alt="{{$val->username}}" /></div></div>
                     <div class="video-tag tag-color-0">
                         </div>
@@ -1049,7 +560,7 @@ var stat = {
                 </div>
             </a>
             <div class="video-info">
-                <p class="video-title"><a href="{{url('studio/livestudio')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">{{$val->username}}</a></p>
+                <p class="video-title"><a href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">{{$val->username}}</a></p>
                 <div class="audience-count">
                     <i class="icon-people"></i>
                     @if (strlen($val -> fans) <= 4 )
@@ -1126,4 +637,10 @@ var stat = {
                 </div>
             </div>
 </div>  
+<script>
+    $(function(){
+        var index = $('.index');
+        index.removeClass('cur');
+    })
+</script>
 </html>
