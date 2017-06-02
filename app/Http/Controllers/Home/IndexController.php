@@ -131,7 +131,11 @@ class IndexController extends Controller
         //主页分类数据
         $category = new Category;
         $category -> initconfig();
-        $data_category = $category ->category_config;
+        $data_category = $category ->category_config;		
+		//轮播图
+        $carousel = new Carousel;
+        $carousel -> initconfig();
+        $data_carousel = $carousel ->config;
         $data = $request ->all();
         $user = $data['user'];
         $anchors = DB::table('live_anchor') 
@@ -144,7 +148,7 @@ class IndexController extends Controller
         if (empty($anchors)) { 
             return view('errors.found');
         }
-        return view('home.search',['category'=>$data_category,'data' => $anchors]);
+        return view('home.search',['category'=>$data_category,'data' => $anchors,'carousel' => $data_carousel]);
     }
 
 
