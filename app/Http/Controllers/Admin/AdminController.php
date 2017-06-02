@@ -7,20 +7,19 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Redis;
+use  App\Http\Category;
+use Illuminate\Support\Facades\Input;
 class AdminController extends Controller
 {
-   // public function __construct()
-   //  {    
-   //     echo 11;return;
-   //  	// if(empty(Session::get('user')))
-   //  	//  {
-   //  	//  	return redirect()->action('Admin\LoginController@login');
-   //  	//  }
-   //  }
-    
+
    public function AdminShow()
-    {   echo phpinfo();returns;
+    {
+////         //echo phpinfo();return;
+//        $key='user:2017-05-29';
+//        $key1='user:2017-05-30';
+//        var_dump(Redis::bitCount($key));
+//        var_dump(Redis::bitCount($key1));
     	 if(empty(Session::get('user')))
     	  {
      	  	return redirect()->action('Admin\LoginController@login');
@@ -57,13 +56,28 @@ class AdminController extends Controller
      //主播体现列表
     public function Anchor_Order()
     {
-    	 return view('admin.anchor_order');
+         $data = DB::table('cash_log')->get();
+         foreach($data as $k => $v){
+             $username = DB::table('live_user')->where('user_id','=',$v->user_id)->lists('username','user_id');
+             $v->username = $username[$v->user_id];
+             $v->addtime=date('Y-m-d H:i:s',$v->addtime);
+         }
+    	 return view('admin.anchor_order',['data'=>$data]);
     }
 
       //礼物订单
     public function Gift_Order()
     {
-    	 return view('admin.gift_order');
+        $data=DB::table('user_giff')->get();
+        foreach($data as $k => $v){
+           $username = DB::table('live_user')->where('user_id','=',$v->user_id)->lists('username','user_id');
+            $v->username = $username[$v->user_id];
+            $anchor = DB::table('live_user')->where('user_id','=',$v->anchor_id)->lists('username','user_id');
+            $v->anchor = $anchor[$v->anchor_id];
+            $giftname = DB::table('live_gift')->where('gift_id','=',$v->giff_id)->lists('giftname','gift_id');
+            $v->giftname = $giftname[$v->giff_id];
+        }
+    	return view('admin.gift_order',['data'=>$data]);
     }
 
        //直播列表
@@ -75,16 +89,108 @@ class AdminController extends Controller
        //直播用户状态详情类表
     public function Clients()
     {
-    	 return view('admin.clients');
+        //查询出主播类型
+        $category = new Category();
+        $category->initconfig();
+        $ca = $category->category_config;
+        //查询主播状态
+        $data = DB::table('live_anchor')->get();
+        $res=array();
+        $arr=array();
+        foreach($data as $k => $v){
+           $username = DB::table('live_user')->where('user_id','=',$v->user_id)->lists('username','user_id');
+           $v->username = $username[$v->user_id];
+            foreach($ca as $k1 => $v1){
+                if($v->category_id==$k1){
+                    $v->category_id=$v1;
+                }
+            }
+            if($v->commision_status==1){
+                $v->commisions='是';
+            }else{
+                $v->commisions='否';
+            }
+            if($v->force_status==1){
+                $v->force='正常';
+                $res[]=$v;
+            }else{
+                $v->force='封杀';
+                $arr[]=$v;
+            }
+        }
+    	 return view('admin.clients',['res'=>$res,'arr'=>$arr]);
     }
    //用户详细
     public function Table_User()
     {
-    	 return view('admin.table_user');
+        $data =  DB::table('live_user')->get();
+    	 return view('admin.table_user',['data'=>$data]);
     }
     //直播记录
     public function Live_Recording()
     {
-    	 return view('admin.live_recording');
+       $data =  DB::table('live_live')->get();
+        foreach($data as $k => $v){
+          $username =  DB::table('live_user')->where('user_id','=',$v->user_id)->lists('username','user_id');
+            if($username){
+                $v->username = $username[$v->user_id];
+            }else{
+                $v->username = '';
+            }
+        }
+    	 return view('admin.live_recording',['data'=>$data]);
+}
+
+    public  function  Update_Status(){
+       //$force_status = Input::get('force_status');
+       $user_id = Input::get('user_id');
+       $arr = DB::table('live_anchor')->where('user_id',$user_id)->first();
+        if($arr->force_status==1){
+            $bool=DB::table("live_anchor")->where('user_id',$user_id)->update(['force_status'=>0]);
+            return 0;
+        }else{
+            $bool=DB::table("live_anchor")->where('user_id',$user_id)->update(['force_status'=>1]);
+            return 1;
+        }
+    }
+
+    public  function  Update_Commision(){
+        $user_id = Input::get('user_id');
+        $arr = DB::table('live_anchor')->where('user_id',$user_id)->first();
+        if($arr->commision_status==1){
+            $bool=DB::table("live_anchor")->where('user_id',$user_id)->update(['commision_status'=>0]);
+            return 0;
+        }else{
+            $bool=DB::table("live_anchor")->where('user_id',$user_id)->update(['commision_status'=>1]);
+            return 1;
+        }
+    }
+    //根据房间号查询主播
+    public  function Search_Anchor(){
+        $category = new Category();
+        $category->initconfig();
+        $ca = $category->category_config;
+        $text = Input::get('text');
+        $res = DB::select("select * from live_anchor where live_rend='$text'");
+        foreach($res as $k => $v){
+            $username = DB::table('live_user')->where('user_id','=',$v->user_id)->lists('username','user_id');
+            $v->username = $username[$v->user_id];
+            foreach($ca as $k1 => $v1){
+                if($v->category_id==$k1){
+                    $v->category_id=$v1;
+                }
+            }
+            if($v->commision_status==1){
+                $v->commisions='是';
+            }else{
+                $v->commisions='否';
+            }
+            if($v->force_status==1){
+                $v->force='正常';
+            }else{
+                $v->force='封杀';
+            }
+        }
+        return $res;
     }
 }
