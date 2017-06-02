@@ -3,7 +3,6 @@
 namespace App\Http;
 
 use Config\Category_Config;
-
 //设置网站直播分类
 class Category 
 {
@@ -12,9 +11,8 @@ class Category
 	//初始化对应的config文件
 	public function initconfig()
 	{
-		$this->configFile = app_path() .'/category.php';
+		$this->configFile = app_path().'/category.php';
 		if (file_exists($this->configFile)) {
-			
         	$this->category_config = require($this->configFile);
 		}else{
 			$this->category_config = '';
