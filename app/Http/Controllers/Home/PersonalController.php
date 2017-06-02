@@ -21,8 +21,14 @@ class PersonalController extends Controller
         $app_path = app_path();
         //直播分类
         $classify  = include $app_path.'/category.php';
+
         //vip等级
         $vip  = include $app_path.'/vip.php';
+        foreach($classify as $k => $v){
+           if($k == $get_anchor->category_id){
+               $get_anchor->category_id = $v;
+           }
+        }
         return view('home.personal',['classify'=>$classify,'get_user'=>$get_user,'live_rend'=>$live_rend,'point'=>$point,'get_anchor'=>$get_anchor,'vip'=>$vip]);
     }
     //获取短信验证码
