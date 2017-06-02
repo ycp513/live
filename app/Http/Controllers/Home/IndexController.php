@@ -19,6 +19,7 @@ class IndexController extends Controller
     //主页渲染
     public function index()
     {
+
         //主页分类数据
         $category = new Category;
         $category -> initconfig();
@@ -28,8 +29,8 @@ class IndexController extends Controller
         $carousel -> initconfig();
         $data_carousel = $carousel ->config;
         //主播数据(房间号、名称、粉丝、封面、)
-        $anchors = DB::table('live_anchor') 
-	        -> select('live_anchor.user_id','username','fans','live_rend','category_id','anchor_img') 
+        $anchors = DB::table('live_anchor')
+	        -> select('live_anchor.user_id','username','fans','live_rend','category_id','anchor_img')
 	        -> join('live_user', 'live_anchor.user_id', '=', 'live_user.user_id')
 	        -> orderBy('fans', 'desc')
 	        -> get();
@@ -39,8 +40,8 @@ class IndexController extends Controller
                 foreach ($anchors as $k => $val) {
                     if ($val -> category_id == $key ) {
                         $detailed[$key][] = $val;
-                    }                   
-                }           
+                    }
+                }
             }
             $detailed['success'] = 1;
         }else {
@@ -131,7 +132,6 @@ class IndexController extends Controller
         $category = new Category;
         $category -> initconfig();
         $data_category = $category ->category_config;
-
         $data = $request ->all();
         $user = $data['user'];
         $anchors = DB::table('live_anchor') 

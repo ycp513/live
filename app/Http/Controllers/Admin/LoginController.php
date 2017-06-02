@@ -10,6 +10,7 @@ use DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redis;
 
 class LoginController extends Controller
 {   //渲染登陆页面
@@ -25,7 +26,9 @@ class LoginController extends Controller
             return view('admin.login',['ms'=>$ms]);
 		  }elseif($res->username=$post['username'] and $res->pwd=$post['pwd']){
 		  	Session::put('user', $res);
-		  	return Redirect()->action('Admin\AdminController@AdminShow');
+             $key='user:2017-05-29';
+             Redis::setBit($key,$res->admin_id,1);
+             return Redirect()->action('Admin\AdminController@AdminShow');
 		  } 
 	 }else{
 		 return view('admin.login');

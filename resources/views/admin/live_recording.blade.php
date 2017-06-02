@@ -62,17 +62,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @if(isset($data))
+                                @foreach($data as $k => $v)
                                 <tr class="gradeX">
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                  
+                                   <th>{{$v->live_id}}</th>
+                                   <th>{{$v->username}}</th>
+                                   <th>{{$v->start_time}}</th>
+                                   <th>{{$v->end_time}}</th>
+                                   <th>{{$v->live_date}}</th>
+                                   <th>{{$v->video_path}}</th>
                                 </tr>
+                                @endforeach
                                
-                              
+                              @endif
                             </tbody>
                           
                         </table>
