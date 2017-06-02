@@ -131,6 +131,11 @@ class IndexController extends Controller
         $category = new Category;
         $category -> initconfig();
         $data_category = $category ->category_config;
+		
+		//轮播图
+        $carousel = new Carousel;
+        $carousel -> initconfig();
+        $data_carousel = $carousel ->config;
 
         $data = $request ->all();
         $user = $data['user'];
@@ -144,7 +149,7 @@ class IndexController extends Controller
         if (empty($anchors)) { 
             return view('errors.found');
         }
-        return view('home.search',['category'=>$data_category,'data' => $anchors]);
+        return view('home.search',['category'=>$data_category,'data' => $anchors,'carousel' => $data_carousel]);
     }
 
 
