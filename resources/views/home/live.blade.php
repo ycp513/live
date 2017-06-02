@@ -292,9 +292,10 @@
         <script src="{{URL::asset('/home/sk/a.js')}}" type="text/javascript"></script>
         <script>
             (function(){
+                var user = "{{$users['username']}}";
                 var key='all',mkey;
                 var users={};
-                var url='ws://192.168.1.95:8000';
+                var url='ws://192.168.1.5:8000';
                 var so=false,n=false;
                 var lus=A.$('zx'),lct=A.$('ct');
                 function st(){
@@ -302,7 +303,7 @@
                     var Arr2 = ["大灰狼","小白兔","母老虎","外星人","皮卡丘","HelloKitty","吴亦凡","薛之谦"];
                     var ran1 = Math.floor(Math.random() * Arr1.length + 1)-1;
                     var ran2 = Math.floor(Math.random() * Arr2.length + 1)-1;
-                    var n=Arr1[ran1]+Arr2[ran2];
+                    var n='游客   '+Arr1[ran1]+Arr2[ran2];
                     //以上五行是用来随机生成用户昵称的方法，参考一下 ，如果想自定义用户名可以将以上五行注释，然后以下两行取消注释
                     //n=prompt('请给自己取一个霸气的名字：');
                     //n=n.substr(0,16);
@@ -313,7 +314,11 @@
                     so=new WebSocket(url);
                     so.onopen=function(){
                         if(so.readyState==1){
-                            so.send('type=add&ming='+n);
+                            if(user){
+                                so.send('type=add&ming='+user);
+                            }else{
+                                so.send('type=add&ming='+n);
+                            }
                         }
                     }
 

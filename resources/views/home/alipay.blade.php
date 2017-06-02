@@ -328,316 +328,11 @@
     <!-- - topbar-->
 </div>
 <script type="text/javascript">header({nav: false});</script>
-<div class="user-head">
-    <div class="user-head-inner">
-        <div class="user-avatar"><img src="{{URL::asset('/home/images/1.jpg')}}" class="avatar" />
-            <div class="mask"></div>
-            <div class="icon-noble noble-level-0"><span class="noble-num">0</span></div>
-        </div>
-        <div class="user-info">
-            <div class="info-title">
-                <h1 class="nick">{{$get_user->username}}</h1>
-            </div>
-            <div class="info-detail">
-                <div class="basic">
-                    <span>直播间ID：@if($live_rend != '') {{$live_rend}}  @else 暂无  @endif</span>
-                        <span class="icon-line"></span>
-                    <span>年度积分：@if("{{$point}}" >= '0') {{$point}} @else 0 @endif </span>
-                    <span class="icon-line"></span>
-                    <span>vip等级：@if("{{$get_user->user_vip}}" >= '0') {{$get_user->user_vip}} @else 0 @endif </span>
-                    </div>
-                <div class="tag">
-                    </div>
-            </div>
-        </div>
-        <div class="user-status">
-            <a href="javascript:void(0);" data-yy="" class="follow-btn"><i class="icon-add"></i>关注</a>
-                    </div>
-        <div class="user-head-tab">
-            <a href="#" class="panel fans-link">粉丝<span>@if("{{$get_user->fans}}" >= '0'){{ $get_user->fans}} @else 0 @endif</span></a>
-            <span class="icon-line"></span>
-            <a href="#" class="panel follows-link">关注<span>@if("{{$get_user->fans}}" >= '0'){{ $get_user->concem}} @else 0 @endif</span></a>
-        </div>
-    </div>
-</div>
-<div class="user-nav">
-    <ul>
-        <li><a data-toggle="tab" href="#tab-3" aria-expanded="true" class="wdqb active"><i class="icon-news"></i>我的钱包</a></li>
-        <li><a data-toggle="tab" href="#tab-2" aria-expanded="true" class="cwzb"><i class="icon-photo"></i>成为主播</a></li>
-        <li><a data-toggle="tab" href="#tab-4" aria-expanded="true" class="grxx"><i class="icon-photo"></i>个人信息</a></li>
-        <li><a data-toggle="tab" href="#tab-5" aria-expanded="true" class="zy"><i class="icon-photo"></i>修改密码</a></li>
-        <li><a data-toggle="tab" href="#tab-6" aria-expanded="true" class="cz"><i class="icon-photo"></i>充值</a></li>
-    </ul>
-</div>
-<!--+ body here-->
 <div class="wrapper">
-    <div class="tab-content">
-
-        <div id="tab-3" class="tab-pane active">
-            <div class="set-info">
-                <div class="my-account">
-                    <div class="column-1">
-                        <div class="total"><strong id="yyMoneyNum">@if("{{$get_user->balance}}" > '0'){{ $get_user->balance}} @else 0 @endif</strong><span>Y币</span>
-                        </div>
-                        <div class="tips">
-                            <i class="zong"></i>可消费余额总值
-                        </div>
-                    </div>
-                    <div class="column-2">
-                        <div class="roww" id="yb-row">
-                            <div class="total"><strong id="yyMoney">@if("{{$get_user->balance}}" > '0'){{ $get_user->balance}} @else 0 @endif</strong></div>
-                            <div class="tips">
-                                <i class="yb"></i>Y币
-                            </div>
-
-                        </div>
-                        <div class="roww" id="quan-row">
-                            <div class="total"><strong id="diamondQuan">@if("{{$get_anchor->commision}}" > '0'){{ $get_anchor->commision}} @else 0 @endif</strong></div>
-                            <div class="tips">
-                                <i class="hong"></i>佣金<a href="javascript:void(0);" class="btn" title="提现">提现</a>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
+        <div style="margin:0 auto;width: 250px;padding: 100px 0;">
+            <h2>支付成功</h2>
+            <p>你现在可以去:&nbsp;&nbsp;<a href="{{ URL::to('per/getshow')  }}" style="color:red;">个人中心</a>&nbsp;&nbsp;<a href="{{ URL::to('index/index') }}" style="color:red;">首页</a></p>
         </div>
-        @if("{{ $get_anchor->live_rend }}")
-            <div id="tab-2" class="tab-pane">
-                <div class="panel-body">
-                    <div class="form-horizontal"  >
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label ">封面：</label>
-                            <div class="col-sm-8">
-                                <img src="{{ URL::asset('/'.$get_anchor->anchor_img)  }}" width="100px;" height="100px">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label ">房间号：</label>
-                            <div class="col-sm-8">
-                                <span class="sp1">{{ $get_anchor->live_rend }}</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label ">直播分类：</label>
-                            <div class="col-sm-8">
-                                <span class="sp1">{{ $get_anchor->category_id }}</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label ">身份证号：</label>
-                            <div class="col-sm-8">
-                                <span class="sp1">{{ $get_anchor->number }}</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label ">提款账号：</label>
-                            <div class="col-sm-8">
-                                <span class="sp1">{{ $get_anchor->back_card }}</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        @else
-        <div id="tab-2" class="tab-pane">
-            <div class="panel-body">
-                <form class="form-horizontal" method="post" action="{{ URL::to('addAnchor') }}" enctype="multipart/form-data" >
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label ">身份证号：</label>
-                        <div class="col-sm-8">
-                            <input type="text"  name="number" class="form-control card">
-                            <span id="sp1"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">提款账号：</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="back_card"  class="form-control banknoInfo">
-                            <input type="hidden" name="user_id" value="{{$get_user->user_id}}"/>
-                            <span id="sp2"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">直播分类：</label>
-                        <div class="col-sm-8">
-                            <select class="form-control m-b live_type" name="classify">
-                                <option value="">--请选择--</option>
-                                @foreach($classify as $k=>$v)
-                                <option value="{{ $k }}">{{ $v }}</option>
-                                @endforeach
-                            </select>
-                            <span id="sp3"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">封面图片：</label>
-                        <div class="col-sm-8">
-                          <input type="file" tabindex="3" title="支持jpg、jpeg、gif、png格式，文件小于5M" size="3" name="myfile" class="filePrew">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-8">
-                            <input type="button" value="保存" class="btn btn-sm btn-info submit" style="background-color: #fd0;border-color: #fd0;margin-left: 220px;width: 135px;"/>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        @endif
-        <div id="tab-4" class="tab-pane">
-            <div class="panel-body">
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">用户名称：</label>
-                            <div class="col-sm-8">
-                                <input type="text" id="username" value="{{$get_user->username}}" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">手机号：</label>
-                            <div class="col-sm-8">
-                                <input type="text" id="regi_mobile" value="{{$get_user->telphone}}" class="form-control">
-                                <input type="hidden" id="ids" value="{{$get_user->user_id}}"/>
-                                <span id="sp4"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">验证码：</label>
-                            <div class="col-sm-8">
-                                <input class="form-control" style="width:440px;float: left;margin-right: 15px;" placeholder="请输入手机验证码" id="validatecode" type="text">
-                                <input class="form-control duanxin" style="width:100px; background: #f5f5f5 none repeat scroll 0 0;"  value="获取验证码" type="button">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-3 col-sm-8">
-                                <button class="btn btn-sm btn-info upbtn" style="background-color: #fd0;border-color: #fd0;margin-left: 220px;width: 135px;">保存</button>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        </div>
-        <div id="tab-5" class="tab-pane">
-            <div class="panel-body">
-                <div class="form-horizontal" >
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">旧密码：</label>
-                        <div class="col-sm-8">
-                            <input type="password" name="pwd" value="" class="form-control">
-                            <spn id="sp5"></spn>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">新密码：</label>
-                        <div class="col-sm-8">
-                            <input type="password" name="new_pwd" value="" class="form-control">
-                            <input type="hidden" name="user_id" value="{{$get_user->user_id}}"/>
-                            <spn id="sp6"></spn>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">再次输入新密码：</label>
-                        <div class="col-sm-8">
-                            <input type="password" name="new_pwd2" value="" class="form-control">
-                            <spn id="sp7"></spn>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-8">
-                            <button class="btn btn-sm btn-info uppwd" style="background-color: #fd0;border-color: #fd0;margin-left: 220px;width: 135px;">保存</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="tab-6" class="tab-pane">
-            <div class="col">
-                <div class="col-hd">
-                    <div class="tags">
-                        <a data-toggle="tab" href="#tab-7" aria-expanded="true" class="shenqu active" >Y币充值</a>
-                        <a data-toggle="tab" href="#tab-8" aria-expanded="true" class="duanpai" >vip充值</a>
-                    </div>
-                </div>
-                <div class="col-bd">
-                    <ul class="video-list tab-content">
-                        <li class="tab-pane active"  id="tab-7">
-                            <div class="panel-body">
-                                <form class="form-horizontal" method=get" action="recharge"  target="_blank">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">充值账号：</label>
-                                        <div class="col-sm-8">
-                                            <span class="sp1">{{ $get_user->username }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">充值金额：</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" maxlength="6" name="money" class="form-control money">
-                                            <input type="hidden" name="user_id" value="{{$get_user->user_id}}"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Y币充值数量：</label>
-                                        <div class="col-sm-8 sp1">
-                                            <strong class="dwamount"><span id="platDuoWanBNumId"></span></strong>
-                                            <span >Y币</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-8">
-                                            <button class="btn btn-sm btn-info top-up" style="background-color: #fd0;border-color: #fd0;margin-left: 220px;width: 135px;">提交</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-                        <li class="tab-pane"  id="tab-8">
-                            <div class="panel-body" >
-                                <form class="form-horizontal" method=get" action="vipRecharge"  target="_blank">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">充值账号：</label>
-                                        <div class="col-sm-8">
-                                            <span class="sp1">{{ $get_user->username }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">vip等级：</label>
-                                        <div class="col-sm-8">
-                                            <select name="viprank" id="rank">
-                                                <option value="">--请选择--</option>
-                                                @foreach($vip as $k=>$v)
-                                                    <option value="{{ $k }}">vip{{ $v }}</option>
-                                                @endforeach
-                                            </select>
-                                            <input type="hidden" name="user_id" value="{{$get_user->user_id}}"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">vip充值金额：</label>
-                                        <div class="col-sm-8 sp1">
-                                            <strong class="dwamount"><span id="vipnumber"></span></strong>
-                                            <span >元</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-8">
-                                            <button class="btn btn-sm btn-info top-up" style="background-color: #fd0;border-color: #fd0;margin-left: 220px;width: 135px;">提交</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </div>
 </div>
 <!-- + module bottom start -->
 <div class="w-foot">
@@ -660,8 +355,123 @@
 <script src="{{URL::asset('/home/js/jquery.min.js?v=2.1.4')}}"></script>
 <script src="{{URL::asset('/home/js/require-a7d9d42513.js')}}"></script>
 <script src="{{URL::asset('/home/js/userIndex-dc5663bb2e.js')}}" ></script>
-<script type="text/javascript" src="{{URL::asset('/home/js/news.js') }}"></script>
+<script>
+    $(function(){
+        $('.zy').on('click',function(){
+            $('.zbhf').removeClass('active');
+            $(this).addClass('active');
+            $('.wdqb').removeClass('active');
+            $('.grxx').removeClass('active');
+            $('.cwzb').removeClass('active');
+        })
+        $('.wdqb').on('click',function(){
+            $('.zbhf').removeClass('active');
+            $('.zy').removeClass('active');
+            $(this).addClass('active');
+            $('.grxx').removeClass('active');
+            $('.cwzb').removeClass('active');
+        })
+        $('.grxx').on('click',function(){
+            $('.zbhf').removeClass('active');
+            $('.zy').removeClass('active');
+            $('.wdqb').removeClass('active');
+            $('.cwzb').removeClass('active');
+            $(this).addClass('active');
+        })
+        $('.cwzb').on('click',function(){
+            $('.zbhf').removeClass('active');
+            $('.zy').removeClass('active');
+            $('.wdqb').removeClass('active');
+            $(this).addClass('active');
+            $('.grxx').removeClass('active');
+        })
 
+        //获取手机验证码
+        $('.duanxin').on('click',function(){
+            //获取手机ID
+            var iphone = $("#regi_mobile").val();
+            var username = $("#username").val();
+
+            $.ajax({
+                url:"{{ url('per/getSms') }}",
+                data:{iphone:iphone,username:username},
+                type:"GET",
+                dataType:"json",
+                success:function(msg){
+                    if(msg.stat   == '100'){
+                        alert(message+',请注意查收！');
+                    }else{
+                        alert(message);
+                    }
+
+                }
+            });
+        })
+        //保存修改
+        $('.upbtn').on('click',function(){
+            var validatecode = $('#validatecode').val();
+            var username = $('#username').val();
+            var regi_mobile = $('#regi_mobile').val();
+            var ids = $('#ids').val();
+
+            if(validatecode == ''){
+                alert('请输入手机验证码');
+                return;
+            }
+            $.ajax({
+                url:'getCode',
+                type:'GET',
+                data:{validatecode:validatecode},
+                success:function(e){
+                    if(e == '1'){
+                        $.ajax({
+                            url:'upUser',
+                            type:'GET',
+                            data:{username:username,regi_mobile:regi_mobile,ids:ids},
+                            success:function(e){
+                                if(e == 1){
+                                    alert('修改成功');
+                                }else{
+                                    alert('修改失败');
+                                }
+                            }
+                        })
+                    }else{
+                        alert(e);
+                    }
+                }
+            })
+        })
+
+        //修改密码
+        $('.uppwd').on('click',function(){
+            var pwd = $('[name=pwd]').val();
+            var new_pwd = $('[name=new_pwd]').val();
+            var new_pwd2 = $('[name=new_pwd2]').val();
+            var user_id = $('[name=user_id]').val();
+            $.ajax({
+                url:'updatePwd',
+                type:'GET',
+                data:{pwd:pwd,new_pwd:new_pwd,new_pwd2:new_pwd2,user_id:user_id},
+                dataType:'json',
+                success:function(e){
+                   if(e.errorcode == '1000'){
+                       alert(e.error);
+                   } else {
+                       alert(e.error);
+                   }
+                }
+            })
+        })
+
+        //充值
+        $('.money').on('keyup',function(){
+            var money = $('.money').val();
+            $('#platDuoWanBNumId').html(money);
+        })
+
+    })
+</script>
 </body>
 
 </html>

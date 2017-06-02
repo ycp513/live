@@ -7,16 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title> - 404 页面</title>
+    <title>YY LIVE-全民娱乐视频直播平台</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
 
     <link rel="shortcut icon" href="favicon.ico"> <link href="{{URL::asset('home/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('home/css/font-awesome.css')}}" rel="stylesheet">
 
-    <link rel="shortcut icon" href="favicon.ico">
-    <link href="{{URL::asset('home/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{URL::asset('home/css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{URL::asset('home/css/animate.css')}}" rel="stylesheet">
     <link href="{{URL::asset('home/css/style.css?v=4.1.0')}}" rel="stylesheet">
 
@@ -26,11 +23,9 @@
 
 
     <div class="middle-box text-center animated fadeInDown">
-        <h1>404</h1>
-        <h3 class="font-bold">页面未找到！</h3>
+        <h3 class="font-bold">未找到相关内容！</h3>
 
         <div class="error-desc">
-            抱歉，页面好像去火星了~
                 <a href="{{url('index/index')}}"><button class="btn btn-primary">返回首页</button></a>
         </div>
     </div>
