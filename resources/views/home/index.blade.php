@@ -621,39 +621,14 @@ function check_yan()
         	header({ current: '首页' });
         </script> 
  		<!-- + body here-->
-        <div class="wrapper" data-stat-eventid="10008897" data-stat-bak1="index">
+<div class="wrapper" data-stat-eventid="10008897" data-stat-bak1="index">
             <!-- 1001_1100 -->
  <div id="banner-bg"  data-bgcolor="">
 	<div id="banner-fg" class="banner-wrap">
-		<script>
-		 /*   header.onresize(function() {
-		        var $bannerFg = $('#banner-fg'),
-                    $bannerBg = $('#banner-bg'),
-                    imgFg = '',
-                    imgBg = '';
-                if (!$('html').hasClass('w960')) {
-                    imgFg = $bannerFg.attr('data-image1');
-                    imgBg = $bannerBg.attr('data-image1');
-                    // $bannerBg.css('height', '1024px');
-                } else {
-                    imgFg = $bannerFg.attr('data-image2');
-                    imgBg = $bannerBg.attr('data-image2');
-                    // $bannerBg.css('height', '824px');
-                }
-                $bannerFg.css('background-image', 'url(' + imgFg + ')');
-                
-                if (imgBg && $.trim(imgBg).length) {
-                	$bannerBg.css('background', "{{URL::asset('home/images/5b3cd445f4cc4d30ac95017ae99f7c80.gif')}}" ,'repeat-x');
-                } else {
-                    imgBg = $bannerBg.attr('data-bgcolor');
-                    $bannerBg.css('background', imgBg);
-                }
-		    });*/
-		</script>
+		
 
 		<div class="bg-link" data-stat-bak2="1001" data-stat-bak3="17" data-stat-name="首页静默直播模块">
-                   <!-- <a href="/c/9696520/index.htm" target="_blank" class="b-lft" data-stat-parm1="157" data-stat-act-type="17"></a>
-                    <a href="/c/9696520/index.htm" target="_blank" class="b-rgt" data-stat-parm1="157" data-stat-act-type="17"></a> -->
+                 
                 </div>
         <div class="banner-inner" data-tmpl-type="1001_1100">
             <div class="m">
