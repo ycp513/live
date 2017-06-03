@@ -94,6 +94,7 @@ class StudioController extends Controller
         $total_price =  ($giff_id * $giff_num);
         //直播id
         $live_id = 5;
+
         $redis = $this->dispatch(new RedisList( $user_id, $anchor_id, $giff_id, $giff_num, $total_price, $live_id));
         var_dump($redis);
     }
