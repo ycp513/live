@@ -2,13 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>{{$username}}--一棵葱直播</title>
     <link rel="shortcut icon" href="favicon.ico"> <link href="{{URL::asset('/home/css/bootstrap.min.css?v=3.3.6')}}" rel="stylesheet">
     <link href="{{URL::asset('/home/css/font-awesome.css?v=4.4.0')}}" rel="stylesheet">
 
     <link href="{{URL::asset('/home/css/animate.css')}}" rel="stylesheet">
     <link href="{{URL::asset('/home/css/style.css?v=4.1.0')}}" rel="stylesheet">
     <link href="{{URL::asset('/home/video/video-js.css')}}" rel="stylesheet" type="text/css">
+    <script>
+
+        document.oncontextmenu   =   ppMousedownOfRight;     //   for   IE5+
+        document.onkeydown = ppPressF5;
+
+        if (window.addEventListener) {
+            FixPrototypeForGecko();  //是Firefox
+        }
+        /**
+         * 在Firefox中获event
+         */
+        function FixPrototypeForGecko() {
+            window.constructor.prototype.__defineGetter__("event", window_prototype_get_event);
+        }
+
+        function window_prototype_get_event() {
+            return SearchEvent();
+        }
+        function SearchEvent() {
+            if (document.all)
+                return window.event;
+
+            func = SearchEvent.caller;
+
+            while (func != null) {
+                var arg0 = func.arguments[0];
+
+                if (arg0 instanceof Event) {
+                    return arg0;
+                }
+                func = func.caller;
+            }
+            return null;
+        }
+
+        //禁止用F5键
+        function ppPressF5(){
+            if(event.keyCode==116)
+            {
+                event.keyCode=0;
+                event.returnValue=false;
+                return   false;
+            }
+        }
+
+        //禁止右键弹出菜单
+        function  ppMousedownOfRight(){
+            event.cancelBubble   =   true
+            event.returnValue   =   false;
+            return   false;
+        }
+    </script>
 
     <script src="{{URL::asset('/home/video/video.js')}}"></script>
     <!-- 全局js -->
@@ -20,6 +72,7 @@
     <script>
         videojs.options.flash.swf = "{{URL::asset('/home/video/video-js.swf')}}";
     </script>
+
     <style>
         body,p{margin:0px; padding:0px; font-size:14px; color:#333; font-family:Arial, Helvetica, sans-serif;}
         #ltian,.rin{width:98%; margin:5px auto;}
@@ -211,17 +264,24 @@
                     <div id="tab-1" class="tab-pane active">
                         <div class="panel">
                             <ul>
-                                <li> 苞米地的秘密</li>
-                                <li> 苞米地之二狗子</li>
-                                <li> 苞米地之疯狗</li>
+                                <?php $number = 0;?>
+                                @foreach ($guard as $key => $val)
+                                    <?$number++?>
+                                    @if($number<=3)
+                                    <li>{{$key}}({{$val}})</li>
+                                    @endif
+                                @endforeach
                             </ul>
                             <div class="ibox-content">
                                 <ol>
-                                    <li><span >4.</span>   每个人都有一个死角</li>
-                                    <li><span >5.</span>   我把最深沉的</li>
-                                    <li><span >6.</span>   你不懂我。</li>
-                                    <li><span >7.</span>   有一道伤口</li>
-                                    <li><span >8.</span>   死角， 自己走不出来。</li>
+                                    <?php $num = 0;?>
+                                    @foreach ($guard as $key => $val)
+                                        <?$num++?>
+                                        @if($num > 3)
+                                            <li><span >{{$num}}.</span>{{$key}}({{$val}})</li>
+                                        @endif
+                                    @endforeach
+
                                 </ol>
                             </div>
                         </div>
@@ -230,38 +290,54 @@
                     <div id="tab-2" class="tab-pane">
                         <div class="panel">
                             <ul>
-                                <li> 夏鹏飞 <i class="fa fa-sun-o" >66666</i> </li>
-                                <li> 聂士杰 <i class="fa fa-sun-o">54671</i> </li>
-                                <li> 苞米地之疯狗 <i class="fa fa-sun-o"> 53125</i></li>
+                                <?php $number = 0;?>
+                                @foreach ($devote as $key => $val)
+                                    <?$number++?>
+                                    @if($number<=3)
+                                        <li>{{$key}}({{$val}})</li>
+                                    @endif
+                                @endforeach
                             </ul>
                             <div class="ibox-content">
                                 <ol>
-                                    <li><span >4.</span>   每个人都有一个死角</li>
-                                    <li><span >5.</span>   我把最深沉的</li>
-                                    <li><span >6.</span>   你不懂我。</li>
-                                    <li><span >7.</span>   有一道伤口</li>
-                                    <li><span >8.</span>   死角， 自己走不出来。</li>
+                                    <?php $num = 0;?>
+                                    @foreach ($devote as $key => $val)
+                                        <?$num++?>
+                                        @if($num > 3)
+                                            <li><span >{{$num}}.</span>{{$key}}({{$val}})</li>
+                                        @endif
+                                    @endforeach
+
                                 </ol>
                             </div>
                         </div>
+
                     </div>
                     <div id="tab-3" class="tab-pane">
                         <div class="panel">
                             <ul>
-                                <li> 张伯伦（V10）</li>
-                                <li> 闫朝沛(v8)</li>
-                                <li> 李洁(v7)</li>
+                                <?php $number = 0;?>
+                                @foreach ($vip as $key => $val)
+                                    <?$number++?>
+                                    @if($number<=3)
+                                        <li>{{$key}}({{$val}})</li>
+                                    @endif
+                                @endforeach
                             </ul>
                             <div class="ibox-content">
                                 <ol>
-                                    <li><span >4.</span>   每个人都有一个死角</li>
-                                    <li><span >5.</span>   我把最深沉的</li>
-                                    <li><span >6.</span>   你不懂我。</li>
-                                    <li><span >7.</span>   有一道伤口</li>
-                                    <li><span >8.</span>   死角， 自己走不出来。</li>
+                                    <?php $num = 0;?>
+                                    @foreach ($vip as $key => $val)
+                                        <?$num++?>
+                                        @if($num > 3)
+                                            <li><span >{{$num}}.</span>{{$key}}({{$val}})</li>
+                                        @endif
+                                    @endforeach
+
                                 </ol>
                             </div>
                         </div>
+
                     </div>
                     <div id="tab-4" class="tab-pane">
                         <div id="zx" style="background: #ffffff;height:210px;font-size: 18px;line-height:30px;padding-left: 18px;padding-top: 18px;">
@@ -295,7 +371,7 @@
                 var user = "{{$users['username']}}";
                 var key='all',mkey;
                 var users={};
-                var url='ws://192.168.1.5:8000';
+                var url='ws://192.168.1.5:8880';
                 var so=false,n=false;
                 var lus=A.$('zx'),lct=A.$('ct');
                 function st(){
@@ -322,10 +398,10 @@
                         }
                     }
 
-                    so.onclose=function(){
-                        so=false;
-                        lct.appendChild(A.$$('<p class="c2">退出聊天室</p>'));
-                    }
+//                    so.onclose=function(){
+//                        so=false;
+//                        lct.appendChild(A.$$('<p class="c2">退出聊天室</p>'));
+//                    }
 
                     so.onmessage=function(msg){
                         eval('var da='+msg.data);
@@ -348,7 +424,7 @@
                                     cuser(obj,da.users[i].code);
                                 }else{
                                     obj.className='my';
-                                    document.title=da.users[i].name;
+
                                 }
                             }
                             obj=A.$$('<p><span>['+da.time+']</span>欢迎'+da.name+'加入</p>');
@@ -359,6 +435,8 @@
 
                         if(obj==false){
                             if(da.type=='rmove'){
+                                var name = users[da.nrong].innerHTML;
+                                var anchor_id = "{{$user_id}}";
                                 var obj=A.$$('<p class="c2"><span>['+da.time+']</span>'+users[da.nrong].innerHTML+'退出聊天室</p>');
                                 var num = $('#num_people').text()
                                 $('#num_people').text(parseInt(num)-1);
@@ -366,7 +444,38 @@
                                 lct.appendChild(obj);
                                 users[da.nrong].del();
                                 delete users[da.nrong];
-                                //console.log(msg)
+                                var username = name.substr(0,2);
+                                if(username != '游客'){
+                                    $.ajax({
+                                        url  : '{{url('liveroom/change_vip')}}',
+                                        type : 'get',
+                                        data : {username:name,anchor_id:anchor_id},
+                                        dataType: 'json',
+                                        success:function(data){
+                                            if(data){
+                                                var num =  0;
+                                                var number =0;
+                                                var str = '<div class="panel"><ul>';
+                                                $.each(data,function(k,v){
+                                                    num ++;
+                                                    if(num <=3){
+                                                        str += '<li>'+k+'('+v+')</li>'
+                                                    }
+                                                })
+                                                str += '</ul><div class="ibox-content"><ol>'
+                                                $.each(data,function(k,v){
+                                                    number ++;
+                                                    if(number > 3&&number<=10){
+                                                        str += '<li><span >'+number+'</span>'+k+'('+v+')</li>'
+                                                    }
+                                                })
+                                                str += '</ol></div></div>';
+                                                $('#tab-3').html(str);
+                                            }
+
+                                        }
+                                    })
+                                }
                             }else{
                                 da.nrong=da.nrong.replace(/{\\(\d+)}/g,function(a,b){
                                     return '<img src="http://www.live.com/public/home/sk/'+b+'.jpg">';
@@ -556,12 +665,13 @@
 </body>
 <script>
     $(function(){
-        $('.panel').mouseover(function(){
-            $('.ibox-content').toggle();
+        $(document).on('mouseover','.panel',function(){
+            $('.ibox-content').show();
         })
-        $('.panel').mouseout(function(){
-            $('.ibox-content').toggle();
+        $(document).on('mouseout','.panel',function(){
+            $('.ibox-content').hide();
         })
     })
 </script>
+
 </html>
