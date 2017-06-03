@@ -1074,11 +1074,15 @@ function check_yan()
                 dataType:"json",
                 url:"register",
                 success:function(e){
-                    if(e){
-                         $('#loginWrap').toggle();
-                         $('.account-login-mask').toggle();
+                    if(e=='0'){
+                        alert('用户名已存在');
+                    }else if (e=='2'){
+                        alert('注册失败，请重试');
+                    }else{
+                        $('#loginWrap').toggle();
+                        $('.account-login-mask').toggle();
                         $('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i><span id="login_user">'+obj.username+'</span></a>');
-                                                                              
+
                     }
                 }
             })

@@ -70,6 +70,7 @@ class IndexController extends Controller
          if($select){
              //在线人数统计
              $key='user:'.date('Y-m-d');
+             //$key ='user:2017-05-10';
              Redis::setBit($key,$select[0]->user_id,1);
              $select = json_encode($select);
              $select = json_decode($select,true);
@@ -230,15 +231,26 @@ class IndexController extends Controller
        $password = md5($get['password']);
        $telephone = $get['telephone'];
        $reg_time = time();
+       $select = DB::select('select * from live_user where username=?  ',["$username"]);
+       if(!$select){
+           $insert = DB::insert('insert into live_user (username, password ,telphone,reg_time) values (?,?,?,?)', ["$username","$password",$telephone,$reg_time]);
+           if($insert){
+               $select = DB::select('select * from live_user where (username=? and telphone=?) and password = ?',["$username","$telephone","$password"]);
+               //在线人数统计
+               $key='user:'.date('Y-m-d');
+               Redis::setBit($key,$select[0]->user_id,1);
+               $select = json_encode($select);
+               $select = json_decode($select,true);
+               unset($select[0]['password']);
+               Session::set('username', $select);
+               return (json_encode($select));
+           }else{
+               return json_encode(2);
+           }
+       }else{
+           return json_encode(0);
+       }
 
-     $insert = DB::insert('insert into live_user (username, password ,telphone,reg_time) values (?,?,?,?)', ["$username","$password",$telephone,$reg_time]);
-        $arr = [];
-        $arr[] = $get;
-        //var_dump($arr);die;
-         if($insert){
-           Session::set('username', $arr);
-            return (json_encode($arr));
-         }
    }
    
 
