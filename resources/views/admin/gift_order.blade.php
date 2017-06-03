@@ -63,16 +63,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($data as $k => $v)
                                 <tr class="gradeX">
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
+                                   <th>{{$v->user_giff_id}}</th>
+                                   <th>{{$v->username}}</th>
+                                   <th>{{$v->anchor}}</th>
+                                   <th>{{$v->giftname}}</th>
+                                   <th>{{$v->total_price}}</th>
+                                   <th>{{$v->giff_num}}</th>
+                                    <th>{{$v->live_id}}</th>
                                   
                                 </tr>
-                               
+                               @endforeach
                               
                             </tbody>
                           

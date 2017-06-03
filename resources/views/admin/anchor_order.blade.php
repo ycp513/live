@@ -55,23 +55,21 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>用户名</th>
-                                  
                                     <th>充值佣金</th>
                                     <th>提现时间</th>
-                                    <th>操作</th>
+
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($data as $k => $v)
                                 <tr class="gradeX">
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                   <th>ID</th>
-                                  
-                                  
+                                   <th>{{$v->cash_id}}</th>
+                                   <th>{{$v->username}}</th>
+                                   <th>{{$v->commision}}</th>
+                                   <th>{{$v->addtime}}</th>
+
                                 </tr>
-                               
+                               @endforeach
                               
                             </tbody>
                           

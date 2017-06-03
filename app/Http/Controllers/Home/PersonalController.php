@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Home;
-
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
-
+use App\Http\Category;
+use App\Http\Carousel;
+use App\Http\Vip;
+use Log;
 
 class PersonalController extends Controller
 {
@@ -20,8 +22,26 @@ class PersonalController extends Controller
         $live_rend = $get_anchor->live_rend;
         $point = $get_user->point;
         $app_path = app_path();
-        $classify  = include $app_path.'/category.php';
-        return view('home.personal',['classify'=>$classify,'get_user'=>$get_user,'live_rend'=>$live_rend,'point'=>$point,'get_anchor'=>$get_anchor]);
+        //直播分类
+		$category = new Category;
+        $category -> initconfig();
+        $classify = $category ->category_config;
+
+        //vip等级
+		$vip_dj = new Vip;
+        $vip_dj -> initconfig();
+        $vip = $vip_dj ->vip_config;
+        foreach($classify as $k => $v){
+           if($k == $get_anchor->category_id){
+               $get_anchor->category_id = $v;
+           }
+        }
+		//轮播图
+        $carousel = new Carousel;
+        $carousel -> initconfig();
+        $data_carousel = $carousel ->config;
+
+        return view('home.personal',['carousel' => $data_carousel,'classify'=>$classify,'get_user'=>$get_user,'live_rend'=>$live_rend,'point'=>$point,'get_anchor'=>$get_anchor,'vip'=>$vip]);
     }
     //获取短信验证码
     public function getSms(){
@@ -29,29 +49,25 @@ class PersonalController extends Controller
         $username = $_GET['username'];
 
         $code=rand(1000,9999);
-        //session(['name'=>$code]);
-        Session::put('name',$code);
-        echo Session::get('name');
-        die;
+        Session::put("'".$code."'",$code);
+        return $code;
         $content='你好！'.$username.',您的验证码：'.$code.'。如非本人操作，可不用理会！【八维直播】';
 
         $url='http://api.sms.cn/sms/?ac=send&uid=ycp123&pwd=69253cce2d3f1c4cf3c786a48c1dcd71&mobile='.$iphone.'&content='.urlencode($content);
         $data=array();
         $method='GET';
         $res=$this->curlPost($url,$data,$method);
-        echo $res;
+        return $res;
 
     }
     //查询验证码是否存在
     public  function getCode(){
-       // $validatecode = $_GET['validatecode'];
-        $code = Session::get('X');
-        //var_dump($code);die;
-        echo $code;die;
+        $validatecode = $_GET['validatecode'];
+        $code = Session::get("'$validatecode'");
         if($validatecode == $code){
-            echo '1';
+            return '1';
         }else{
-            echo '2';
+            return '验证码输入错误';
         }
     }
     //修改用户信息
@@ -61,9 +77,9 @@ class PersonalController extends Controller
         $ids = Input::get('ids');
         $row = DB::table('live_user')->where('user_id',$ids)->update(['username'=>"$username",'telphone'=>"$regi_mobile"]);
         if($row){
-            echo '1';
+            return '1';
         }else{
-            echo '2';
+            return '2';
         }
     }
     //添加主播
@@ -75,7 +91,7 @@ class PersonalController extends Controller
         $classify = input::get('classify');
         $allowed_extensions = ["png", "jpg", "gif"];
         if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $allowed_extensions)) {
-            echo  'You may only upload png, jpg or gif';die;
+            return  'You may only upload png, jpg or gif';die;
         }
         $addtime=date("Ymd",time());
         $destinationPath = 'uploads/'.$addtime.'/'; //public 文件夹下面建 storage/uploads 文件夹
@@ -94,7 +110,7 @@ class PersonalController extends Controller
         if($arr){
             return redirect()->to('per/getShow');
         }else{
-            echo '添加失败';
+            return '添加失败';
         }
 
     }
@@ -134,11 +150,156 @@ class PersonalController extends Controller
                 ];
             }
         }
-        echo json_encode($resut);
+        return json_encode($resut);
+    }
+    //充值余额
+    public  function recharge(){
+        $user_id = input::get('user_id');
+        $money = input::get('money');
+
+        $orderSn = intval(date('Y')) - 2000 . strtoupper(dechex(date('m'))) . date('d') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(0, 99));
+
+        $arr = DB::table('live_order')->insert(['order_id'=>$orderSn,'user_id'=>$user_id,'price'=>$money,'type'=>'2','addtime'=>time(),'pay_type'=>'1']);
+        if($arr){
+            //创建支付订单
+            $alipay = app('alipay.web');
+            $alipay->setOutTradeNo($orderSn);
+            $alipay->setTotalFee($money);
+            $alipay->setSubject('Y币充值');
+            $alipay->setBody('狗子团队Y币充值');
+
+            $alipay->setQrPayMode('5'); //该设置为可选1-5，添加该参数设置，支持二维码支付。
+            // 跳转到支付页面。
+            return redirect()->to($alipay->getPayLink());
+        }else{
+            return '创建订单失败';
+        }
+
+
+    }
+    // 异步通知支付结果
+    public function AliPayNotify(){
+        /// 验证请求。
+        if (! app('alipay.web')->verify()) {
+            Log::notice('Alipay notify post data verification fail.', [
+                'data' => Request::instance()->getContent()
+            ]);
+            return 'fail';
+        }
+
+        // 判断通知类型。
+        switch (Input::get('trade_status')) {
+            case 'TRADE_SUCCESS':
+            case 'TRADE_FINISHED':
+                // TODO: 支付成功，取得订单号进行其它相关操作。
+                //修改表的支付状态
+                $out_trade_no = Input::get('out_trade_no');
+                $total_fee = Input::get('total_fee');
+                $info = DB::table('live_order')->where('order_id',$out_trade_no)->first();
+            if($info->type == '1'){
+                //获取vip等级
+                $app_path = app_path();
+                $vip  = include $app_path.'/vip.php';
+                if(array_key_exists($total_fee,$vip)){
+                    //查询出当前用户
+                    $user = DB::table('live_user')->where('user_id',$info->user_id)->first();
+                    $vip_endtime = $user->vip_endtime;
+                    //var_dump($vip_endtime);return;
+                    if($vip_endtime == '0'){
+                        //vip 第一次充值
+                        $time=time()+30*24*3600;
+                        DB::table('live_user')->where('user_id',$info->user_id)->update(['user_vip'=>$vip[$total_fee],'vip_endtime'=>$time]);
+                    }else if(time() > $vip_endtime){
+                        //vip 已经过期，续费
+                        $time=time()+30*24*3600;
+                        DB::table('live_user')->where('user_id',$info->user_id)->update(['user_vip'=>$vip[$total_fee],'vip_endtime'=>$time]);
+                    }else if(time() < $vip_endtime){
+                        //vip 续费
+                        $vip_endtime = $vip_endtime+30*24*3600;
+                        DB::table('live_user')->where('user_id',$info->user_id)->update(['user_vip'=>$vip[$total_fee],'vip_endtime'=>$vip_endtime]);
+                    }
+                }
+            }
+                    $arr = DB::table('live_order')->where('order_id',$out_trade_no)->update(['order_status'=>'1']);
+
+            Log::debug('Alipay notify post data verification success.', [
+                    'out_trade_no' => Input::get('out_trade_no'),
+                    'trade_no' => Input::get('trade_no'),
+                    'arr'=> $arr
+                ]);
+                break;
+        }
+
+        return 'success';
     }
 
+    // 同步通知支付结果
+    public function AliPayReturn(){
+        if (! app('alipay.web')->verify()) {
+            Log::info('Alipay return query data verification fail.');
+        }
+        //判断通知类型
+        switch (Input::get('trade_status')) {
+            case 'TRADE_SUCCESS':
+                //修改表的支付状态
+                $out_trade_no = Input::get('out_trade_no');
+                $total_fee = Input::get('total_fee');
+                $info = DB::table('live_order')->where('order_id',$out_trade_no)->first();
+                if($info->type == '1'){
+                    //获取vip等级
+                    $app_path = app_path();
+                    $vip  = include $app_path.'/vip.php';
+                    if(array_key_exists($total_fee,$vip)){
+                        //查询出当前用户
+                        $user = DB::table('live_user')->where('user_id',$info->user_id)->first();
+                        $vip_endtime = $user->vip_endtime;
+                        //var_dump($vip_endtime);return;
+                        if($vip_endtime == '0'){
+                            //vip 第一次充值
+                            $time=time()+30*24*3600;
+                            DB::table('live_user')->where('user_id',$info->user_id)->update(['user_vip'=>$vip[$total_fee],'vip_endtime'=>$time]);
+                        }else if(time() > $vip_endtime){
+                            //vip 已经过期，续费
+                            $time=time()+30*24*3600;
+                            DB::table('live_user')->where('user_id',$info->user_id)->update(['user_vip'=>$vip[$total_fee],'vip_endtime'=>$time]);
+                        }else if(time() < $vip_endtime){
+                            //vip 续费
+                            $vip_endtime = $vip_endtime+30*24*3600;
+                            DB::table('live_user')->where('user_id',$info->user_id)->update(['user_vip'=>$vip[$total_fee],'vip_endtime'=>$vip_endtime]);
+                        }
+                    }
+                }
+                $arr = DB::table('live_order')->where('order_id',$out_trade_no)->update(['order_status'=>'1']);
 
+                return view('home.alipay');
 
+            case 'TRADE_FINISHED':
+            break;
+        }
+    }
+
+    //vip充值
+    public  function vipRecharge(){
+        $user_id = input::get('user_id');
+        $viprank = input::get('viprank');
+        $orderSn = intval(date('Y')) - 2000 . strtoupper(dechex(date('m'))) . date('d') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(0, 99));
+
+        $arr = DB::table('live_order')->insert(['order_id'=>$orderSn,'user_id'=>$user_id,'price'=>$viprank,'type'=>'1','addtime'=>time(),'pay_type'=>'1']);
+        if($arr){
+            //创建支付订单
+            $alipay = app('alipay.web');
+            $alipay->setOutTradeNo($orderSn);
+            $alipay->setTotalFee($viprank);
+            $alipay->setSubject('vip充值');
+            $alipay->setBody('狗子团队vip充值');
+
+            $alipay->setQrPayMode('5'); //该设置为可选1-5，添加该参数设置，支持二维码支付。
+            // 跳转到支付页面。
+            return redirect()->to($alipay->getPayLink());
+        }else{
+            return '创建订单失败';
+        }
+    }
 
 
 

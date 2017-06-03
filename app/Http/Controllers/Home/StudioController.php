@@ -47,12 +47,7 @@ class StudioController extends Controller
                 $author['user_img'] = $value -> anchor_img;
             }
         } else { 
-//            $url = trim($_SERVER['SCRIPT_NAME'],'index.php');
-//            $url = $_SERVER['HTTP_HOST'].$url.'index/index';
-//            var_dump($url);return;
-//            echo '<script>alert("未找到相关信息,将返回首页");</script>';
-//            $arr_url = array('url'=>"{{url('index/index')}}",'urlname'=>'返回首页');
-            return view('errors.404');
+            return view('errors.found');
         }
         /* = [
             'id' => 'test',
@@ -60,7 +55,6 @@ class StudioController extends Controller
             'user_id' => '1',
             'user_img' => '1.jpg',
         ];*/
-        //var_dump($author);die;
    		return view('home.live',$author);
    	}
 
