@@ -12,6 +12,7 @@ use Gregwar\Captcha\CaptchaBuilder;
 use Session;
 use Illuminate\Support\Facades\Redis;
 use App\Lijie\message;
+use DB;
 
 
 class IndexController extends Controller
@@ -237,8 +238,8 @@ class IndexController extends Controller
         $arr = [];
         $arr[] = $get;
          if($insert){
-           Session::set('username', $arr);
-            return (json_encode($arr));
+             Session::set('username', $arr);
+             return (json_encode($arr));
          }
    }
    
