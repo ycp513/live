@@ -152,7 +152,7 @@ var stat = {
             <script type="text/tmpl" id="wHeadTplLogout">
             <div class="w-head-nologin">
                 <div class="w-head-info-nologin ">
-                    <a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="13" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i>登录</a>
+                     <a href="javascript:;" class="s1 login_block" rel="nofollow"><i class="icon-people"></i>登录</a>
                 </div>
                 <div class="w-head-menu-cnt w-head-drag w-head-focus-drag" style="left:-90px;top:46px;">
                 <i class="w-head-drag-tri"></i>
@@ -204,7 +204,7 @@ var stat = {
     <a href="javascript: void(0);" class="close"></a> <iframe id="thirdpartyLoginFrame" src="" scrolling="no" allowtransparency="true" frameborder="0"></iframe> 
 </div>
 
-<div id="loginWrap" class="login-box"><button style="float:right" id="close">X</button>
+<div id="loginWrap" class="login-box" style="height:480px;"><button style=" float: right;height: 20px;margin-right: 5px; margin-top: 5px; width: 20px;" id="close">X</button>
  <div class="login">
         <div class="login-main">
             <div class="login-hd"><a href="javascript:void(0);" id="login-btn" class="tab-btn active" rel="nofollow">登录</a><a href="javascript:void(0);" id="register-btn" class="tab-btn" rel="nofollow">注册</a><i id="line" class="line"></i></div>
@@ -218,16 +218,16 @@ var stat = {
                                 <table cellspacing="0" cellpadding="0" border="0">
                                     <tr>
                                        <td>
-                                             <input  placeholder="帐号\邮箱\YY号\手机号" type="text" style="width:300px;height:40px;margin-bottom:20px" id="account" ?>
+                                             <input  placeholder="&nbsp;&nbsp;帐号\邮箱\手机号" type="text" class='input_style' style ="margin-bottom:20px;" id="account">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><input  placeholder="密码" type="password" style="width:300px;height:40px;margin-bottom:20px" id="passwords"></td>
+                                        <td><input  placeholder="&nbsp;&nbsp;密码" type="password" class='input_style' id="passwords"></td>
                                     </tr>
                                     <tbody class="tbody"></tbody>
                                     <tr>
                                         <td>
-                                            <a href="javascript:;" id="login_do">登录</a>
+                                            <a href="javascript:;" class="reg_btn" id="login_do">登录</a>
                                        </td>
                                     </tr>
                                 </table>
@@ -238,74 +238,47 @@ var stat = {
 
                 <div class="register" style="display:none">
 
-<script>
-   $('#login_do').click(function(){
-       var account = $('#account').val(); //alert(account);
-       var password = $('#passwords').val();
-       if(account!='' && password!=''){
-           $.ajax({
-               data:{account:account,password:password},
-               dataType:"json",
-               type:"get",
-               url:"login",
-               success:function(e){
-                  if(e==2){
-                      var str ='<tr><td><strong>用户名或密码错误请重新登录</strong></td></tr>'
-                      $('.tbody').html(str);
-                  }else{
-                      $('#loginWrap').toggle();
-                      $('.account-login-mask').toggle();
-                      $.each(e,function(i,v){
-                          $('.s1').html('<i class="icon-people"></i><span id="login_user">'+v.username+'</span>');
-                      })
-                  }
-               }
-           })
-       }
-   })
-   $(document).on('mouseover','#login_user',function(){
-       $('.w-head-nologin').removeClass().addClass('w-head-nologin current');
 
-   })
-   $(document).on('mouseleave','.w-head-menu-cnt',function(){
 
-       $('.w-head-nologin').removeClass().addClass('w-head-nologin');
-   })
-</script>
-
-             <table >
-            <tr>
-                <td><input type="hidden" name="_token" value="<?php echo csrf_token();  ?>"><input type="text" name="username" id="username" placeholder="您的账户名和登录名" onblur="checkName()" style="width:260px;height:40px;margin-bottom:10px">  <span id="user"></span>    
+             <table>
+            <tr class="yan_tr">
+                <td><input type="hidden" name="_token" value="<?php echo csrf_token();  ?>"><input type="text" name="username" id="username" placeholder="&nbsp;&nbsp;您的账户名和登录名" class='input_style' style="margin-top:10px;" >  <span class="yan_sp" id="user"></span>    
                 </td>       
             </tr>
-            <tr>
-                <td><input type="password" name="password" id="set" placeholder="密码：建议至少两种字符组合" onkeyup="valid_pass()" style="width:260px;height:40px;margin-bottom:10px"><span id="password"></span></td>
+            <tr class="yan_tr">
+                <td><input type="password" name="password" id="set" placeholder="&nbsp;&nbsp;密码：建议至少两种字符组合" class='input_style'><span class="yan_sp" id="password"></span></td>
             </tr>
-            <tr>
-                <td><input type="password" name="pwd" id="reset" onblur="que()" placeholder="请再次输入密码" style="width:260px;height:40px;margin-bottom:10px"><span id="pwd"></span></td>
+            <tr class="yan_tr">
+                <td><input type="password" name="pwd" id="reset" placeholder="&nbsp;&nbsp;请再次输入密码" class='input_style'><span class="yan_sp" id="pwd"></span></td>
             </tr>
-            <tr>
-                <td><input type="text" name="telephone" onblur="confirm_tel()" id="telephone" placeholder="建议使用常用手机" style="width:260px;height:40px;margin-bottom:10px"><span id="tel"></span></td>
+            <tr class="yan_tr">
+                <td><input type="text" name="telephone" id="telephone" placeholder="&nbsp;&nbsp;建议使用常用手机" class='input_style'><span class="yan_sp" id="tel"></span></td>
             </tr>
-            <tr>
+            <tr class="yan_tr">
                 <td>
-            <input type="text" name="captcha" onblur="check_yan()" placeholder="请输入验证码" style="width:260px;height:40px;margin-bottom:10px"><span id="aa"></span>
-            <a onclick="JavaScript:re_captcha();" >
-                <img src="verify/1" alt="验证码" title="刷新图片" width="100" height="40" id="verify" border="0">
-            </a>
+					<input type="text" name="captcha" placeholder="&nbsp;&nbsp;请输入验证码" class='input_style'>
+					
+					<a id="re_captcha" >
+						<img src="verify/1" alt="验证码" title="刷新图片" width="100" height="40" id="verify" border="0">
+					</a>
                 </td>
             </tr>
-            <tr>
-                <td><input type="text" name="tel_yan" placeholder="请输入手机验证码
-                " style="width:260px;height:40px;margin-bottom:10px" id="confirm" onblur="message()"><span id="yan"></span>
-            <input type="button" style="height:32px;width:70px;" value="发送" onclick="sendCode(this)" />
+			<tr>
+				<td><span class="yan_sp" id="aa"></span></td>
+			</tr>
+            <tr class="yan_tr">
+                <td>
+					<input type="text" name="tel_yan" placeholder="&nbsp;&nbsp;请输入手机验证码
+					" class='input_style' id="confirm">
+					<input type="button" style="font-size: 12px;height:32px;width:70px;" value="获取验证码" onclick="sendCode(this)" />
+					<span class="yan_sp" id="yan"></span>
                 </td>
             </tr>
             <tr>
                 <td colspan="2"><input type="checkbox">阅读并同意<a href="" style='text-decoration:none;'> 《直播协议》&nbsp;</a><a href="" style='text-decoration:none;'> 《隐私注册》 </a></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="button" value="立即注册" style="background-color:red;height:32px;width:200px;border:0" id="submit" onclick="mySubmit()"></td>
+                <td colspan="2"><input type="button" value="立即注册" class="reg_btn" id="submit"></td>
             </tr>
         </table>
 
@@ -322,239 +295,7 @@ var stat = {
                 </div>
             </div>
         </div>
-<script>
 
-$(document).on('click','#close',function(){
-    $('#loginWrap').toggle();
-    $('.account-login-mask').toggle();
-
-})
-
-
-       
-    var obj = Object();
- 
-           $('#register-btn').click(function(){
-               // alert(1);
-                 $('.yin').hide();
-                 $('.register').show();
-           })
-
-           $('#login-btn').click(function(){
-                $('.yin').show();
-                $('.register').hide();
-           })
-
-
-
-    function re_captcha() {
-       $url = "verify";
-       $url = $url + "/" + Math.random();
-       document.getElementById('verify').src=$url;
-    }
-///////////////////////////////////用户名////////////////////////////////////////
-  function checkName()
-  {
-    obj['username'] = $('#username').val();
-    if(username!=''){
-        $.ajax({
-            data:obj,
-            dataType:"json",
-            type:"get",
-            url:"checkName",
-            success:function(e){
-                 if(e==1){
-                    $('#user').html('该用户已存在');
-                    flag = false;
-                 }else{
-                    $('#user').html('');
-                    flag = true;
-                 }
-
-            }
-        })
-    }
-  }
-
-/////////////////////////////////////////验证码、/////////////////////////////////////////
-   flag=false;
-function check_yan()
-{
-      var captcha=document.getElementsByName('captcha')[0].value;
-      if(yan!=''){
-          $.ajax({
-            data:{captcha:captcha},
-            dataType:"json",
-            type:"get",
-            url:"getCode",
-            success:function(e){
-                if(e==0){
-                    $('#aa').html('错');
-                    flag = false;
-                }else{
-                    $('#aa').html('对');
-                    flag = true;
-                }          
-            }
-          })
-      }
-}
-
-//////////////////////////////密码、、////////////////////////////////////
-    function valid_pass() 
-    {  
-        var str = $('#set').val(); 
-        obj['password'] = str;
-        var reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
-      
-      if (str == null || str.length < 6) {        
-             $('#password').html("密码至少含有6个字符");  
-                flag =  false;
-       }else{
-            if (reg.test(str)!=0){
-               $('#password').html("对"); 
-                flag =  true;
-            }else{
-                $('#password').html("密码由字母和数字组成"); 
-                flag =  false;
-            }
-                                      
-            if(str.length>20) {  
-               $('#password').html("密码最多含有20个字符");  
-                flag = false;  
-            }  
-       }
-     
-            return flag; 
-    }      
-
-////////////////////////////确认密码、、、、、、、、、、、///////////////////////
-   function que()
-   {
-      var pwd=$('#reset').val();
-      var password=$('#set').val();
-        if(password!=''&&pwd==password&&pwd!=''){
-             $('#pwd').html('对');
-             falg = true;
-        }else if(password==''&&pwd==''){
-               $('#pwd').html('');
-            flag = false;
-        }else{
-             $('#pwd').html('密码不一致');
-             flag = false;
-        }
-   }
-  
-//////////////////////////手机号、、、、、、////////////////////////////////////
-  function confirm_tel()
-  {
-    var telephone= $('#telephone').val();    //alert(telephone);
-    obj['telephone'] =  telephone;
-    var reg=/^0?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$/;
-     if(telephone!=''){
-          if(reg.test(telephone)==1){        
-               $.ajax({
-                   data:obj,
-                   dataType:"json",
-                   type:"get",
-                   url:"telCheck",
-                   success:function(e){
-                     if(e==1){
-                           $('#tel').html('対'); 
-                           falg = true; 
-                       }else{
-                           $('#tel').css('color','red').html('该账号已被占用');
-                       }
-                   }
-               })
-          }else{
-              $('#tel').html('格式有误');
-              flag = false;
-          }
-    }
-  }
-
-/////////////////////////////////手机验证码////////////////////////////////////
- 
-///////////////////////////1. 发送短信////////////////////////////////////////
-
-
-///////////////////////////2.验证短信验证码  ////////////////////////////////////////////
-    function message()
-    {     
-     var message =$('#confirm').val();
-      //alert(message);
-     if(message!=''){
-       $.ajax({
-                data:obj,
-                type:"get",
-                dataType:"json",
-                url:"message",
-                success:function(e){
-                    if(e==1){
-                       $('#yan').html('对');
-                    }else{
-                       $('#yan').html('错');
-                    }
-                }
-            })
-       }
-    }
-
-/////////////////////////////////表单提交 、、、、、、、、、、////////////////
-  
-
- 
-
-
-//////////////////////////////////////////////////////////////////////////////////////
-//发送验证码给手机 
- var clock = '';
- var nums = 60;
- var btn;
-     function sendCode(thisBtn)
-     { 
-         btn = thisBtn;
-         btn.disabled = true; //将按钮置为不可点击
-         btn.value = '等待'+nums+'秒';
-         clock = setInterval(doLoop, 1000); //一秒执行一次
-         
-
-         var telephone = $('#telephone').val();
-         alert(telephone);
-         $.ajax({
-             data:{telephone:telephone},
-             dataType:"json",
-             type:"get",
-             url:"sendTemplate",
-             success:function(e){
-                 if(e==1){
-                    $('#yan').html('发送成功');
-                    //flag = true;
-                 }else{
-                    $('#yan').html('发送失败');
-                    //falg = false;
-                 }
-             }
-         })
-    }
-
-     function doLoop()
-     {
-         nums--;
-         if(nums > 0){
-          btn.value ='等待'+nums+'秒';
-         }else{
-          clearInterval(clock); //清除js定时器
-          btn.disabled = false;
-          btn.value = '点击发送验证码';
-          nums = 60; //重置时间
-         }
-     }
-
-
-
-        </script>
         <div class="login-sidebar">
             <div class="title"> 第三方帐号登录</div>
             <div class="other-login"><a href="javascript:void(0);" class="qqlogin">QQ帐号登录</a>
@@ -568,42 +309,9 @@ function check_yan()
     
 </div>
 <!-- - login-box-->
-<script>
-    
-     function mySubmit(){ 
 
-        if(falg==false){
-            return false;
-        }else{
-            $.ajax({
-                data:obj,
-                type:"get",
-                dataType:"json",
-                url:"register",
-                success:function(e){
-                    if(e){
-                         $('#loginWrap').toggle();
-                         $('.account-login-mask').toggle();
-                        $('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i><span id="login_user">'+obj.username+'</span></a>');
-                                                                              
-                    }
-                }
-            })
-
-        }     
-    }  
-
-
-
-
-
-</script>
 </div>
-<!-- - login-box-->
-<!-- + login-box-mask-->
-<div class="account-login-mask"></div>
-<!-- - login-box-mask-->
-<!-- - head-->
+
 
 
 <script>
@@ -691,5 +399,5 @@ function check_yan()
                 </div>
             </div>
 </div>
-
+<script type="text/javascript" src="{{URL::asset('/home/js/news.js') }}"></script>
 </html>
