@@ -64,7 +64,6 @@ class IndexController extends Controller
     {
          $account = $request->get('account');
          $password = $request->get('password');
-         //echo "$account"," $password";
          $password = md5($password);
          $select = DB::select('select * from live_user where (username=? or telphone=?) and password = ?',["$account","$account","$password"]);
          //var_dump($select);die;
@@ -229,7 +228,6 @@ class IndexController extends Controller
    public function register(Request $request)
    {
        $get = $request->input();
-       //var_dump($get);die;
        $username = $get['username'];
        $password = md5($get['password']);
        $telephone = $get['telephone'];
@@ -238,7 +236,6 @@ class IndexController extends Controller
      $insert = DB::insert('insert into live_user (username, password ,telphone,reg_time) values (?,?,?,?)', ["$username","$password",$telephone,$reg_time]);
         $arr = [];
         $arr[] = $get;
-        //var_dump($arr);die;
          if($insert){
            Session::set('username', $arr);
             return (json_encode($arr));
