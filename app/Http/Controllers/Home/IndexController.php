@@ -12,7 +12,7 @@ use Gregwar\Captcha\CaptchaBuilder;
 use Session;
 use Illuminate\Support\Facades\Redis;
 use App\Lijie\message;
-use DB;
+
 
 
 class IndexController extends Controller
