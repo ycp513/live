@@ -40,8 +40,15 @@ class PersonalController extends Controller
         $carousel = new Carousel;
         $carousel -> initconfig();
         $data_carousel = $carousel ->config;
+		
+		//session
+		$user = Session::get('username');
+		$use = json_encode($user);
+		$arr_user = json_decode($use,true); 
+		$arr_user = array_reverse($arr_user,true);
 
-        return view('home.personal',['carousel' => $data_carousel,'classify'=>$classify,'get_user'=>$get_user,'live_rend'=>$live_rend,'point'=>$point,'get_anchor'=>$get_anchor,'vip'=>$vip]);
+
+        return view('home.personal',['carousel' => $data_carousel,'classify'=>$classify,'get_user'=>$get_user,'live_rend'=>$live_rend,'point'=>$point,'get_anchor'=>$get_anchor,'vip'=>$vip,'user' =>  $arr_user[0]]);
     }
     //获取短信验证码
     public function getSms(){

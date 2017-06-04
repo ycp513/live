@@ -293,7 +293,7 @@
 		var flag_pwd2;
 		var flag_tel;
 		var flag_verify;
-		var flag_tyan;
+		//var flag_tyan;
 		//验整用户
 		$('#username').on('blur',function(){
 			var username = $('#username').val();
@@ -438,7 +438,7 @@
 		
 			
 		//提交数据
-		$('#submit').on('click',function(){
+		$('.reg_btn').on('click',function(){
 			var username = $('#username').val();
 			var password = $('#set').val();
 			var telephone= $('#telephone').val();
@@ -449,10 +449,13 @@
 					dataType:"json",
 					url:"register",
 					success:function(e){
-						if(e){
-							 $('#loginWrap').toggle();
-							$('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i><span id="login_user">'+obj.username+'</span></a>');
-																				  
+						if(e == '0'){
+							$('#user').html('账号已存在!');					  
+						}else if(e == '2'){
+							$('#user').html('账号注册失败!');		
+						}else{
+							$('#loginWrap').toggle();
+							$('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i><span id="login_user">'+username+'</span></a>');
 						}
 					}
 				})
