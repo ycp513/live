@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use App\Http\Category;
+use App\Http\Carousel;
+use App\Http\Vip;
 use Log;
 
 class PersonalController extends Controller
@@ -20,16 +23,32 @@ class PersonalController extends Controller
         $point = $get_user->point;
         $app_path = app_path();
         //直播分类
-        $classify  = include $app_path.'/category.php';
+		$category = new Category;
+        $category -> initconfig();
+        $classify = $category ->category_config;
 
         //vip等级
-        $vip  = include $app_path.'/vip.php';
+		$vip_dj = new Vip;
+        $vip_dj -> initconfig();
+        $vip = $vip_dj ->vip_config;
         foreach($classify as $k => $v){
            if($k == $get_anchor->category_id){
                $get_anchor->category_id = $v;
            }
         }
-        return view('home.personal',['classify'=>$classify,'get_user'=>$get_user,'live_rend'=>$live_rend,'point'=>$point,'get_anchor'=>$get_anchor,'vip'=>$vip]);
+		//轮播图
+        $carousel = new Carousel;
+        $carousel -> initconfig();
+        $data_carousel = $carousel ->config;
+		
+		//session
+		$user = Session::get('username');
+		$use = json_encode($user);
+		$arr_user = json_decode($use,true); 
+		$arr_user = array_reverse($arr_user,true);
+
+
+        return view('home.personal',['carousel' => $data_carousel,'classify'=>$classify,'get_user'=>$get_user,'live_rend'=>$live_rend,'point'=>$point,'get_anchor'=>$get_anchor,'vip'=>$vip,'user' =>  $arr_user[0]]);
     }
     //获取短信验证码
     public function getSms(){

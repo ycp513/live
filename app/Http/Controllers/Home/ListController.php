@@ -39,8 +39,13 @@ class ListController extends Controller
 	        -> where('category_id','=',$id)
 	        -> orderBy('fans', 'desc')
 	        -> get();
+		//session
+		$user = Session::get('username');
+		$use = json_encode($user);
+		$arr_user = json_decode($use,true); 
+		$arr_user = array_reverse($arr_user,true);
 
 	    //渲染页面、传输数据
-    	return view('home.list',['data' => $anchors ,'carousel' => $data_carousel,'category' => $data_category ,'id' => $id]);
+    	return view('home.list',['data' => $anchors ,'carousel' => $data_carousel,'category' => $data_category ,'id' => $id,'user' =>  $arr_user[0]]);
     }
 }
