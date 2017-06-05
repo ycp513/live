@@ -664,7 +664,7 @@ var stat = {
         $(function(){
            var a ="<?php if(!empty($user)){ echo $user['username'];} ?>";
             if(a!=''){
-                $('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i><span id="login_user">'+a+'</span></a>');
+                $('.w-head-info-nologin').html('<a href="javascript:;" yy-on="" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i><span id="login_user">'+a+'</span></a>');
             }
        })
 </script>
