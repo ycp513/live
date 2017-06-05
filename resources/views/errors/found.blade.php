@@ -22,7 +22,7 @@
 <body class="gray-bg">
 
 
-    <div class="middle-box text-center animated fadeInDown">
+    <div class="middle-box text-center animated fadeInDown" style="margin-top:150px">
         <h3 class="font-bold">未找到相关内容！</h3>
 
         <div class="error-desc">

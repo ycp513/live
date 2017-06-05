@@ -15,11 +15,6 @@ class AdminController extends Controller
 
    public function AdminShow()
     {
-////         //echo phpinfo();return;
-//        $key='user:2017-05-29';
-//        $key1='user:2017-05-30';
-//        var_dump(Redis::bitCount($key));
-//        var_dump(Redis::bitCount($key1));
     	 if(empty(Session::get('user')))
     	  {
      	  	return redirect()->action('Admin\LoginController@login');
@@ -34,7 +29,52 @@ class AdminController extends Controller
     {
         $data['register'] = DB::table('live_user')->count();
         $data['direct'] = DB::table('live_live')->count();
-    	return view('admin.graph_metrics',['data'=>$data]);
+        //统计现在在线人数
+        $key = 'user:'.date('Y-m-d');
+        $dataList[1] = Redis::bitcount($key);
+        //统计最近七天活跃量
+        $weekStart = strtotime('-7 day');
+        $weekEnd = time();
+        for($i = $weekStart; $i<=$weekEnd ; $i += 86400) {
+            if( Redis::get('destKey7')) {
+                Redis::bitop('OR', 'destKey7', 'destKey7', 'user:'.date('Y-m-d', $i));
+            }
+            else {
+                Redis::set('destKey7',  Redis::get('user:'.date('Y-m-d', $i)));
+            }
+        }
+        //统计最近三十天活跃量
+        $monthStart = strtotime('-30 day');
+        $monthEnd = time();
+        for($i = $monthStart; $i<=$monthEnd ; $i += 86400) {
+            if( Redis::get('destKey30')) {
+                Redis::bitop('OR', 'destKey30', 'destKey30', 'user:'.date('Y-m-d', $i));
+            }
+            else {
+                Redis::set('destKey30',  Redis::get('user:'.date('Y-m-d', $i)));
+            }
+        }
+        $dataList[2] = Redis::bitcount('destKey7');
+        $dataList[3] = Redis::bitcount('destKey30');
+    	return view('admin.graph_metrics',['data'=>$data,'dataList'=>$dataList]);
+    }
+    //折线图
+    public  function  Broken_Line(){
+        $weekStart = strtotime('-7 day');
+        $monthStart = strtotime('-29 day');
+        $weekEnd = time();
+        for($i = $weekStart; $i<=$weekEnd ; $i += 86400) {
+            $data['msg'][] =  Redis::bitcount( 'user:'.date('Y-m-d', $i));
+        }
+        //最近三十天折线图
+        for($i = $monthStart; $i<=$weekEnd ; $i += 86400) {
+           $yue[] =  Redis::bitcount( 'user:'.date('Y-m-d', $i));
+        }
+       $count = array_chunk($yue,5);
+        foreach($count as $k => $v){
+          $data['count'][] = array_sum($v);
+        }
+        return $data;
     }
    //主页
     public function Empty_Page()
