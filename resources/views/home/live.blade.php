@@ -552,7 +552,9 @@
             })();
         </script>
     </div>
-    <div class="gift-div"></div>
+    <div class="gift-div">
+        
+    </div>
 </body>
 <script>
     $(function(){
