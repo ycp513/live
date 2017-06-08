@@ -29,9 +29,9 @@ class StudioController extends Controller
             $this->ranking_vip($user_id,$users[0]['user_id'],$time);
             $users[0]['username'] .= '-'.$time;
             $author['users'] = $users[0];
-
         }else{
             $author['users']['username'] = '';
+            $author['users']['balance'] = '';
         }
         //查询vip等级
         $vipkey = 'vip'.$user_id;
@@ -64,12 +64,17 @@ class StudioController extends Controller
           -> join('live_user', 'live_anchor.user_id', '=', 'live_user.user_id')
           -> where('live_anchor.user_id','=',$user_id)
           -> get();
+        $giff = DB::table('live_gift')
+            /*->select('gift_id, giftname, price, img_path')*/
+            ->get();
         if ($anchors) {
             foreach ($anchors as $key => $value) {
                 $author['id'] = $value -> live_rend;
                 $author['username'] = $value -> username;
                 $author['user_id'] = $value -> user_id;
                 $author['user_img'] = $value -> anchor_img;
+                //$author['balance'] = $value->balance;
+                $author['gift'] = json_decode(json_encode($giff),true);
             }
         } else { 
             return view('errors.found');
@@ -83,20 +88,20 @@ class StudioController extends Controller
     public function sendGiff()
     {
         //用户id
-        $user_id = 1;
+        $user = Session::get('username');
+        $user_id = $user[0]['user_id'];
         //主播ID
-        $anchor_id = 3;
+        $anchor_id = Input::get('anchor_id');
         //礼物id
-        $giff_id = 4;
+        $giff_id = Input::get('giff_id');
         //礼物数量
-        $giff_num = 5;
+        $giff_num = Input::get('giff_num');
         //礼物价格
-        $total_price =  ($giff_id * $giff_num);
+        $total_price =  ($giff_num * Input::get('giff_price'));
         //直播id
-        $live_id = 5;
-
+        $live_id = Input::get('id');
+        //礼物队列入库
         $redis = $this->dispatch(new RedisList( $user_id, $anchor_id, $giff_id, $giff_num, $total_price, $live_id));
-        var_dump($redis);
     }
 /////////////////////////////////////////////////////////////排行榜数据//////////////////////////////////////////////
     //主播贡献榜

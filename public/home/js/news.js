@@ -438,7 +438,7 @@
 		
 			
 		//提交数据
-		$('.reg_btn').on('click',function(){
+		$('#submit').on('click',function(){
 			var username = $('#username').val();
 			var password = $('#set').val();
 			var telephone= $('#telephone').val();

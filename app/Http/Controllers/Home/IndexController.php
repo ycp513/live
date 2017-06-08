@@ -12,10 +12,6 @@ use Gregwar\Captcha\CaptchaBuilder;
 use Session;
 use Illuminate\Support\Facades\Redis;
 use App\Lijie\message;
-<<<<<<< HEAD
-=======
-
->>>>>>> 86137eaf437b0f4dec4faee49db434a4c021ea45
 
 
 class IndexController extends Controller

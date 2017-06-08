@@ -40,5 +40,8 @@ class RedisList extends Job implements ShouldQueue
     public function handle()
     {
         DB::insert('insert into user_giff(user_giff_id, user_id, anchor_id, giff_id, giff_num, total_price, live_id) values (?, ?, ?, ?, ?, ?, ?)', [null, $this->user_id, $this->anchor_id, $this->giff_id, $this->giff_num, $this->total_price, $this->live_id]);
+        DB::update("update live_user set balance = (balance-$this->total_price) where user_id = $this->user_id");
+        DB::update("update live_user set point = (point+$this->total_price) where user_id = $this->user_id");
+        DB::update("update live_anchor set commision = (commision+$this->total_price) where user_id = $this->anchor_id");
     }
 }

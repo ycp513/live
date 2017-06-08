@@ -69,6 +69,7 @@
     <script src="{{URL::asset('/home/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
     <!-- 自定义js -->
     <script src="{{URL::asset('/home/js/content.js?v=1.0.0')}}"></script>
+
     <script>
         videojs.options.flash.swf = "{{URL::asset('/home/video/video-js.swf')}}";
     </script>
@@ -119,7 +120,7 @@
         width: 350px;height: 390px;position: absolute;left:912px;top:260px;z-index: 50;background: #ffffff;
         }
         .gift-div {
-        width: 850px;height: 90px;background: #28a4c9;position: absolute;left:60px;top: 610px;
+        width: 850px;height: 90px;background: #28a4c9;position: absolute;left:60px;top: 610px;z-index: 99999;
         }
         .bs-glyphicons-list li {
         width: 50px;height: 70px;
@@ -178,6 +179,114 @@
         }
         #zx {
          overflow-y:scroll;
+        }
+        li{
+            list-style: none;
+        }
+        /*.wrap{
+            width: 1000px;
+            height: 500px;
+            margin: 0 auto;
+            position: relative;
+        }*/
+        .box{
+            width: 850px;
+            height: 90px;
+            background: #999;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+        .box .a{
+            width: 540px;
+            height: 90px;
+            float: left;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+        .box .a span{
+            height: 80px;
+            width: 80px;
+            background: #ff0;
+            border-radius: 5px;
+            display: block;
+            float: left;
+            margin: 5px;
+        }
+        .dian1{
+            display: block;
+            width: 20px;
+            height: 80px;
+            float: left;
+            border: 1px solid #000;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin: 5px;
+            color: #000;
+            text-align: center;
+            line-height: 80px;
+            position: absolute;
+            left: 540px;
+            bottom: 0;
+        }
+        .b{
+            height: 80px;
+            width: 150px;
+            background: #f00;
+            position: absolute;
+            left: 570px;
+            bottom: 0;
+            margin: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            box-sizing: border-box;
+        }
+        .b ul{
+            position: absolute;
+            left: 0px;
+            bottom: 100%;
+            width: 200px;
+            height: 370px;
+            border: 1px solid #000;
+            border-bottom: none;
+            padding-top: 10px;
+            box-sizing: border-box;
+            border-radius: 5px 5px 0 0;
+            margin-bottom: -8px;
+            display: none;
+        }
+        .b ul li{
+            height: 50px;
+            padding-left: 30px;
+            box-sizing: border-box;
+            line-height: 50px;
+            color:#0f0;
+        }
+        .b span{
+            width: 90px;
+            height: 80px;
+            display: block;
+            line-height: 80px;
+            float: left;
+        }
+        .b .dian2{
+            display: block;
+            width: 20px;
+            height: 80px;
+            float: left;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin: 0 5px;
+            color: #000;
+            text-align: center;
+            line-height: 80px;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -246,9 +355,16 @@
             <source src="rtmp://192.168.1.211/live/{{$id}}" type="rtmp/flv"/>
         </video>
         {{--<div id="div-img"><img src="{{URL::asset('/home/img/sheji40_p.jpg')}}" alt="" width="850"/></div>--}}
-    </div>
-    <div class="msg-div">
+        <div id="send_giff" style="position:absolute;left:80px;top:400px;width:400px;height:50px;z-index:20000;display:none;color:#0ff;">
 
+        </div>
+    </div>
+    <input type="hidden" id="da_user">
+    <input type="hidden" id="da_src">
+    <input type="hidden" id="da_num">
+    <input type="hidden" id="da_sum" value="0">
+    <input type="hidden" id="da_time" value="0">
+    <div class="msg-div">
             <div class="tabs-container">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 守护榜</a>
@@ -347,6 +463,7 @@
             </div>
 
     </div>
+
     <div class="chat-div">
 
         <div id="ltian">
@@ -367,12 +484,12 @@
         </script>
         <script src="{{URL::asset('/home/sk/a.js')}}" type="text/javascript"></script>
         <script>
-            (function(){
-                var user = "{{$users['username']}}";
+            $(function(){
                 var key='all',mkey;
                 var users={};
-                var url='ws://192.168.1.5:8880';
-                var so=false,n=false;
+                var url='ws://192.168.1.76:8000';
+                so=false,n=false;
+                so=new WebSocket(url);
                 var lus=A.$('zx'),lct=A.$('ct');
                 function st(){
                     var Arr1 = ["聪明的","狡猾的","可爱的","美丽的","狡猾的","善良的","帅气的","逗比的"];
@@ -380,14 +497,14 @@
                     var ran1 = Math.floor(Math.random() * Arr1.length + 1)-1;
                     var ran2 = Math.floor(Math.random() * Arr2.length + 1)-1;
                     var n='游客   '+Arr1[ran1]+Arr2[ran2];
-                    //以上五行是用来随机生成用户昵称的方法，参考一下 ，如果想自定义用户名可以将以上五行注释，然后以下两行取消注释
-                    //n=prompt('请给自己取一个霸气的名字：');
-                    //n=n.substr(0,16);
-                    //console.log(n);
+                    var user = "{{$users['username']}}";
                     if(!n){
                         return ;
                     }
-                    so=new WebSocket(url);
+                    var user = arguments[0] ? arguments[0] : user;
+                    var giff_name = arguments[1] ? arguments[1] : '';
+                    var giff_num = arguments[2] ? arguments[2] : '';
+                    var giff_src = arguments[3] ? arguments[3] : '';
                     so.onopen=function(){
                         if(so.readyState==1){
                             if(user){
@@ -428,11 +545,32 @@
                                 }
                             }
                             obj=A.$$('<p><span>['+da.time+']</span>欢迎'+da.name+'加入</p>');
-                            //console.log(da.users);
                             $('#num_people').text(parseInt(da.users.length)-1);
                             users.all.className='ck';
                         }
-
+                        if(da.type=='giff'){
+                            $('#send_giff').show();
+                            var da_user = $('#da_user').val();
+                            var da_src = $('#da_src').val();
+                            var da_num = $('#da_num').val();
+                            var da_sum = $('#da_sum').val();
+                            var da_time = $('#da_time').val();
+                            //当前时间戳
+                            var timestamp = Date.parse(new Date());
+                            if(da_user == da.user && da_src==da.giff_src && da_num == da.giff_num && ((parseInt(timestamp)-parseInt(da_time))<3000)){
+                                $('#send_giff').html(da.user+'送出<img src="'+da.giff_src+'"  width="85" height="75">'+da.giff_num+'X'+(parseInt(da_sum)+1));
+                                $('#da_sum').val((parseInt(da_sum)+1));
+                                $('#da_time').val(timestamp);
+                            }else{
+                                $('#send_giff').html(da.user+'送出<img src="'+da.giff_src+'"  width="85" height="75">'+da.giff_num+'X1');
+                                $('#da_user').val(da.user);
+                                $('#da_src').val(da.giff_src);
+                                $('#da_num').val(da.giff_num);
+                                $('#da_time').val(timestamp);
+                                $('#da_sum').val(1);
+                            }
+                            obj = true;
+                        }
                         if(obj==false){
                             if(da.type=='rmove'){
                                 var name = users[da.nrong].innerHTML;
@@ -485,12 +623,14 @@
                                 //da.code 发信息人的code
                                 if(da.code1==mkey){
                                     obj=A.$$('<p class="c3"><span>['+da.time+']</span><a>'+users[da.code].innerHTML+'</a>对我说：'+da.nrong+'</p>');
+                                    //console.log(users);
                                     c=da.code;
                                 }else if(da.code==mkey){
+                                    console.log(msg)
                                     if(da.code1!='all')
-                                        obj=A.$$('<p class="c3"><span>['+da.time+']</span>我对<a>'+users[da.code1].innerHTML+'</a>说：'+da.nrong+'</p>');
+                                        obj=A.$$('<p class="c3"><span>['+da.time+']</span>我对1<a>'+users[da.code1].innerHTML+'</a>说：'+da.nrong+'</p>');
                                     else
-                                        obj=A.$$('<p><span>['+da.time+']</span>我对<a>'+users[da.code1].innerHTML+'</a>说：'+da.nrong+'</p>');
+                                        obj=A.$$('<p><span>['+da.time+']</span>'+user+'<a>'+users[da.code1].innerHTML+'</a>说：'+da.nrong+'</p>');
                                     c=da.code1;
                                 }else if(da.code==false){
                                     obj=A.$$('<p><span>['+da.time+']</span>'+da.nrong+'</p>');
@@ -510,6 +650,45 @@
                         lct.scrollTop=Math.max(0,lct.scrollHeight-lct.offsetHeight);
                     }
                 }
+
+                //展示礼物
+                $('#send').on('click',function(){
+                    var giff_val = $('#giff_val').val();
+                    var giff_src = $('#giff_src').val();
+                    var giff_name = $('#giff_name').val();
+                    var giff_id = $('#giff_id').val();
+                    var giff_num = $('#giff_num').val();
+                    var anchor_id = "<?=$user_id?>";
+                    var id = "<?=$id;?>"
+                    var user = "{{$users['username']}}";
+                    var balance = "{{$users['balance']}}"
+                    if(user == ''){
+                        alert('请先登陆')
+                    }else if(balance<(giff_val*giff_num)){
+                        if(confirm("你当前余额不足，是否立刻充值")){
+                            location.href="per/getshow";
+                        }else{
+                            return;
+                        }
+                        //alert('余额不足，请先重置');
+                    }else{
+                        $.ajax({
+                            url:'sendGiff',
+                            type:'get',
+                            data:{giff_price:giff_val, giff_id:giff_id, anchor_id:anchor_id, giff_num:giff_num, id:id},
+                            dataType:'json',
+                            success:function(){
+                                if(user!=''&&giff_name!=''&&giff_num!=''&&giff_src!='') {
+                                    if(!so){
+                                        return st();
+                                    }
+                                    balance = (balance - giff_val) * giff_num;
+                                    so.send('type=giff&giff_name='+giff_name+'&giff_num='+giff_num+'&giff_src='+giff_src+'&user='+user+'&key='+key);
+                                }
+                            }
+                        })
+                    }
+                })
                 A.$('sd').onclick=function(){
                     if(!so){
                         return st();
@@ -662,7 +841,34 @@
         </script>
     </div>
     <div class="gift-div">
-        
+        <div class="box">
+            <div class="a">
+                <?php foreach($gift as $k=>$v){ ?>
+                <span><img src="<?=$v['img_path'];?>" alt="" price="<?=$v['price'];?>" width="85" height="75" ids="<?=$v['gift_id'];?>" names="<?=$v['giftname'];?>"></span>
+                <?php }?>
+                <input type="hidden" value="" id="giff_val">
+                <input type="hidden" value="" id="giff_src">
+                <input type="hidden" value="" id="giff_name">
+                <input type="hidden" value="" id="giff_id">
+            </div>
+            <a href="javascript:void(0)" class="dian1">^</a>
+            <div class="b">
+                <ul>
+                    <li>1</li>
+                    <li>10(十全十美)</li>
+                    <li>30(想你)</li>
+                    <li>66(一切顺利)</li>
+                    <li>188(要抱抱)</li>
+                    <li>520(我爱你)</li>
+                    <li>1314(一生一世)</li>
+                </ul>
+                <span class="tu"><input type="text" id="giff_num"></span>
+                <a href="javascript:void(0)" class="dian2">^</a>
+            </div>
+            <div  stype="width:60px;height:40px;">
+                <button style="margin-top:30px;margin-right: 20px;" id="send">赠送</button>
+            </div>
+        </div>
     </div>
 </body>
 <script>
@@ -675,5 +881,49 @@
         })
     })
 </script>
-
+<script src="{{URL::asset('/home/js/jquery-1.7.2.min.js')}}"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".dian1").toggle(function(){
+            $(".a").animate({"height":"180px"},1000);
+            $(this).addClass("dian11")
+        },function(){
+            $(".a").animate({"height":"90px"},1000);
+            $(this).removeClass("dian11")
+        })
+        $(".dian2").toggle(function(){
+            $(".b ul").stop(true,true).slideDown();
+        },function(){
+            $(".b ul").stop(true,true).slideUp();
+        })
+        $(".a span").click(function(){
+            $(".a").animate({"height":"90px"},1000);
+            var giff_price = $(this).children().attr('price');
+            var giff_src = $(this).children().prop('src');
+            var giff_name = $(this).children().attr('names');
+            var giff_id = $(this).children().attr('ids');
+            $('#giff_val').val(giff_price);
+            $('#giff_src').val(giff_src);
+            $('#giff_name').val(giff_name);
+            $('#giff_id').val(giff_id);
+            $(".dian1").removeClass("dian11");
+            $(".b ul").stop(true,true).slideDown();
+        })
+        $(".b ul li").click(function(){
+            var thisText = $(this).text();
+            $("#giff_num").attr("value",parseInt(thisText));
+            $(".b ul").stop(true,true).slideUp();
+        })
+        //隐藏div
+        function div_none(){
+            //alert(1);
+            var times = Date.parse(new Date());
+            var datime = $('#da_time').val();
+            if((times-datime)>2000){
+                $('#send_giff').hide();
+            }
+        }
+        setInterval(div_none,5000);
+    })
+</script>
 </html>
