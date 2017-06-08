@@ -29,6 +29,9 @@ class StudioController extends Controller
             $this->ranking_vip($user_id,$users[0]['user_id'],$time);
             $users[0]['username'] .= '-'.$time;
             $author['users'] = $users[0];
+			$arr = DB::table('user_concern')->where('user_id',$users[0]['user_id'])->where('anchor_id',$user_id)->first();
+			$users[0]['con_status'] = $arr->con_status;
+			$author['users'] = $users[0];
         }else{
             $author['users']['username'] = '';
             $author['users']['balance'] = '';
@@ -79,7 +82,6 @@ class StudioController extends Controller
         } else { 
             return view('errors.found');
         }
-        //var_dump($author);return;
    		return view('home.live',$author);
    	}
 
@@ -213,4 +215,90 @@ class StudioController extends Controller
         }
         return $result;
     }
+	//查询守护
+	public function guardShow(){
+		$live_id = Input::get('live_id'); 
+		//获取session
+		$users = Session::get('username');
+		$user_id = $users[0]['user_id'];
+		$arr = DB::table('live_guard')->where('user_id',$user_id)->where('anchor_id',$live_id)->first();
+		$arr->start_time = date('Y-m-d',$arr->start_time);
+		$arr->end_time = date('Y-m-d',$arr->end_time);
+		return json_encode($arr);
+	}
+	//添加守护
+	public function guardAdd(){
+		$starttime = Input::get('starttime');
+		$z_money = Input::get('z_money');
+		$live_id = Input::get('live_id'); 
+		//获取session
+		$users = Session::get('username');
+		$user_id = $users[0]['user_id'];
+		//生成订单号
+		$orderSn = intval(date('Y')) - 2000 . strtoupper(dechex(date('m'))) . date('d') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(0, 99));
+		$arr = DB::table('live_order')->insert(['order_id'=>$orderSn,'user_id'=>$user_id,'price'=>$z_money,'type'=>'3','addtime'=>time(),'pay_type'=>'1']);
+        if($arr){
+            //创建支付订单
+            $alipay = app('alipay.web');
+            $alipay->setOutTradeNo($orderSn);
+            $alipay->setTotalFee($z_money);
+            $alipay->setSubject('守护充值');
+            $alipay->setBody('狗子团队Y币充值');
+
+            $alipay->setQrPayMode('5'); //该设置为可选1-5，添加该参数设置，支持二维码支付。
+
+			$data = ['live_id'=>$live_id,'times'=>$starttime];
+			Session::put('guard_'.$user_id,$data);
+            // 跳转到支付页面。
+            return redirect()->to($alipay->getPayLink());
+        }else{
+            return '创建订单失败';
+        }
+	}
+	//关注
+	public function attenTion(){
+		$live_id = Input::get('live_id'); 
+		//获取session
+		$users = Session::get('username');
+		$user_id = $users[0]['user_id'];
+		$arr = DB::table('user_concern')->where('user_id',$user_id)->where('anchor_id',$live_id)->first();
+		if($arr){
+			$start = $arr->con_status == '1' ? '0' : '1'; 
+			$up = DB::table('user_concern')->where('user_id',$user_id)->where('anchor_id',$live_id)->update(['con_status'=>$start]);
+			if($up){
+				return $start;
+			}
+		}else{
+			$add = DB::table('user_concern')->insert(['user_id'=>$user_id,'anchor_id'=>$live_id]);
+			if($add){
+				return '3';
+			}	
+		}
+	}
+
+	//ajax登录
+    public function login(Request $request)
+    {
+         $account = $request->get('account');
+         $password = $request->get('password');
+         $password = md5($password);
+         $select = DB::select('select * from live_user where (username=? or telphone=?) and password = ?',["$account","$account","$password"]);
+         //var_dump($select);die;
+         if($select){
+             //在线人数统计
+             $key='user:'.date('Y-m-d');
+             //$key ='user:2017-05-10';
+             Redis::setBit($key,$select[0]->user_id,1);
+             $select = json_encode($select);
+             $select = json_decode($select,true);
+             unset($select[0]['password']);
+             //var_dump($select);return;
+             Session::set('username', $select);
+
+            return(json_encode('1'));
+         }else{
+             return(json_encode('2'));
+         }
+    }
+
 }

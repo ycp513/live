@@ -9,6 +9,8 @@
     <link href="{{URL::asset('/home/css/animate.css')}}" rel="stylesheet">
     <link href="{{URL::asset('/home/css/style.css?v=4.1.0')}}" rel="stylesheet">
     <link href="{{URL::asset('/home/video/video-js.css')}}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="{{ URL::asset('/home/css/index-7f196aa861.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ URL::asset('/home/css/headfoot-7232928f5d.mix.css') }}" type="text/css">
     <script>
 
         document.oncontextmenu   =   ppMousedownOfRight;     //   for   IE5+
@@ -85,6 +87,7 @@
         /*#us p.my:hover,#us p.my:active,#us p.my{color:#333;background-color:transparent;}*/
         button{float:right; width:80px; height:35px; font-size:18px;}
         input{width:100%; height:30px; padding:2px; line-height:20px; outline:none; border:solid 1px #CCC;}
+		.jj{width:0px; height:0px; padding:0px; line-height:0px; outline:none; border:none;}
         .rin p{margin-right:160px;}
         .rin span{float:right; padding:6px 5px 0px 5px; position:relative;}
         .rin span img{margin:0px 3px; cursor:pointer;}
@@ -348,8 +351,30 @@
                         在线：<span id="num_people">0</span>
                     </div>
                 </div>
-                <div class="concern"><button class="btn btn-danger  dim" type="button"><i class="fa fa-heart">关注</i>
-                    </button></div>
+				<div class="concern">
+					<a class="btn btn-white btn-bitbucket" id="guard_show" data-toggle="modal" data-target="#myModal">
+                       <i class="fa fa-heart"></i> 守护
+                    </a>
+					<a class="btn btn-white btn-bitbucket" id="attention">
+					@if(!empty($users['username']))
+						@if($users['con_status'] == '0')
+							<i class="fa fa-star"></i> 关注
+						@else
+							<i class="fa fa-star"></i> 已关注
+						@endif
+					@else
+						<i class="fa fa-star"></i> 关注
+					@endif
+
+						
+                    </a>
+					@if(!empty($users['username']))
+						<input type="hidden" id="guser" value="{{ $users['user_id'] }}" />
+					@else
+						<input type="hidden" id="guser" value="" />
+					@endif
+				</div>
+             
         </div>
         <video id="example_video_1" class="video-js vjs-default-skin" autoplay="autoplay"  width="640" height="480" data-setup="{}">
             <source src="rtmp://192.168.1.211/live/{{$id}}" type="rtmp/flv"/>
@@ -514,12 +539,6 @@
                             }
                         }
                     }
-
-//                    so.onclose=function(){
-//                        so=false;
-//                        lct.appendChild(A.$$('<p class="c2">退出聊天室</p>'));
-//                    }
-
                     so.onmessage=function(msg){
                         eval('var da='+msg.data);
                         var obj=false,c=false;
@@ -867,9 +886,164 @@
             </div>
             <div  stype="width:60px;height:40px;">
                 <button style="margin-top:30px;margin-right: 20px;" id="send">赠送</button>
+    <div class="gift-div"></div>
+	<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content animated bounceInRight">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+					</button>
+					<h4 class="modal-title">守护主播</h4>
+					</div>
+					<div class="modal-body" style="padding-bottom:1px;">
+						<div class="form-group" style="height: 32px;">
+                                <label class="col-sm-2 control-label" style="padding: 6px 10px;">守护主播</label>
+                                <div class="col-sm-10">
+                                    <input type="text" disabled="" placeholder="{{$username}}" class="form-control">
+                                </div>
+                         </div>
+						 <div id="zhan" style="height:50px;display:none;">
+							<label class="col-sm-2 control-label" style="padding: 6px 10px;">到期时间</label>
+							<div class="col-sm-10">
+                                    <p id="showd">dfsdfsdfds</p>	
+                            </div>
+							<span style="color:red;margin-left: 14px;">注意:如果需要续费请选择下方的守护时间与金额进行充值</span>
+						 </div>
+						 <div class="form-group"  style="height: 32px;">
+								<label class="col-sm-2 control-label" style="padding: 6px 10px;">守护时间</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" id="starttime" name="account">
+										<option value="0">--请选择--</option>
+                                        <option value="1">1个月</option>
+                                        <option value="3">3个月</option>
+                                        <option value="4">6个月</option>
+                                        <option value="12">1年</option>
+                                    </select>
+                                </div>
+                         </div>
+						 <div class="form-group"  style="height: 32px;">
+								<label class="col-sm-2 control-label" style="padding: 6px 10px;">守护金额</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" id="guard_money" name="account">
+										<option value='0'>--请选择--</option>
+                                        <option value="188">188</option>
+                                        <option value="388">388</option>
+                                        <option value="688">688</option>
+                                        <option value="88888">88888</option>
+                                    </select>
+                                </div>
+                         </div>
+						 <div class="form-group"  style="height: 32px;">
+								<label class="col-sm-2 control-label" style="padding: 6px 10px;">充值金额</label>
+                                <div class="col-sm-10">
+                                    <div class="m-t-xs font-bold" id="z_money" ></div>
+									<input type="hidden" id="gmoney" />
+									<input type="hidden" id="live_id" value="{{ $user_id }}"/>
+                                </div>
+                         </div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+						<button type="button" id="guard_btn" class="btn btn-primary">充值</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--登陆窗口-->
+<div id="loginWrap" class="login-box" style="height:480px;"><button style=" float: right;height: 20px;margin-right: 5px; margin-top: 5px; width: 20px;" id="close">X</button>
+ <div class="login">
+        <div class="login-main">
+            <div class="login-hd"><a href="javascript:void(0);" id="login-btn" class="tab-btn active" rel="nofollow">登录</a><a href="javascript:void(0);" id="register-btn" class="tab-btn" rel="nofollow">注册</a><i id="line" class="line"></i></div>
+            <div class="login-bd">
+                <div class="login-content">
+                  <div class="yin">
+                    <div class="tab-unit active">
+                        <div id="login-tab">
+                            <div class="login-title" style="width: 400px;height: 600px;">
+                            YY帐号登录  
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                    <tr>
+                                       <td>
+                                             <input  placeholder="&nbsp;&nbsp;帐号\邮箱\手机号" type="text" class='input_style' style ="margin-bottom:20px;" id="account">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input  placeholder="&nbsp;&nbsp;密码" type="password" class='input_style' id="passwords"></td>
+                                    </tr>
+                                    <tbody class="tbody"></tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="javascript:;" class="reg_btn" id="login_do">登录</a>
+                                       </td>
+                                    </tr>
+                                </table>
+                            </div>                                    
+                        </div>
+                        </div>
+                    </div>
+
+     <div class="register" style="display:none">
+
+       <table>
+            <tr class="yan_tr">
+                <td><input type="text" name="username" id="username" placeholder="&nbsp;&nbsp;您的账户名和登录名" class='input_style' style="margin-top:10px;" >  <span class="yan_sp" id="user"></span>    
+                </td>       
+            </tr>
+            <tr class="yan_tr">
+                <td><input type="password" name="password" id="set" placeholder="&nbsp;&nbsp;密码：建议至少两种字符组合" class='input_style'><span class="yan_sp" id="password"></span></td>
+            </tr>
+            <tr class="yan_tr">
+                <td><input type="password" name="pwd" id="reset" placeholder="&nbsp;&nbsp;请再次输入密码" class='input_style'><span class="yan_sp" id="pwd"></span></td>
+            </tr>
+            <tr class="yan_tr">
+                <td><input type="text" name="telephone" id="telephone" placeholder="&nbsp;&nbsp;建议使用常用手机" class='input_style'><span class="yan_sp" id="tel"></span></td>
+            </tr>
+            <tr class="yan_tr">
+                <td>
+					<input type="text" name="captcha" placeholder="&nbsp;&nbsp;请输入验证码" class='input_style'>
+					
+					<a id="re_captcha" >
+						<img src="verify/1" alt="验证码" title="刷新图片" width="100" height="40" id="verify" border="0">
+					</a>
+                </td>
+            </tr>
+			<tr>
+				<td><span class="yan_sp" id="aa"></span></td>
+			</tr>
+            <tr class="yan_tr">
+                <td>
+					<input type="text" name="tel_yan" placeholder="&nbsp;&nbsp;请输入手机验证码
+					" class='input_style' id="confirm">
+					<input type="button" style="font-size: 12px;height:32px;width:70px;" value="获取验证码" onclick="sendCode(this)" />
+					<span class="yan_sp" id="yan"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><input class="jj" type="checkbox">阅读并同意<a href="" style='text-decoration:none;'> 《直播协议》&nbsp;</a><a href="" style='text-decoration:none;'> 《隐私注册》 </a></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="button" value="立即注册" class="reg_btn" id="submit"></td>
+            </tr>
+        </table>
+                </div>
+
+                 </div>
+                </div>
+            </div>
+        </div>
+        <div class="login-sidebar">
+            <div class="title"> 第三方帐号登录</div>
+            <div class="other-login"><a href="javascript:void(0);" class="qqlogin">QQ帐号登录</a>
+            </div>
+            <div class="protocol">
+                <p>登录前请仔细阅读<a href="//zc.yy.com/license.html" target="_blank">《用户服务协议》</a>
+                </p>
             </div>
         </div>
     </div>
+    
+</div>
 </body>
 <script>
     $(function(){
@@ -879,6 +1053,16 @@
         $(document).on('mouseout','.panel',function(){
             $('.ibox-content').hide();
         })
+		$('#login-btn').click(function(){
+			$(this).addClass('active');
+			$('#register-btn').removeClass('active');
+			$('#line').css('left','0px');
+		})
+		$('#register-btn').click(function(){
+			$(this).addClass('active');
+			$('#login-btn').removeClass('active');
+			$('#line').css('left','88px');
+		})
     })
 </script>
 <script src="{{URL::asset('/home/js/jquery-1.7.2.min.js')}}"></script>
@@ -926,4 +1110,5 @@
         setInterval(div_none,5000);
     })
 </script>
+<script type="text/javascript" src="{{ URL::asset('/home/js/news.js') }}"></script>
 </html>

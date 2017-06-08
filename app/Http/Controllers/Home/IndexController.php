@@ -57,7 +57,7 @@ class IndexController extends Controller
             return view('home.index',['category' => $cate ,'detailed' => $detailed ,'carousel' => $data_carousel,'anchors' => $anchors,'user' =>  $arr_user[0]]);
         }else{
             return view('home.index',['category' => $cate ,'detailed' => $detailed ,'carousel' => $data_carousel,'anchors' => $anchors]);
-      }  
+		}  
     }
    //ajax登录
     public function login(Request $request)
@@ -148,7 +148,19 @@ class IndexController extends Controller
         if (empty($anchors)) { 
             return view('errors.found');
         }
-        return view('home.search',['category'=>$data_category,'data' => $anchors,'carousel' => $data_carousel]);
+
+		$user = Session::get('username');
+        if(!empty($user)){
+            $use = json_encode($user);
+            $arr_user = json_decode($use,true); 
+            $arr_user = array_reverse($arr_user,true);
+            //var_dump($arr_user);die;
+			 return view('home.search',['category'=>$data_category,'data' => $anchors,'carousel' => $data_carousel,'user' =>  $arr_user[0]]);
+        }else{
+            return view('home.search',['category'=>$data_category,'data' => $anchors,'carousel' => $data_carousel]);
+		}
+
+        
     }
 
 
