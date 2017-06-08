@@ -7,5 +7,5 @@ return [
 	//签名方式
 	'sign_type' => 'MD5',
 
-	
+
 ];

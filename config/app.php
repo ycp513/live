@@ -156,7 +156,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 		// 支付宝
-		Latrell\Alipay\AlipayServiceProvider::class,
+
+		//Latrell\Alipay\AlipayServiceProvider::class,
+
     ],
 
     /*

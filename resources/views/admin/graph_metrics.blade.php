@@ -66,9 +66,9 @@
                                         <div class="ibox-content ">
                                             <h5 class="m-b-md">在线人数</h5>
                                             <h2 class="text-navy">
-                                                       <i class="fa fa-circle text-navy"></i> 1000
+                                                       <i class="fa fa-circle text-navy"></i>{{$dataList[1]}}
                                                     </h2>
-                                            <small>更新时间：12天以前</small>
+                                            <small>更新时间：当前时间</small>
                                         </div>
                                     </div>
                                 </div>
@@ -119,8 +119,8 @@
                                 <div class="col-sm-3">
                                     <div class="ibox">
                                         <div class="ibox-content">
-                                            <h5>本日访问量</h5>
-                                            <h2>198 009</h2>
+                                            <h5>本日活跃量</h5>
+                                            <h2>{{$dataList[1]}}</h2>
                                             <div id="sparkline1"></div>
                                         </div>
                                     </div>
@@ -128,8 +128,8 @@
                                 <div class="col-sm-3">
                                     <div class="ibox">
                                         <div class="ibox-content">
-                                            <h5>本周访问量</h5>
-                                            <h2>65 000</h2>
+                                            <h5>最近七天活跃量</h5>
+                                            <h2>{{$dataList[2]}}</h2>
                                             <div id="sparkline2"></div>
                                         </div>
                                     </div>
@@ -137,8 +137,8 @@
                                 <div class="col-sm-3">
                                     <div class="ibox">
                                         <div class="ibox-content">
-                                            <h5>本月访问量</h5>
-                                            <h2>10000 900</h2>
+                                            <h5>最近三十天活跃量</h5>
+                                            <h2>{{$dataList[3]}}</h2>
                                             <div id="sparkline3"></div>
                                         </div>
                                     </div>
@@ -389,94 +389,102 @@
     <script>
         $(document).ready(function () {
 
-           
-            $(".sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
-                type: 'line',
-                width: '100%',
-                height: '60',
-                lineColor: '#1ab394',
-                fillColor: "#ffffff"
-            });
+            $.ajax({
+                type:'get',
+                url:'broken_line ',
+                success:function(msg) {
 
-            $(".sparkline2").sparkline([24, 43, 43, 55, 44, 62, 44, 72], {
-                type: 'line',
-                width: '100%',
-                height: '60',
-                lineColor: '#1ab394',
-                fillColor: "#ffffff"
-            });
+                    if (msg) {
+                    console.log(msg)
+                        $(".sparkline1").sparkline([24, 43, 43, 55, 44, 62, 44, 72], {
+                                type: 'line',
+                                width: '100%',
+                                height: '60',
+                                lineColor: '#1ab394',
+                                fillColor: "#ffffff"
+                        });
 
-            $(".sparkline3").sparkline([74, 43, 23, 55, 54, 32, 24, 99], {
-                type: 'line',
-                width: '100%',
-                height: '60',
-                lineColor: '#1ab394',
-                fillColor: "#ffffff"
-            });
+                        $(".sparkline2").sparkline([24, 43, 43, 55, 44, 62, 44, 72], {
+                            type: 'line',
+                            width: '100%',
+                            height: '60',
+                            lineColor: '#1ab394',
+                            fillColor: "#ffffff"
+                        });
 
-            $(".sparkline4").sparkline([24, 43, 33, 55, 64, 72, 44, 22], {
-                type: 'line',
-                width: '100%',
-                height: '60',
-                lineColor: '#ed5565',
-                fillColor: "#ffffff"
-            });
-            $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
-                type: 'line',
-                width: '100%',
-                height: '60',
-                lineColor: '#1ab394',
-                fillColor: "#ffffff"
-            });
+                        $(".sparkline3").sparkline([74, 43, 23, 55, 54, 32, 24, 99], {
+                            type: 'line',
+                            width: '100%',
+                            height: '60',
+                            lineColor: '#1ab394',
+                            fillColor: "#ffffff"
+                        });
 
-            $("#sparkline2").sparkline([24, 43, 43, 55, 44, 62, 44, 72], {
-                type: 'line',
-                width: '100%',
-                height: '60',
-                lineColor: '#1ab394',
-                fillColor: "#ffffff"
-            });
+                        $(".sparkline4").sparkline([24, 43, 33, 55, 64, 72, 44, 22], {
+                            type: 'line',
+                            width: '100%',
+                            height: '60',
+                            lineColor: '#ed5565',
+                            fillColor: "#ffffff"
+                        });
+                        $("#sparkline1").sparkline([0, 7, 6, 5, 4, 0, 1, 2], {
+                            type: 'line',
+                            width: '100%',
+                            height: '60',
+                            lineColor: '#1ab394',
+                            fillColor: "#ffffff"
+                        });
 
-            $("#sparkline3").sparkline([74, 43, 23, 55, 54, 32, 24, 99], {
-                type: 'line',
-                width: '100%',
-                height: '60',
-                lineColor: '#1ab394',
-                fillColor: "#ffffff"
-            });
+                        $("#sparkline2").sparkline([msg.msg[0],msg.msg[1],msg.msg[2],msg.msg[3],msg.msg[4],msg.msg[5],msg.msg[6],msg.msg[7]], {
+                            type: 'line',
+                            width: '100%',
+                            height: '60',
+                            lineColor: '#1ab394',
+                            fillColor: "#ffffff"
+                        });
 
-            $("#sparkline4").sparkline([24, 43, 33, 55, 64, 72, 44, 22], {
-                type: 'line',
-                width: '100%',
-                height: '60',
-                lineColor: '#ed5565',
-                fillColor: "#ffffff"
-            });
+                        $("#sparkline3").sparkline([msg.count[0],msg.count[1],msg.count[2],msg.count[3],msg.count[4],msg.count[5],], {
+                            type: 'line',
+                            width: '100%',
+                            height: '60',
+                            lineColor: '#1ab394',
+                            fillColor: "#ffffff"
+                        });
 
-            $("#sparkline5").sparkline([1, 4], {
-                type: 'pie',
-                height: '140',
-                sliceColors: ['#1ab394', '#F5F5F5']
-            });
+                        $("#sparkline4").sparkline([24, 43, 33, 55, 64, 72, 44, 22], {
+                            type: 'line',
+                            width: '100%',
+                            height: '60',
+                            lineColor: '#ed5565',
+                            fillColor: "#ffffff"
+                        });
 
-            $("#sparkline6").sparkline([5, 3], {
-                type: 'pie',
-                height: '140',
-                sliceColors: ['#1ab394', '#F5F5F5']
-            });
+                        $("#sparkline5").sparkline([1, 4], {
+                            type: 'pie',
+                            height: '140',
+                            sliceColors: ['#1ab394', '#F5F5F5']
+                        });
 
-            $("#sparkline7").sparkline([2, 2], {
-                type: 'pie',
-                height: '140',
-                sliceColors: ['#ed5565', '#F5F5F5']
-            });
+                        $("#sparkline6").sparkline([5, 3], {
+                            type: 'pie',
+                            height: '140',
+                            sliceColors: ['#1ab394', '#F5F5F5']
+                        });
 
-            $("#sparkline8").sparkline([2, 3], {
-                type: 'pie',
-                height: '140',
-                sliceColors: ['#ed5565', '#F5F5F5']
-            });
+                        $("#sparkline7").sparkline([2, 2], {
+                            type: 'pie',
+                            height: '140',
+                            sliceColors: ['#ed5565', '#F5F5F5']
+                        });
 
+                        $("#sparkline8").sparkline([2, 3], {
+                            type: 'pie',
+                            height: '140',
+                            sliceColors: ['#ed5565', '#F5F5F5']
+                        });
+                    }
+                }
+            })
 
         });
     </script>
