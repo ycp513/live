@@ -279,7 +279,7 @@ class StudioController extends Controller
 			if($start == '1'){
 				DB::table('live_user')->where('user_id',$live_id)->increment('concem');
 			}else{
-				DB::table('live_user')->where('user_id',$live_id)->decrement('concem')
+				DB::table('live_user')->where('user_id',$live_id)->decrement('concem');
 			}
 			$up = DB::table('user_concern')->where('user_id',$user_id)->where('anchor_id',$live_id)->update(['con_status'=>$start]);
 			if($up){
