@@ -51,8 +51,11 @@ Route::get('list/{action}', function(App\Http\Controllers\Home\ListController $i
 });*/
 //list
 Route::group( ['namespace' => 'Home'] , function() {
-    //直播间
+    //列表
     Route::get('/list/livelist', 'ListController@liveList');
+	//登陆
+	Route::get('/list/login','ListController@login');
+	
 });
 //Personal
 Route::get('per/{action}', function(App\Http\Controllers\Home\PersonalController $index, $action){
@@ -60,9 +63,11 @@ Route::get('per/{action}', function(App\Http\Controllers\Home\PersonalController
 });
 
 //Personal
+Route::get('liveroom/login','Home\StudioController@login');
 Route::get('liveroom/{action}', function(App\Http\Controllers\Home\StudioController $index, $action){
     return $index->$action();
 });
+
 //短信接口
 Route::group(['middleware' =>'web'], function()
 {
@@ -99,4 +104,4 @@ Route::get('admin/{action}', function(App\Http\Controllers\Admin\AdminController
 Route::get('admin/empty_page','Admin\AdminController@Empty_Page');
 Route::get('admin/adminshow','Admin\AdminController@AdminShow');
 Route::post('login/login','Admin\LoginController@login');
-
+Route::post('admin/carousel','Admin\AdminController@Carousel');

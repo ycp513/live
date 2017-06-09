@@ -292,7 +292,7 @@
 		var flag_pwd;
 		var flag_pwd2;
 		var flag_tel;
-		var flag_verify;
+		//var flag_verify;
 		//var flag_tyan;
 		//验整用户
 		$('#username').on('blur',function(){
@@ -438,11 +438,11 @@
 		
 			
 		//提交数据
-		$('.reg_btn').on('click',function(){
+		$('#submit').on('click',function(){
 			var username = $('#username').val();
 			var password = $('#set').val();
 			var telephone= $('#telephone').val();
-			if(flag_name == true & flag_pwd == true & flag_pwd2 == true & flag_tel == true & flag_verify== true ){
+			if(flag_name == true & flag_pwd == true & flag_pwd2 == true & flag_tel == true){
 				$.ajax({
 					data:{username:username,password:password,telephone:telephone},
 					type:"get",
@@ -481,12 +481,16 @@
 							  var str ='<tr><td>用户名或密码错误请重新登录</td></tr>';
 							  $('.tbody').html(str);
 							  $('.tbody').css('color','red');
+						  }else if(e == 1){
+							  $('#loginWrap').toggle();
+							  $('.account-login-mask').toggle();
+							  location.reload();
 						  }else{
 							  $('#loginWrap').toggle();
 							  $('.account-login-mask').toggle();
 							  $.each(e,function(i,v){
-								  $('.s1').html('<i class="icon-people"></i><span id="login_user">'+v.username+'</span>');
-							  })
+								  $('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i><span id="login_user">'+v.username+'</span></a>');
+							  })	  
 						  }
 					   }
 				   })
@@ -520,6 +524,97 @@
 		})
 
 		/*--首页 结束--*/
+
+		/*--直播间 开始--*/
+		$('#starttime').on('change',function(){
+			var starttime = $('#starttime').val();
+			var guard_money = $('#guard_money').val();
+			if(guard_money != '0' && starttime != '0'){
+				var z_money = parseInt(starttime)*parseInt(guard_money);
+				$('#z_money').html(z_money+'元');
+				$('#gmoney').val(z_money);
+			}else{
+				$('#z_money').html('');
+				alert('请选择守护时间与守护金额');
+			}
+		})
+		$('#guard_money').on('change',function(){
+			var starttime = $('#starttime').val();
+			var guard_money = $('#guard_money').val();
+			if(starttime != '0' && guard_money != '0'){
+				var z_money = parseInt(starttime)*parseInt(guard_money);
+				$('#z_money').html(z_money+'元');
+				$('#gmoney').val(z_money);
+			}else{
+				$('#z_money').html('');
+				alert('请选择守护时间与守护金额');
+			}
+			
+		})
+		//守护添加
+		$('#guard_btn').on('click',function(){
+			var starttime = $('#starttime').val();
+			var z_money = $('#gmoney').val();
+			var live_id = $('#live_id').val();
+			$.ajax({
+			   type: "GET",
+			   url: "guardAdd",
+			   data: {starttime:starttime,z_money:z_money,live_id:live_id},
+			   success: function(msg){
+				
+			   }
+			});
+		})
+		//查询是否已经守护
+		$('#guard_show').on('click',function(){
+			var user = $('#guser').val();
+			if(user.length == 0){
+				$('#loginWrap').show();
+				return false;
+			}else{
+				var live_id = $('#live_id').val();
+				$.ajax({
+				   type: "GET",
+				   url: "guardShow",
+				   data: {live_id:live_id},
+				   dataType:'json',
+				   success: function(msg){
+						if(msg != null){
+							$('#showd').html(msg.start_time+'--'+msg.end_time);
+							$('#zhan').show();
+						}
+				   }
+				});
+			}
+		})
+		//关注
+		$('#attention').on('click',function(){
+			var user = $('#guser').val();
+			if(user.length == 0){
+				$('#loginWrap').show();
+				return false;
+			}else{
+				var live_id = $('#live_id').val();
+				$.ajax({
+				   type: "GET",
+				   url: "attenTion",
+				   data: {live_id:live_id},
+				   success: function(msg){
+						if(msg == '1'){
+							$('#attention').html('<i class="fa fa-star"></i> 已关注');
+						}else if(msg == '0'){
+							$('#attention').html('<i class="fa fa-star"></i> 关注');
+						}else{
+							$('#attention').html('<i class="fa fa-star"></i> 已关注');
+						}
+				   }
+				});
+			}
+
+			
+		})
+		/*--直播间 结束--*/
+
 })
 
 	//发送验证码给手机 

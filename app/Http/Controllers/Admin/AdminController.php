@@ -8,7 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redis;
-use  App\Http\Category;
+use App\Http\Category;
+use App\Http\Carousel;
 use Illuminate\Support\Facades\Input;
 class AdminController extends Controller
 {
@@ -417,7 +418,7 @@ class AdminController extends Controller
             }
         }
     	 return view('admin.live_recording',['data'=>$data]);
-}
+    }
 
     public  function  Update_Status(){
        //$force_status = Input::get('force_status');
@@ -470,5 +471,57 @@ class AdminController extends Controller
             }
         }
         return $res;
+    }
+
+    //前台轮播图展示设置
+    public function Carousel()
+    {
+        if ($_POST) { 
+            $data_file = input::file('file'); 
+            $data = input::get();
+            array_shift($data);
+            $filePath = $this->deal_img($data_file);
+            $data['img_url'] = $filePath;
+            foreach ($data as $key => $value) {
+                foreach ($value as $k => $val) {
+                   $arr[$k][$key] = $val;
+                }
+            } 
+            //写入轮播图文件
+            $carousel = new Carousel;
+            $carousel -> shift($arr);
+            $carousel ->initconfig();
+            $data_carousel = $carousel ->config;
+            return view('admin.carousel',['carousel' => $data_carousel]); 
+        } else {
+            $carousel = new Carousel;
+            $carousel ->initconfig();
+            $data_carousel = $carousel ->config;
+            return view('admin.carousel',['carousel' => $data_carousel]); 
+        }
+    }
+
+
+    //处理接收图片
+    public function deal_img($data_file)
+    {
+        foreach ($data_file as $key => $file) {
+            $allowed_extensions = ["png", "jpg", "gif"];
+            if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $allowed_extensions)) {
+                return  'You may only upload png, jpg or gif';die;
+            }
+            $addtime=date("Ymd",time());
+            $destinationPath = 'uploads/'.$addtime.'/'; //public 文件夹下面建 storage/uploads 文件夹
+            //文件夹不存在直接创建
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath,0777);
+            }
+            $extension = $file->getClientOriginalExtension(); //文件的后缀名
+            $fileName = str_random(10).time().'.'.$extension;
+            $file->move($destinationPath, $fileName);
+            //封面图片路径
+            $filePath[] = $destinationPath.$fileName;
+        }
+        return $filePath;
     }
 }

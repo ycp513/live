@@ -119,7 +119,9 @@
                             <li>
                                 <a class="J_menuItem" href="#">支付宝</a>
                             </li>
-
+                            <li>
+                                <a class="J_menuItem" href="{{url('admin/carousel')}}">轮播图设置</a>
+                            </li>
                         </ul>
                     </li>
 
