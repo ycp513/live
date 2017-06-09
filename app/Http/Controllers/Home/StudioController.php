@@ -23,14 +23,18 @@ class StudioController extends Controller
         $author = [];
         //获取session
         if(Session::has('username')){
-            $users = Session::get('username');
+             $users = Session::get('username');
             //用户vip等级入redis有序集合
             $time = substr(time(),-4);
             $this->ranking_vip($user_id,$users[0]['user_id'],$time);
             $users[0]['username'] .= '-'.$time;
             $author['users'] = $users[0];
 			$arr = DB::table('user_concern')->where('user_id',$users[0]['user_id'])->where('anchor_id',$user_id)->first();
-			$users[0]['con_status'] = $arr->con_status;
+			if($arr){
+				$users[0]['con_status'] = $arr->con_status;
+			}else{
+				$users[0]['con_status'] = '';
+			}
 			$author['users'] = $users[0];
         }else{
             $author['users']['username'] = '';
@@ -272,12 +276,18 @@ class StudioController extends Controller
 		$arr = DB::table('user_concern')->where('user_id',$user_id)->where('anchor_id',$live_id)->first();
 		if($arr){
 			$start = $arr->con_status == '1' ? '0' : '1'; 
+			if($start == '1'){
+				DB::table('live_user')->where('user_id',$live_id)->increment('concem');
+			}else{
+				DB::table('live_user')->where('user_id',$live_id)->decrement('concem')
+			}
 			$up = DB::table('user_concern')->where('user_id',$user_id)->where('anchor_id',$live_id)->update(['con_status'=>$start]);
 			if($up){
 				return $start;
 			}
 		}else{
 			$add = DB::table('user_concern')->insert(['user_id'=>$user_id,'anchor_id'=>$live_id]);
+			DB::table('live_user')->where('user_id',$live_id)->increment('concem');
 			if($add){
 				return '3';
 			}	
