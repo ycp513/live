@@ -3,20 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit">
-    <link href="{{ URL::asset('home/css/pgwslider.min.css')}}" rel="stylesheet">
-    <style type="text/css">
-        .m{ width: 1000px; height: 300px; margin-left: auto; margin-right: auto; margin-top: 2%; }
-    </style>
-    <script src="{{ URL::asset('home/js/turn.js')}}"></script>
-    <script src="{{ URL::asset('home/js/pgwslider.min.js')}}"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $(document).ready(function() {
-                jQuery.noConflict();
-                $('.pgwSlider').pgwSlider();
-            });
-        });
-    </script>
+<link href="{{ URL::asset('home/css/pgwslider.min.css')}}" rel="stylesheet">
+<style type="text/css">
+    .m{ width: 1000px; height: 300px; margin-left: auto; margin-right: auto; margin-top: 2%; }
+</style>
+<script src="{{ URL::asset('home/js/turn.js')}}"></script>
+<script src="{{ URL::asset('home/js/pgwslider.min.js')}}"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 <meta name="baidu-site-verification" content="JOgjfxUTMx" />
@@ -28,6 +20,12 @@
     <meta name="keywords" content="直播,视频直播,直播网站,lol直播,CBA直播,直播平台,在线直播,美女直播,现场直播,体育直播,直播视频秀,直播间,网络直播,游戏直播">
     <meta name="applicable-device" content="pc">
 <link rel="stylesheet" href="{{ URL::asset('/home/css/index-7f196aa861.css') }}" type="text/css">
+<script type="text/javascript">
+    $(document).ready(function() {
+        jQuery.noConflict();
+        $('.pgwSlider').pgwSlider();
+    });
+</script>
 
 </head>
 
@@ -309,7 +307,7 @@
             <div class="m">
                 <ul class="pgwSlider">
                 @foreach ($carousel as $val)
-                    <li><a href='{{url("$val[url]")}}' target="_blank"><img src="{{URL::asset('/home')}}{{$val['img_url']}}" alt="{{$val['name']}}" ></a></li>
+                    <li><a href='{{url("$val[url]")}}' target="_blank"><img src="{{URL::asset('')}}{{$val['img_url']}}" alt="{{$val['name']}}" ></a></li>
                 @endforeach
                 </ul>
             </div>
@@ -336,7 +334,7 @@
     <ul class="video-list ">
     @if(empty($detailed[0]))
     <li class="video-item">
-    <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
+    <h1 align="center">还没有主播开播，敬请期待！或者加入我们（请进入个人中心）</h1>
     </li>
     @else
     @foreach($detailed[0] as $key => $val )
@@ -380,7 +378,7 @@
     <ul class="video-list ">
         @if(empty($detailed[1]))
         <li class="video-item">
-        <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
+        <h1 align="center">还没有主播开播，敬请期待！或者加入我们（请进入个人中心）</h1>
         </li>
         @else
         @foreach($detailed[1] as $key => $val )
@@ -424,7 +422,7 @@
     <ul class="video-list ">
     @if(empty($detailed[2]))
     <li class="video-item">
-    <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
+    <h1 align="center">还没有主播开播，敬请期待！或者加入我们（请进入个人中心）</h1>
     </li>
     @else
     @foreach($detailed[2] as $key => $val )
@@ -469,7 +467,7 @@
 	<ul class="video-list ">
     @if(empty($detailed[3]))
     <li class="video-item">
-    <h1 align="center">还没有主播加入，敬请期待！或者加入我们（请进入个人中心）</h1>
+    <h1 align="center">还没有主播开播，敬请期待！或者加入我们（请进入个人中心）</h1>
     </li>
     @else
     @foreach($detailed[3] as $key => $val )
