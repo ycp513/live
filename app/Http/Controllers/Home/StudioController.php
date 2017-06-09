@@ -30,7 +30,11 @@ class StudioController extends Controller
             $users[0]['username'] .= '-'.$time;
             $author['users'] = $users[0];
 			$arr = DB::table('user_concern')->where('user_id',$users[0]['user_id'])->where('anchor_id',$user_id)->first();
-			$users[0]['con_status'] = $arr->con_status;
+			if($arr){
+				$users[0]['con_status'] = $arr->con_status;
+			}else{
+				$users[0]['con_status'] = '';
+			}
 			$author['users'] = $users[0];
         }else{
             $author['users']['username'] = '';

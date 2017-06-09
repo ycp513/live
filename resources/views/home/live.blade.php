@@ -357,10 +357,10 @@
                     </a>
 					<a class="btn btn-white btn-bitbucket" id="attention">
 					@if(!empty($users['username']))
-						@if($users['con_status'] == '0')
-							<i class="fa fa-star"></i> 关注
-						@else
+						@if($users['con_status'] == '1')
 							<i class="fa fa-star"></i> 已关注
+						@else
+							<i class="fa fa-star"></i> 关注
 						@endif
 					@else
 						<i class="fa fa-star"></i> 关注
