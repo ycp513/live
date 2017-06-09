@@ -107,21 +107,21 @@
                             </li>
                          
                         </ul>
-                    </li>   
+                    </li>
 
                       <li>
                         <a href="#">
                             <i class="fa fa fa-bar-chart-o"></i>
                             <span class="nav-label">系统设置</span>
-                            
+
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="graph_echarts.html">百度ECharts</a>
+                                <a class="J_menuItem" href="#">支付宝</a>
                             </li>
-                         
+
                         </ul>
-                    </li>   
+                    </li>
 
                     
 

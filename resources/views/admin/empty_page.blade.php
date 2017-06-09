@@ -31,7 +31,7 @@
                     <h2 class="font-bold">二狗子直播后台管理系统</h2>
 
                     <div class="error-desc">
-                        您可以在这里添加栅格，参考首页及其他页面完成不同的布局
+                       欢迎来到二狗子直播后台
                         <br/><a href="#" class="btn btn-primary m-t">打开主页</a>
                     </div>
                 </div>
