@@ -292,7 +292,7 @@
 		var flag_pwd;
 		var flag_pwd2;
 		var flag_tel;
-		var flag_verify;
+		//var flag_verify;
 		//var flag_tyan;
 		//验整用户
 		$('#username').on('blur',function(){
@@ -442,7 +442,7 @@
 			var username = $('#username').val();
 			var password = $('#set').val();
 			var telephone= $('#telephone').val();
-			if(flag_name == true & flag_pwd == true & flag_pwd2 == true & flag_tel == true & flag_verify== true ){
+			if(flag_name == true & flag_pwd == true & flag_pwd2 == true & flag_tel == true){
 				$.ajax({
 					data:{username:username,password:password,telephone:telephone},
 					type:"get",
