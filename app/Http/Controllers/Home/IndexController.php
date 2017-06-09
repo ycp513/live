@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Redis;
 use App\Lijie\message;
 
 
-
 class IndexController extends Controller
 {
     //主页渲染
