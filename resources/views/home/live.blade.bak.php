@@ -662,6 +662,9 @@
         </script>
     </div>
     <div class="gift-div"></div>
+    <div class="chat"  style="w">
+
+    </div>
 </body>
 <script>
     $(function(){
