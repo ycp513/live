@@ -683,26 +683,27 @@
                     var balance = "{{$users['balance']}}"
                     if(user == ''){
                         alert('请先登陆')
-                    }else if(balance<(giff_val*giff_num)){
-                        if(confirm("你当前余额不足，是否立刻充值")){
-                            location.href="per/getshow";
-                        }else{
-                            return;
-                        }
-                        //alert('余额不足，请先重置');
                     }else{
                         $.ajax({
                             url:'sendGiff',
                             type:'get',
                             data:{giff_price:giff_val, giff_id:giff_id, anchor_id:anchor_id, giff_num:giff_num, id:id},
                             dataType:'json',
-                            success:function(){
-                                if(user!=''&&giff_name!=''&&giff_num!=''&&giff_src!='') {
-                                    if(!so){
-                                        return st();
+                            success:function(msg){
+                                if(!msg.success){
+                                    if(confirm(msg.msg)){
+                                        location.href="per/getshow";
+                                    }else{
+                                        return;
                                     }
-                                    balance = (balance - giff_val) * giff_num;
-                                    so.send('type=giff&giff_name='+giff_name+'&giff_num='+giff_num+'&giff_src='+giff_src+'&user='+user+'&key='+key);
+                                }else{
+                                    if(user!=''&&giff_name!=''&&giff_num!=''&&giff_src!='') {
+                                        if(!so){
+                                            return st();
+                                        }
+                                        balance = (balance - giff_val) * giff_num;
+                                        so.send('type=giff&giff_name='+giff_name+'&giff_num='+giff_num+'&giff_src='+giff_src+'&user='+user+'&key='+key);
+                                    }
                                 }
                             }
                         })

@@ -103,7 +103,15 @@ class StudioController extends Controller
         //直播id
         $live_id = Input::get('id');
         //礼物队列入库
-        $redis = $this->dispatch(new RedisList( $user_id, $anchor_id, $giff_id, $giff_num, $total_price, $live_id));
+        $balance = $user[0]['balance'];
+        $result = ['success'=>false, 'msg'=>''];
+        if($balance>=$total_price){
+            $redis = $this->dispatch(new RedisList( $user_id, $anchor_id, $giff_id, $giff_num, $total_price, $live_id));
+            $result['success'] = true;
+        }else{
+            $result['msg'] = '余额不足，您是否要充值';
+        }
+        return $result;
     }
 /////////////////////////////////////////////////////////////排行榜数据//////////////////////////////////////////////
     //主播贡献榜
