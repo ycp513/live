@@ -119,7 +119,9 @@
                             <li>
                                 <a class="J_menuItem" href="graph_echarts.html">百度ECharts</a>
                             </li>
-                         
+                            <li>
+                                <a class="J_menuItem" href="{{url('admin/carousel')}}">轮播图设置</a>
+                            </li>
                         </ul>
                     </li>   
 

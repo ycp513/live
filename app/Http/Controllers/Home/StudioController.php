@@ -23,7 +23,7 @@ class StudioController extends Controller
         $author = [];
         //获取session
         if(Session::has('username')){
-            $users = Session::get('username');
+             $users = Session::get('username');
             //用户vip等级入redis有序集合
             $time = substr(time(),-4);
             $this->ranking_vip($user_id,$users[0]['user_id'],$time);
@@ -107,7 +107,15 @@ class StudioController extends Controller
         //直播id
         $live_id = Input::get('id');
         //礼物队列入库
-        $redis = $this->dispatch(new RedisList( $user_id, $anchor_id, $giff_id, $giff_num, $total_price, $live_id));
+        $balance = $user[0]['balance'];
+        $result = ['success'=>false, 'msg'=>''];
+        if($balance>=$total_price){
+            $redis = $this->dispatch(new RedisList( $user_id, $anchor_id, $giff_id, $giff_num, $total_price, $live_id));
+            $result['success'] = true;
+        }else{
+            $result['msg'] = '余额不足，您是否要充值';
+        }
+        return $result;
     }
 /////////////////////////////////////////////////////////////排行榜数据//////////////////////////////////////////////
     //主播贡献榜
@@ -268,12 +276,18 @@ class StudioController extends Controller
 		$arr = DB::table('user_concern')->where('user_id',$user_id)->where('anchor_id',$live_id)->first();
 		if($arr){
 			$start = $arr->con_status == '1' ? '0' : '1'; 
+			if($start == '1'){
+				DB::table('live_user')->where('user_id',$live_id)->increment('concem');
+			}else{
+				DB::table('live_user')->where('user_id',$live_id)->decrement('concem')
+			}
 			$up = DB::table('user_concern')->where('user_id',$user_id)->where('anchor_id',$live_id)->update(['con_status'=>$start]);
 			if($up){
 				return $start;
 			}
 		}else{
 			$add = DB::table('user_concern')->insert(['user_id'=>$user_id,'anchor_id'=>$live_id]);
+			DB::table('live_user')->where('user_id',$live_id)->increment('concem');
 			if($add){
 				return '3';
 			}	
