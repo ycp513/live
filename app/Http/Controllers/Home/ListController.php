@@ -9,6 +9,8 @@ use App\Http\Requests;
 use App\Http\Category;
 use App\Http\Carousel;
 use App\Http\Controllers\Controller;
+use Session;
+use Illuminate\Support\Facades\Redis;
 
 class ListController extends Controller
 {
@@ -39,8 +41,43 @@ class ListController extends Controller
 	        -> where('category_id','=',$id)
 	        -> orderBy('fans', 'desc')
 	        -> get();
+		//session
+		$user = Session::get('username');
+        if(!empty($user)){
+            $use = json_encode($user);
+            $arr_user = json_decode($use,true); 
+            $arr_user = array_reverse($arr_user,true);
+            //渲染页面、传输数据
+    		return view('home.list',['data' => $anchors ,'carousel' => $data_carousel,'category' => $data_category ,'id' => $id,'user' =>  $arr_user[0]]);
+        }else{
+            //渲染页面、传输数据
+    		return view('home.list',['data' => $anchors ,'carousel' => $data_carousel,'category' => $data_category ,'id' => $id]);
+		}
 
-	    //渲染页面、传输数据
-    	return view('home.list',['data' => $anchors ,'carousel' => $data_carousel,'category' => $data_category ,'id' => $id]);
+	    
+    }
+	//ajax登录
+    public function login(Request $request)
+    {
+         $account = $request->get('account');
+         $password = $request->get('password');
+         $password = md5($password);
+         $select = DB::select('select * from live_user where (username=? or telphone=?) and password = ?',["$account","$account","$password"]);
+         //var_dump($select);die;
+         if($select){
+             //在线人数统计
+             $key='user:'.date('Y-m-d');
+             //$key ='user:2017-05-10';
+             Redis::setBit($key,$select[0]->user_id,1);
+             $select = json_encode($select);
+             $select = json_decode($select,true);
+             unset($select[0]['password']);
+             //var_dump($select);return;
+             Session::set('username', $select);
+
+            return(json_encode($select));
+         }else{
+             return(json_encode('2'));
+         }
     }
 }
