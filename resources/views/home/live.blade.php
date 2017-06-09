@@ -297,38 +297,38 @@
     <div class="left-memu">
         <div class="bs-glyphicons">
         <ul class="bs-glyphicons-list">
-            <li>
+            <a href="{{url('index/index')}}"><li>
                 <span class="glyphicon glyphicon-home" aria-hidden="true" ></span>
                 <span class="glyphicon-class">主页</span>
-            </li>
-            <li>
+            </li></a>
+            <a href="{{url('per/getshow')}}"><li>
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 <span class="glyphicon-class">个人</span>
-            </li>
-            <li>
-                <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
-                <span class="glyphicon-class">歌舞</span>
-            </li>
-            <li>
-                <span class="glyphicon glyphicon-knight" aria-hidden="true"></span>
-                <span class="glyphicon-class">脱口秀</span>
-            </li>
-            <li>
-                <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
-                <span class="glyphicon-class">户外</span>
-            </li>
-            <li>
-                <span class="glyphicon glyphicon-scale" aria-hidden="true"></span>
-                <span class="glyphicon-class">手游</span>
-            </li>
-            <li>
-                <span class="glyphicon glyphicon-modal-window" aria-hidden="true"></span>
-                <span class="glyphicon-class">端游</span>
-            </li>
-            <li>
-                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                <span class="glyphicon-class">其他</span>
-            </li>
+            </li></a>
+            <a href="{{url('list/livelist')}}?id=0"><li>
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                    <span class="glyphicon-class">音乐</span>
+                </li></a>
+            <a href="{{url('list/livelist')}}?id=1"><li>
+                    <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                    <span class="glyphicon-class">歌舞</span>
+                </li></a>
+            <a href="{{url('list/livelist')}}?id=2"><li>
+                    <span class="glyphicon glyphicon-knight" aria-hidden="true"></span>
+                    <span class="glyphicon-class">脱口秀</span>
+                </li></a>
+            <a href="{{url('list/livelist')}}?id=3"><li>
+                    <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
+                    <span class="glyphicon-class">户外</span>
+                </li></a>
+            <a href="{{url('list/livelist')}}?id=4"><li>
+                    <span class="glyphicon glyphicon-scale" aria-hidden="true"></span>
+                    <span class="glyphicon-class">手游</span>
+                </li></a>
+            <a href="{{url('list/livelist')}}?id=5"><li>
+                    <span class="glyphicon glyphicon-modal-window" aria-hidden="true"></span>
+                    <span class="glyphicon-class">端游</span>
+                </li></a>
             <li>
                 <span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>
                 <span class="glyphicon-class">二维码</span>
