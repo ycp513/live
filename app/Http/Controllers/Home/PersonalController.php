@@ -17,7 +17,9 @@ class PersonalController extends Controller
     //个人中心
     public function getShow()
     {
-        $get_user = DB::table('live_user')->where('user_id', '1')->first();
+		$user = Session::get('username');
+		$user_id = array_column($user, 'user_id');
+        $get_user = DB::table('live_user')->where('user_id', $user_id[0])->first();
         $get_anchor = DB::table('live_anchor')->where('user_id',$get_user->user_id)->first();
         $live_rend = $get_anchor->live_rend;
         $point = $get_user->point;
@@ -40,8 +42,21 @@ class PersonalController extends Controller
         $carousel = new Carousel;
         $carousel -> initconfig();
         $data_carousel = $carousel ->config;
+		
+		//session
+		$user = Session::get('username');
+		
+		if(!empty($user)){
+			$use = json_encode($user);
+			$arr_user = json_decode($use,true); 
+			$arr_user = array_reverse($arr_user,true);
+			return view('home.personal',['carousel' => $data_carousel,'classify'=>$classify,'get_user'=>$get_user,'live_rend'=>$live_rend,'point'=>$point,'get_anchor'=>$get_anchor,'vip'=>$vip,'user' =>  $arr_user[0]]);
 
-        return view('home.personal',['carousel' => $data_carousel,'classify'=>$classify,'get_user'=>$get_user,'live_rend'=>$live_rend,'point'=>$point,'get_anchor'=>$get_anchor,'vip'=>$vip]);
+		}else{
+			return view('home.personal',['carousel' => $data_carousel,'classify'=>$classify,'get_user'=>$get_user,'live_rend'=>$live_rend,'point'=>$point,'get_anchor'=>$get_anchor,'vip'=>$vip]);
+		}
+
+        
     }
     //获取短信验证码
     public function getSms(){
@@ -219,7 +234,22 @@ class PersonalController extends Controller
                         DB::table('live_user')->where('user_id',$info->user_id)->update(['user_vip'=>$vip[$total_fee],'vip_endtime'=>$vip_endtime]);
                     }
                 }
-            }
+            }else if($info->type == '3'){
+				//从session中取出主播id与时间
+				$data = Session::get('guard_'.$info->user_id);
+				$live_id = $data['live_id'];
+				$times = $data['times'];
+				$first = DB::table('live_guard')->where('user_id',$info->user_id)->where('anchor_id',$live_id)->first();
+				if($first){
+					$month = strtotime(date("Y-m-d",strtotime("+".$times." month")));
+					DB::table('live_guard')->where('user_id',$info->user_id)->where('anchor_id',$live_id)->update(['end_time'=>$month,'money'=>$total_fee]);
+				}else{
+					$time = time();
+					$month = strtotime(date("Y-m-d",strtotime("+".$times." month")));			
+					DB::table('live_guard')->insert(['user_id'=>$info->user_id,'anchor_id'=>$live_id,'start_time'=>$time,'end_time'=>$month,'money'=>$total_fee]);
+				}
+	
+			}
                     $arr = DB::table('live_order')->where('order_id',$out_trade_no)->update(['order_status'=>'1']);
 
             Log::debug('Alipay notify post data verification success.', [
@@ -268,7 +298,18 @@ class PersonalController extends Controller
                             DB::table('live_user')->where('user_id',$info->user_id)->update(['user_vip'=>$vip[$total_fee],'vip_endtime'=>$vip_endtime]);
                         }
                     }
-                }
+                }else if($info->type == '3'){
+					//从session中取出房间号与时间
+					$data = Session::get('guard_'.$info->user_id);
+					$live_id = $data['live_id'];
+					$times = $data['times'];
+					DB::talbe('live_guard')->where('user_id',$info->user_id,)
+					$time = time();
+					$month = strtotime(date("Y-m-d",strtotime("+".$times." month")));			
+					DB::table('live_guard')->insert(['user_id'=>$info->user_id,'anchor_id'=>$live_id,'start_time'=>$time,'end_time'=>$month,'money'=>$total_fee]);
+				
+	
+				}
                 $arr = DB::table('live_order')->where('order_id',$out_trade_no)->update(['order_status'=>'1']);
 
                 return view('home.alipay');

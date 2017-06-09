@@ -1,4 +1,5 @@
   $(function(){
+	  /*--个人中心 开始--*/
         $('.zy').on('click',function(){
             $('.zbhf').removeClass('active');
             $(this).addClass('active');
@@ -260,4 +261,395 @@
 				return false;
 			}
 		});
+
+		/*--个人中心结束--*/
+
+		/*--首页 开始--*/
+		$('.login_block').on('click',function(){
+			$('#loginWrap').show();
+		})
+		$(document).on('click','#close',function(){
+			$('#loginWrap').toggle();
+			$('.account-login-mask').toggle();
+		})
+		$('#register-btn').click(function(){
+			 $('.yin').hide();
+			 $('.register').show();
+        })
+        $('#login-btn').click(function(){
+			$('.yin').show();
+			$('.register').hide();
+        })
+		//验证吗切换
+		$('#re_captcha').on('click',function(){
+			$url = "verify";
+			$url = $url + "/" + Math.random();
+			document.getElementById('verify').src=$url;
+		})
+	
+		//验证数据
+		var flag_name;
+		var flag_pwd;
+		var flag_pwd2;
+		var flag_tel;
+		var flag_verify;
+		//var flag_tyan;
+		//验整用户
+		$('#username').on('blur',function(){
+			var username = $('#username').val();
+			if(username == ''){
+				$('#user').html('账号不能为空');
+				flag_name = false;
+			}else if(username.length > '30'){
+				$('#user').html('字数不能超过30个字符');
+				flag_name = false;
+			}else{
+				 $.ajax({
+					data:{username:username},
+					dataType:"json",
+					type:"get",
+					url:"checkName",
+					success:function(e){
+						 if(e==1){
+							$('#user').html('该用户已存在');
+							flag_name = false;
+						 }else{
+							$('#user').html('');
+							flag_name = true;
+						 }
+
+					}
+				 })
+			}
+			return flag_name;
+		})
+		//验证密码
+		$('#set').on('blur',function(){
+			var str = $('#set').val();
+			var reg = /^[A-Za-z].*[0-9]|[0-9].*[A-Za-z]$/;
+			if(str == '' || str.length < '6' || str.length > '20'){
+				$('#password').html('密码长度为6-20个字符');
+				flag_pwd = false;
+			}else if(!(reg.test(str))){
+				$('#password').html('密码必须包含字母和数字');
+				flag_pwd = false;
+			}else {
+				$('#password').html('');
+				flag_pwd = true;
+			}
+			return flag_pwd;
+		})
+		//验证二次密码
+		$('#reset').on('blur',function(){
+			var str = $('#set').val();
+			var pwd=$('#reset').val();
+			var reg = /^(\w){6,20}$/;
+			if(pwd == null || pwd.length < '6' || pwd.length > '20'){
+				$('#pwd').html('密码长度为6-20个字符');
+				flag_pwd2 = false;
+			}else if(!reg.exec(pwd)){
+				$('#pwd').html('密码必须包含字母和数字');
+				flag_pwd2 = false;
+			}else if(str != pwd){
+				$('#pwd').html('两次密码不一致');
+				flag_pwd2 = false;
+			}else {
+				$('#pwd').html('');
+				flag_pwd2 = true;
+			}
+			return flag_pwd2;
+		})
+		//验证手机号
+		$('#telephone').on('blur',function(){
+			var telephone= $('#telephone').val();
+			var reg = /^1\d{10}$/;
+			if(telephone == '' || !(reg.exec(telephone)) || telephone.length > '11'){
+				$('#tel').html('手机号必须为11位,以1开头');
+				flag_tel = false;
+			}else{
+				$.ajax({
+                   data:{telephone:telephone},
+                   dataType:"json",
+                   type:"get",
+                   url:"telCheck",
+                   success:function(e){
+                     if(e==1){
+                           $('#tel').html(''); 
+                           flag_tel = true; 
+                       }else{
+                           $('#tel').html('该手机号已被占用');
+						   flag_tel = false;
+                       }
+                   }
+               })
+			}
+			return flag_tel;
+		})
+		//验证码验证
+		$('[name=captcha]').on('blur',function(){
+			var cap = $('[name=captcha]').val();
+			if(cap == ''){
+				$('#aa').html('验证码不能为空');
+				flag_verify = false;
+			}else{
+				$.ajax({
+					data:{captcha:cap},
+					type:"get",
+					url:"getCode",
+					success:function(e){
+						if(e==0){
+							$('#aa').html('验证码错误');
+							flag_verify = false;
+						}else{
+							$('#aa').html('');
+							flag_verify = true;
+						}          
+					}
+				  })
+			}
+			return flag_verify;
+		})
+		//手机验证码
+		$('#confirm').on('blur',function(){
+			var message =$('#confirm').val();
+			if(message == ''){
+				$('#yan').html('请输入验证码');
+				flag_tyan = false;
+			}else{
+				$.ajax({
+					data:{message:message},
+					type:"get",
+					dataType:"json",
+					url:"message",
+					success:function(e){
+						if(e==1){
+						   $('#yan').html('');
+							flag_tyan = true;
+						}else{
+						   $('#yan').html('验证码错误');
+						   flag_tyan = false;
+						}
+					}
+				})
+			}
+			return flag_tyan;
+		})
+		
+		
+			
+		//提交数据
+		$('#submit').on('click',function(){
+			var username = $('#username').val();
+			var password = $('#set').val();
+			var telephone= $('#telephone').val();
+			if(flag_name == true & flag_pwd == true & flag_pwd2 == true & flag_tel == true & flag_verify== true ){
+				$.ajax({
+					data:{username:username,password:password,telephone:telephone},
+					type:"get",
+					dataType:"json",
+					url:"register",
+					success:function(e){
+						if(e == '0'){
+							$('#user').html('账号已存在!');					  
+						}else if(e == '2'){
+							$('#user').html('账号注册失败!');		
+						}else{
+							$('#loginWrap').toggle();
+							$('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i><span id="login_user">'+username+'</span></a>');
+						}
+					}
+				})
+				return true;
+			}else{
+				alert('请检查数据的是否正确');
+				return false;
+			}
+		})
+		//登陆
+		 $('#login_do').click(function(){
+			
+			   var account = $('#account').val(); 
+			   var password = $('#passwords').val();
+			   if(account!='' && password!=''){
+				   $.ajax({
+					   data:{account:account,password:password},
+					   dataType:"json",
+					   type:"get",
+					   url:"login",
+					   success:function(e){
+						  if(e==2){
+							  var str ='<tr><td>用户名或密码错误请重新登录</td></tr>';
+							  $('.tbody').html(str);
+							  $('.tbody').css('color','red');
+						  }else if(e == 1){
+							  $('#loginWrap').toggle();
+							  $('.account-login-mask').toggle();
+							  location.reload();
+						  }else{
+							  $('#loginWrap').toggle();
+							  $('.account-login-mask').toggle();
+							  $.each(e,function(i,v){
+								  $('.w-head-info-nologin').html('<a href="javascript:;" yy-on="click: login" class="s1" data-stat-act-type="1" data-statistic-module="4" rel="nofollow"><i class="icon-people"></i><span id="login_user">'+v.username+'</span></a>');
+							  })	  
+						  }
+					   }
+				   })
+			   }else{
+				   var str ='<tr><td>用户名或密码错误请重新登录</td></tr>'
+				   $('.tbody').html(str);
+				   $('.tbody').css('color','red');
+			   }
+		   })
+		   $(document).on('mouseover','#login_user',function(){
+			   $('.w-head-nologin').removeClass().addClass('w-head-nologin current');
+
+		   })
+		   $(document).on('mouseleave','.w-head-menu-cnt',function(){
+
+			   $('.w-head-nologin').removeClass().addClass('w-head-nologin');
+		   })
+			
+		$('#passwords').on('blur',function(){
+			var str = $('#passwords').val();
+			var reg = /^[A-Za-z].*[0-9]|[0-9].*[A-Za-z]$/;
+			if(str == '' || str.length < '6' || str.length > '20'){
+				$('.tbody').html('密码长度为6-20个字符');
+				$('.tbody').css('color','red');
+			}else if(!(reg.test(str))){
+				$('.tbody').html('密码必须包含字母和数字');
+				$('.tbody').css('color','red');
+			}else {
+				$('.tbody').html('');
+			}
+		})
+
+		/*--首页 结束--*/
+
+		/*--直播间 开始--*/
+		$('#starttime').on('change',function(){
+			var starttime = $('#starttime').val();
+			var guard_money = $('#guard_money').val();
+			if(guard_money != '0' && starttime != '0'){
+				var z_money = parseInt(starttime)*parseInt(guard_money);
+				$('#z_money').html(z_money+'元');
+				$('#gmoney').val(z_money);
+			}else{
+				$('#z_money').html('');
+				alert('请选择守护时间与守护金额');
+			}
+		})
+		$('#guard_money').on('change',function(){
+			var starttime = $('#starttime').val();
+			var guard_money = $('#guard_money').val();
+			if(starttime != '0' && guard_money != '0'){
+				var z_money = parseInt(starttime)*parseInt(guard_money);
+				$('#z_money').html(z_money+'元');
+				$('#gmoney').val(z_money);
+			}else{
+				$('#z_money').html('');
+				alert('请选择守护时间与守护金额');
+			}
+			
+		})
+		//守护添加
+		$('#guard_btn').on('click',function(){
+			var starttime = $('#starttime').val();
+			var z_money = $('#gmoney').val();
+			var live_id = $('#live_id').val();
+			$.ajax({
+			   type: "GET",
+			   url: "guardAdd",
+			   data: {starttime:starttime,z_money:z_money,live_id:live_id},
+			   success: function(msg){
+				
+			   }
+			});
+		})
+		//查询是否已经守护
+		$('#guard_show').on('click',function(){
+			var user = $('#guser').val();
+			if(user.length == 0){
+				$('#loginWrap').show();
+				return false;
+			}else{
+				var live_id = $('#live_id').val();
+				$.ajax({
+				   type: "GET",
+				   url: "guardShow",
+				   data: {live_id:live_id},
+				   dataType:'json',
+				   success: function(msg){
+						if(msg != null){
+							$('#showd').html(msg.start_time+'--'+msg.end_time);
+							$('#zhan').show();
+						}
+				   }
+				});
+			}
+		})
+		//关注
+		$('#attention').on('click',function(){
+			var user = $('#guser').val();
+			if(user.length == 0){
+				$('#loginWrap').show();
+				return false;
+			}else{
+				var live_id = $('#live_id').val();
+				$.ajax({
+				   type: "GET",
+				   url: "attenTion",
+				   data: {live_id:live_id},
+				   success: function(msg){
+						if(msg == '1'){
+							$('#attention').html('<i class="fa fa-star"></i> 已关注');
+						}else if(msg == '0'){
+							$('#attention').html('<i class="fa fa-star"></i> 关注');
+						}else{
+							$('#attention').html('<i class="fa fa-star"></i> 已关注');
+						}
+				   }
+				});
+			}
+
+			
+		})
+		/*--直播间 结束--*/
+
 })
+
+	//发送验证码给手机 
+	 var clock = '';
+	 var nums = 60;
+	 var btn;
+	 function sendCode(thisBtn){ 
+		 btn = thisBtn;
+		 btn.disabled = true; //将按钮置为不可点击
+		 btn.value = '等待'+nums+'秒';
+		 clock = setInterval(doLoop, 1000); //一秒执行一次
+		 var telephone = $('#telephone').val();
+		 $.ajax({
+			 data:{telephone:telephone},
+			 dataType:"json",
+			 type:"get",
+			 url:"sendTemplate",
+			 success:function(e){
+				 if(e==1){
+					alert('验证码已发送,请注意查收');
+				 }else{
+					alert('验证码发送失败');
+				 }
+			 }
+		 })
+	}
+
+	 function doLoop(){
+		 nums--;
+		 if(nums > 0){
+		  btn.value ='等待'+nums+'秒';
+		 }else{
+		  clearInterval(clock); //清除js定时器
+		  btn.disabled = false;
+		  btn.value = '点击发送验证码';
+		  nums = 60; //重置时间
+		 }
+	 }
