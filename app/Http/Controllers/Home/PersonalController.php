@@ -18,8 +18,9 @@ class PersonalController extends Controller
     public function getShow()
     {
 		$user = Session::get('username');
-		$user_id = array_column($user, 'user_id');
-        $get_user = DB::table('live_user')->where('user_id', $user_id[0])->first();
+	
+		$user_id = $user[0]['user_id'];
+        $get_user = DB::table('live_user')->where('user_id', $user_id)->first();
         $get_anchor = DB::table('live_anchor')->where('user_id',$get_user->user_id)->first();
         $live_rend = $get_anchor->live_rend;
         $point = $get_user->point;
@@ -249,6 +250,9 @@ class PersonalController extends Controller
 					DB::table('live_guard')->insert(['user_id'=>$info->user_id,'anchor_id'=>$live_id,'start_time'=>$time,'end_time'=>$month,'money'=>$total_fee]);
 				}
 	
+			}else{
+				$total_fee = ($info->balance+$total_fee);
+				DB::table('live_user')->where('user_id',$info->user_id)->update(['balance'=>$total_fee);
 			}
                     $arr = DB::table('live_order')->where('order_id',$out_trade_no)->update(['order_status'=>'1']);
 
@@ -299,16 +303,24 @@ class PersonalController extends Controller
                         }
                     }
                 }else if($info->type == '3'){
-					//从session中取出房间号与时间
+					//从session中取出主播id与时间
 					$data = Session::get('guard_'.$info->user_id);
 					$live_id = $data['live_id'];
 					$times = $data['times'];
-					DB::talbe('live_guard')->where('user_id',$info->user_id,)
-					$time = time();
-					$month = strtotime(date("Y-m-d",strtotime("+".$times." month")));			
-					DB::table('live_guard')->insert(['user_id'=>$info->user_id,'anchor_id'=>$live_id,'start_time'=>$time,'end_time'=>$month,'money'=>$total_fee]);
+					$first = DB::table('live_guard')->where('user_id',$info->user_id)->where('anchor_id',$live_id)->first();
+					if($first){
+						$month = strtotime(date("Y-m-d",strtotime("+".$times." month")));
+						DB::table('live_guard')->where('user_id',$info->user_id)->where('anchor_id',$live_id)->update(['end_time'=>$month,'money'=>$total_fee]);
+					}else{
+						$time = time();
+						$month = strtotime(date("Y-m-d",strtotime("+".$times." month")));			
+						DB::table('live_guard')->insert(['user_id'=>$info->user_id,'anchor_id'=>$live_id,'start_time'=>$time,'end_time'=>$month,'money'=>$total_fee]);
+					}
 				
 	
+				}else{
+					$total_fee = ($info->balance+$total_fee);
+					DB::table('live_user')->where('user_id',$info->user_id)->update(['balance'=>$total_fee);
 				}
                 $arr = DB::table('live_order')->where('order_id',$out_trade_no)->update(['order_status'=>'1']);
 

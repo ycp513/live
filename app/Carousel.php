@@ -1,17 +1,20 @@
-<?php return array(
-	'0'=>[
-		'url' => "index/index",
-		'name' => '舞蹈人生',
-		'img_url' => '/images/phpQpUSyx1477290423.jpg',
-	],
-	'1'=>[
-		'url' => 'index/index',
-		'name' => '荒野之王',
-		'img_url' => '/images/phpV53RyC1492413996.jpg',
-	],
-	'2'=>[
-		'url' => 'index/index',
-		'name' => '联盟者的世界',
-		'img_url' => '/images/phpvsOO5N1488980196.jpg',
-	],
-);
+<?php return array (
+  0 => 
+  array (
+    'name' => '舞动精灵',
+    'url' => 'list/livelist?id=1',
+    'img_url' => 'uploads/20170609/qfGpjFCg1g1496969272.jpg',
+  ),
+  1 => 
+  array (
+    'name' => '野外生存大考验',
+    'url' => 'list/livelist?id=3',
+    'img_url' => 'uploads/20170609/DE8CKQkTtz1496969125.jpg',
+  ),
+  2 => 
+  array (
+    'name' => '带领你们走向胜利',
+    'url' => 'list/livelist?id=4',
+    'img_url' => 'uploads/20170609/r2g1gh6XPD1496969125.jpg',
+  ),
+)?>

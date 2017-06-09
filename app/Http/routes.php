@@ -104,4 +104,4 @@ Route::get('admin/{action}', function(App\Http\Controllers\Admin\AdminController
 Route::get('admin/empty_page','Admin\AdminController@Empty_Page');
 Route::get('admin/adminshow','Admin\AdminController@AdminShow');
 Route::post('login/login','Admin\LoginController@login');
-
+Route::post('admin/carousel','Admin\AdminController@Carousel');
