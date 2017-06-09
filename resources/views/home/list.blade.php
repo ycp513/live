@@ -11,10 +11,8 @@
     <script src="{{ URL::asset('home/js/pgwslider.min.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $(document).ready(function() {
-                jQuery.noConflict();
-                $('.pgwSlider').pgwSlider();
-            });
+            jQuery.noConflict();
+            $('.pgwSlider').pgwSlider();        
         });
     </script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -620,13 +618,20 @@ function check_yan()
             <div class="m">
                 <ul class="pgwSlider">
                 @foreach ($carousel as $val)
-                    <li><a href='{{url("$val[url]")}}' target="_blank"><img src="{{URL::asset('/home')}}{{$val['img_url']}}" alt="{{$val['name']}}" ></a></li>
+                    <li><a href='{{url("$val[url]")}}' target="_blank"><img src="{{URL::asset('')}}{{$val['img_url']}}" alt="{{$val['name']}}" ></a></li>
                 @endforeach
                 </ul>
             </div>
 		</div> 
 	</div>
 </div>
+
+<script>
+    //加载分类页面时更改样式
+    var id = <?php echo $id?>+1;
+    $("ul#wHeadNav li:first").removeClass("cur"); //任何需要执行的js特效 
+    $("ul#wHeadNav li:eq("+id+")").addClass('cur');
+</script>
 <div class="content-wrap">
             	<!-- others -->
     
@@ -643,7 +648,7 @@ function check_yan()
 	<ul class="video-list ">
 	@if(empty($data))
     <li class="video-item">
-    还未有主播入驻，敬请期待！
+    还未有主播开播，敬请期待！
     </li>
     @else
     @foreach($data as $key => $val )

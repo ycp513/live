@@ -36,6 +36,8 @@ class ListController extends Controller
         $anchors = DB::table('live_anchor') 
 	        -> select('live_anchor.user_id','username','fans','live_rend','category_id','anchor_img') 
 	        -> join('live_user', 'live_anchor.user_id', '=', 'live_user.user_id')
+            -> join('live_live','live_anchor.user_id','=','live_live.user_id')
+            -> where('status','=','1')
 	        -> where('category_id','=',$id)
 	        -> orderBy('fans', 'desc')
 	        -> get();

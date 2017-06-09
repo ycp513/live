@@ -29,9 +29,11 @@ class IndexController extends Controller
         $carousel -> initconfig();
         $data_carousel = $carousel ->config;
         //主播数据(房间号、名称、粉丝、封面、)
-        $anchors = DB::table('live_anchor')
-	        -> select('live_anchor.user_id','username','fans','live_rend','category_id','anchor_img')
+        $anchors = DB::table('live_live')
+	        -> select('live_live.user_id','username','fans','live_rend','category_id','anchor_img')
+            -> join('live_anchor','live_anchor.user_id','=','live_live.user_id')
 	        -> join('live_user', 'live_anchor.user_id', '=', 'live_user.user_id')
+            -> where('status','=','1')
 	        -> orderBy('fans', 'desc')
 	        -> get();
         if ($anchors) {
@@ -44,44 +46,44 @@ class IndexController extends Controller
                 }
             }
             $detailed['success'] = 1;
-        }else {
+        } else {
             $detailed['success'] = 0;
-            $detailed['mess'] = '尚未有主播加入，敬请期待！';
+            $detailed['mess'] = '尚未有主播开播，敬请期待！';
         }
         $user = Session::get('username');
-        if(!empty($user)){
+        if (!empty($user)) {
             $use = json_encode($user);
             $arr_user = json_decode($use,true); 
             $arr_user = array_reverse($arr_user,true);
             //var_dump($arr_user);die;
             return view('home.index',['category' => $cate ,'detailed' => $detailed ,'carousel' => $data_carousel,'anchors' => $anchors,'user' =>  $arr_user[0]]);
-        }else{
+        } else {
             return view('home.index',['category' => $cate ,'detailed' => $detailed ,'carousel' => $data_carousel,'anchors' => $anchors]);
-      }  
+        }  
     }
    //ajax登录
     public function login(Request $request)
     {
-         $account = $request->get('account');
-         $password = $request->get('password');
-         //echo "$account"," $password";
-         $password = md5($password);
-         $select = DB::select('select * from live_user where (username=? or telphone=?) and password = ?',["$account","$account","$password"]);
-         //var_dump($select);die;
-         if($select){
-             //在线人数统计
-             $key='user:'.date('Y-m-d');
-             Redis::setBit($key,$select[0]->user_id,1);
-             $select = json_encode($select);
-             $select = json_decode($select,true);
-             unset($select[0]['password']);
-             //var_dump($select);return;
-             Session::set('username', $select);
+        $account = $request->get('account');
+        $password = $request->get('password');
+        //echo "$account"," $password";
+        $password = md5($password);
+        $select = DB::select('select * from live_user where (username=? or telphone=?) and password = ?',["$account","$account","$password"]);
+        //var_dump($select);die;
+        if($select){
+            //在线人数统计
+            $key='user:'.date('Y-m-d');
+            Redis::setBit($key,$select[0]->user_id,1);
+            $select = json_encode($select);
+            $select = json_decode($select,true);
+            unset($select[0]['password']);
+            //var_dump($select);return;
+            Session::set('username', $select);
 
             return(json_encode($select));
-         }else{
-             return(json_encode('2'));
-         }
+        }else{
+            return(json_encode('2'));
+        }
     }
     //退出登录
     public function loginout(){
@@ -139,12 +141,14 @@ class IndexController extends Controller
         $data = $request ->all();
         $user = $data['user'];
         $anchors = DB::table('live_anchor') 
-          -> select('live_anchor.user_id','username','fans','live_rend','category_id','anchor_img') 
-          -> join('live_user', 'live_anchor.user_id', '=', 'live_user.user_id')
-          -> where('live_anchor.user_id','like','%'.$user.'%')
-          -> orwhere('live_rend','like','%'.$user.'%')
-          -> orwhere('username','like','%'.$user.'%')
-          -> get();
+            -> select('live_anchor.user_id','username','fans','live_rend','category_id','anchor_img') 
+            -> join('live_user', 'live_anchor.user_id', '=', 'live_user.user_id')
+            -> where('live_anchor.user_id','like','%'.$user.'%')
+            -> join('live_live','live_anchor.user_id','=','live_live.user_id')
+            -> where('status','=','1')
+            -> orwhere('live_rend','like','%'.$user.'%')
+            -> orwhere('username','like','%'.$user.'%')
+            -> get();
         if (empty($anchors)) { 
             return view('errors.found');
         }
@@ -158,9 +162,9 @@ class IndexController extends Controller
         $telephone = $request->get('telephone');
         $users = DB::select('select * from live_user where telphone = ?', [$telephone]);
         if(empty($users)){
-          echo 1;
+            echo 1;
         }else{
-          echo 0;
+            echo 0;
         }
   }
 
@@ -179,7 +183,7 @@ class IndexController extends Controller
        $a=$rest->setAccount($accountSid,$accountToken); 
        $rest->setAppId($AppId); 
       
-      //var_dump($a);die;
+        //var_dump($a);die;
         $tel = $request->get('telephone');
 
         $number=rand(1000,9999);
@@ -187,63 +191,63 @@ class IndexController extends Controller
         Session::flash('message', $number);
         ///////////发送短信、、、、///////////
 
-       $result = $rest->sendTemplateSMS('15210034978',array($number,'5'),"1"); 
-       if($result == NULL ) {
-          return json_encode(0);
-       }
-       if($result->statusCode!=0) {
-           return json_encode(0); 
-           //下面可以自己添加错误处理逻辑
-       }else{
-           return json_encode(1);
-           //下面可以自己添加成功处理逻辑
-       }        
+        $result = $rest->sendTemplateSMS('15210034978',array($number,'5'),"1"); 
+        if($result == NULL ) {
+            return json_encode(0);
+        }
+        if ($result->statusCode!=0) {
+            return json_encode(0); 
+            //下面可以自己添加错误处理逻辑
+        } else {
+            return json_encode(1);
+            //下面可以自己添加成功处理逻辑
+        }        
    }
 
   ///////////////////验证手机验证码、、、、/////////////////
-     public function message(Request $request)
-     {
+    public function message(Request $request)
+    {
         $message = $request->get('message');
-         $mess = Session::get('message');
+        $mess = Session::get('message');
         // echo $mess;die;
         if(Session::get('message') == $message){
             return(json_encode(1));
         }else{
             return(json_encode(0));
         } 
-     }  
+    }  
 
-  //用户是否存在验证、
-  public function checkName(Request $request)
-  {
+    //用户是否存在验证、
+    public function checkName(Request $request)
+    {
         $username = $request->get('username');
         $users = DB::select("select * from live_user where username = ?", [$username]);
         if(empty($users)){
-          echo 0;
+            echo 0;
         }else{
-          echo 1;
+            echo 1;
         }
-  }
+    }
 
-  //ajax注册
-   public function register(Request $request)
-   {
-       $get = $request->input();
-       //var_dump($get);die;
-       $username = $get['username'];
-       $password = md5($get['password']);
-       $telephone = $get['telephone'];
-       $reg_time = time();
+    //ajax注册
+    public function register(Request $request)
+    {
+        $get = $request->input();
+        //var_dump($get);die;
+        $username = $get['username'];
+        $password = md5($get['password']);
+        $telephone = $get['telephone'];
+        $reg_time = time();
 
-     $insert = DB::insert('insert into live_user (username, password ,telphone,reg_time) values (?,?,?,?)', ["$username","$password",$telephone,$reg_time]);
+        $insert = DB::insert('insert into live_user (username, password ,telphone,reg_time) values (?,?,?,?)', ["$username","$password",$telephone,$reg_time]);
         $arr = [];
         $arr[] = $get;
         //var_dump($arr);die;
-         if($insert){
-           Session::set('username', $arr);
+        if($insert){
+            Session::set('username', $arr);
             return (json_encode($arr));
-         }
-   }
+        }
+    }
    
 
 }
