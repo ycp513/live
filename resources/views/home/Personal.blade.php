@@ -296,8 +296,7 @@
             </div>
         </div>
         <div class="user-status">
-            <a href="javascript:void(0);" data-yy="" class="follow-btn"><i class="icon-add"></i>关注</a>
-                    </div>
+        </div>
         <div class="user-head-tab">
             <a href="#" class="panel fans-link">粉丝<span>@if("{{$get_user->fans}}" >= '0'){{ $get_user->fans}} @else 0 @endif</span></a>
             <span class="icon-line"></span>

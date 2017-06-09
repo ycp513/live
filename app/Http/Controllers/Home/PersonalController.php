@@ -213,7 +213,7 @@ class PersonalController extends Controller
                 $total_fee = Input::get('total_fee');
                 $info = DB::table('live_order')->where('order_id',$out_trade_no)->first();
             if($info->type == '1'){
-                //获取vip等级
+                //获取vip等级 /vip充值
                 $app_path = app_path();
                 $vip  = include $app_path.'/vip.php';
                 if(array_key_exists($total_fee,$vip)){
@@ -236,7 +236,7 @@ class PersonalController extends Controller
                     }
                 }
             }else if($info->type == '3'){
-				//从session中取出主播id与时间
+				//从session中取出主播id与时间 /守护
 				$data = Session::get('guard_'.$info->user_id);
 				$live_id = $data['live_id'];
 				$times = $data['times'];
@@ -251,8 +251,9 @@ class PersonalController extends Controller
 				}
 	
 			}else{
+				//余额充值
 				$total_fee = ($info->balance+$total_fee);
-				DB::table('live_user')->where('user_id',$info->user_id)->update(['balance'=>$total_fee);
+				DB::table('live_user')->where('user_id',$info->user_id)->update(['balance'=>$total_fee]);
 			}
                     $arr = DB::table('live_order')->where('order_id',$out_trade_no)->update(['order_status'=>'1']);
 
@@ -280,7 +281,7 @@ class PersonalController extends Controller
                 $total_fee = Input::get('total_fee');
                 $info = DB::table('live_order')->where('order_id',$out_trade_no)->first();
                 if($info->type == '1'){
-                    //获取vip等级
+                    //获取vip等级 /vip充值
                     $app_path = app_path();
                     $vip  = include $app_path.'/vip.php';
                     if(array_key_exists($total_fee,$vip)){
@@ -303,7 +304,7 @@ class PersonalController extends Controller
                         }
                     }
                 }else if($info->type == '3'){
-					//从session中取出主播id与时间
+					//从session中取出主播id与时间/守护
 					$data = Session::get('guard_'.$info->user_id);
 					$live_id = $data['live_id'];
 					$times = $data['times'];
@@ -319,8 +320,9 @@ class PersonalController extends Controller
 				
 	
 				}else{
+					//余额充值
 					$total_fee = ($info->balance+$total_fee);
-					DB::table('live_user')->where('user_id',$info->user_id)->update(['balance'=>$total_fee);
+					DB::table('live_user')->where('user_id',$info->user_id)->update(['balance'=>$total_fee]);
 				}
                 $arr = DB::table('live_order')->where('order_id',$out_trade_no)->update(['order_status'=>'1']);
 
