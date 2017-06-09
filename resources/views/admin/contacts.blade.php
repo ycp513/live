@@ -22,30 +22,29 @@
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            
+            @if(isset($data))
+            @foreach($data as $k => $v)
             <div class="col-sm-4">
                 <div class="contact-box">
                     <a href="javascript:void(0)">
                         <div class="col-sm-4">
                             <div class="text-center">
                                 <img alt="image" class="img-circle m-t-xs img-responsive" src="img/a2.jpg">
-                                <div class="m-t-xs font-bold">直播类型</div>
+                                <div class="m-t-xs font-bold">{{$v->cate}}</div>
                             </div>
                         </div>
                         <div class="col-sm-8">
-                            <h3><strong>二狗子直播</strong></h3>
-                            <p>直播开始：<i class="fa fa-map-marker"></i> 19:00</p>
-                             <p>直播结束：<i class="fa fa-map-marker"></i> 21:00</p>
-                               <p>直播日期：<i class="fa fa-map-marker"></i>2017/5/27</p>
-                          
+                            <h3><strong>{{$v->username}}</strong></h3>
+                            <p>直播开始：<i class="fa fa-map-marker"></i>{{$v->start_time}}</p>
+                             <p>直播结束：<i class="fa fa-map-marker"></i>{{$v->end_time}}</p>
+                               <p>直播日期：<i class="fa fa-map-marker"></i>{{$v->live_date}}</p>
                         </div>
                         <div class="clearfix"></div>
                     </a>
-                </div>
-            </div>
-
-           
-        
+        </div>
+    </div>
+                @endforeach
+                @endif
         </div>
     </div>
 

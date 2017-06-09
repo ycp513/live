@@ -29,7 +29,7 @@ class AdminController extends Controller
     public function Graph_Metrics()
     {
         $data['register'] = DB::table('live_user')->count();
-        $data['direct'] = DB::table('live_live')->count();
+        $data['direct'] = DB::table('live_live')->where('status','=',1)->count();
         //统计现在在线人数
         $key = 'user:'.date('Y-m-d');
         $dataList[1] = Redis::bitcount($key);
@@ -57,7 +57,39 @@ class AdminController extends Controller
         }
         $dataList[2] = Redis::bitcount('destKey7');
         $dataList[3] = Redis::bitcount('destKey30');
-    	return view('admin.graph_metrics',['data'=>$data,'dataList'=>$dataList]);
+        //统计交易额
+        $live = $this->arr();
+        //统计今天礼物分类成交量
+    	return view('admin.graph_metrics',['data'=>$data,'dataList'=>$dataList,'live'=>$live]);
+    }
+   //查询交易额
+    function  arr(){
+        $date = date('Y-m-d');
+        $arr = DB::table('live_live')->where('live_date','=',$date)->pluck('live_id');
+        $live['monday'] = 0;
+        $live['week'] = 0;
+        $live['month'] = 0;
+        //查询今天交易额
+        for($i = 0; $i<count($arr); $i++){
+            $live['monday'] += DB::table('user_giff')->where('live_id','=',$arr[$i])->sum('total_price');
+        }
+        $yi = date("Y-m-d ",mktime(0, 0 , 0,date("m"),date("d")-date("w")+1,date("Y")));
+        $tian = date("Y-m-d",mktime(23,59,59,date("m"),date("d")-date("w")+7,date("Y")));
+        $live_id =  DB::table('live_live')->whereBetween('live_date',array($yi,$tian))->lists('live_id');
+        //查询本周交易额
+        for($i = 0; $i<count($live_id); $i++){
+            $live['week'] += DB::table('user_giff')->where('live_id','=',$live_id[$i])->sum('total_price');
+        }
+        //本月一号
+        $a = date("Y-m-d ",mktime(0, 0 , 0,date("m"),1,date("Y")));
+        //本月月底
+        $c = date("Y-m-d",mktime(23,59,59,date("m"),date("t"),date("Y")));
+        $live_month =  DB::table('live_live')->whereBetween('live_date',array($a,$c))->lists('live_id');
+        //查询本月交易额
+        for($i = 0; $i<count($live_month); $i++){
+            $live['month'] += DB::table('user_giff')->where('live_id','=',$live_month[$i])->sum('total_price');
+        }
+        return $live;
     }
     //折线图
     public  function  Broken_Line(){
@@ -75,8 +107,180 @@ class AdminController extends Controller
         foreach($count as $k => $v){
           $data['count'][] = array_sum($v);
         }
+        //本周交易额折线图
+        $yi = date("Y-m-d ",mktime(0, 0 , 0,date("m"),date("d")-date("w")+1,date("Y")));
+        $tian = date("Y-m-d",mktime(23,59,59,date("m"),date("d")-date("w")+7,date("Y")));
+        //查询本周交易额
+        for($i=1;$i<=7;$i++){
+          $res[] = date("Y-m-d ",mktime(0, 0 , 0,date("m"),date("d")-date("w")+$i,date("Y")));
+        }
+        for($i = 0; $i<count($res); $i++){
+            $date[$res[$i]] = DB::table('live_live')->where('live_date','=',$res[$i])->pluck('live_id');
+        }
+        foreach($date as $k => $v){
+            if($v!=null){
+                for($i=0;$i<count($v);$i++){
+                 $c[$k][] = DB::table('user_giff')->where('live_id','=',$v[$i])->pluck('total_price');
+                }
+            }else{
+                $c[$k] =array();
+            }
+        }
+        foreach($c as $k =>$v){
+           foreach($v as $k1 => $v1){
+               $c[$k][$k1]=array_sum($v1);
+           }
+          $c[$k] = array_sum($c[$k]);
+        }
+        foreach($c as $k =>$v){
+            $data['price'][] =$v;
+        }
+        //获取当月日期
+        $j = date('t'); //获取当前月份天数
+        $start_time = strtotime(date('Y-m-01'));  //获取本月第一天时间戳
+        $array = array();
+        for($i=0;$i<$j;$i++) {
+            $array[] = date('Y-m-d', $start_time + $i * 86400); //每隔一天赋值给数组
+        }
+        for($i = 0; $i<count($array); $i++){
+            $month[$array[$i]] = DB::table('live_live')->where('live_date','=',$array[$i])->pluck('live_id');
+        }
+        foreach($month as $k => $v){
+            if($v!=null){
+                for($i=0;$i<count($v);$i++){
+                    $ke[$k][] = DB::table('user_giff')->where('live_id','=',$v[$i])->pluck('total_price');
+                }
+            }else{
+                $ke[$k] =array();
+            }
+        }
+        foreach($ke as $k =>$v){
+            foreach($v as $k1 => $v1){
+                $ke[$k][$k1]=array_sum($v1);
+            }
+            $ke[$k] = array_sum($ke[$k]);
+        }
+        $zhe=array_chunk($ke,5);
+        foreach($zhe as $k => $v){
+            $data['cc'][] = array_sum($v);
+        }
+     //查询今日主播类型成交量
+        $today = date('Y-m-d');
+        $live_id =  DB::table('live_live')->where('live_date','=',$today)->select('user_id','live_id')->get();
+        $category = new Category();
+        $category->initconfig();
+        $ca = $category->category_config;
+        $category = $ca;
+        foreach($live_id as $k => $v){
+             $live_id[$k]->sum =  DB::table('user_giff')->where('live_id','=',$v->live_id)->sum('total_price') ? DB::table('user_giff')->where('live_id','=',$v->live_id)->sum('total_price') :0 ;
+             $categorys[] = DB::table('live_anchor')->where('user_id','=',$v->user_id)->select('category_id')->first();
+             $live_id[$k]->category_id = $categorys[$k]->category_id;
+                }
+         foreach($ca as $k => $v){
+                    $ca[$k]=0;
+             foreach($live_id as $k1 => $v1){
+                      if($v1->category_id == $k){
+                           $ca[$k]+= $v1->sum;
+                      }
+               }
+         }
+        $color = ['red', 'orange ','yellow','green','blue','#fff','#FF00FF'];
+        $colors = ['#76EE00', '#68228B ','#CD0000','#EEAD0E','#FFDEAD','#F08080','#00008B'];
+        $data['ca']=$ca;
+        $live_gift = DB::table('live_gift')->lists('giftname');
+        $data['category'] = $category;
+        $data['live_gift'] = $live_gift;
+        $data['color'] = $color;
+        $data['colors'] = $colors;
+        //最近七天的成交量
+        $xia = $this->The_Date(7);
+        $data['xia']=$xia;
+
+        //查询最近三十天成交量
+        $Thirty_days = $this->The_Date(30);
+        $data['Thirty_days']=$Thirty_days;
+        //查询今日礼物分类成交量
+        $gift_id =  DB::table('live_live')->where('live_date','=',$today)->lists('live_id');
+        //调用方法得到今日礼物分类成交量
+        $data['g'] = $this->Volume($gift_id);
+        //查询七天分类礼物成交量
+       $m = $this->Datetime(7);
+
+        //调用方法得到七天礼物分类成交量
+        $data['m'] = $this->Volume($m);
+      //调用方法得到三十天礼物分类成交量
+        $n = $q = $this->Datetime(30);
+        $data['n'] = $this->Volume($n);
         return $data;
     }
+    //封装处理日期
+    public function  Datetime($num){
+        for($i=0; $i<$num;$i++){
+            $da = date('Y-m-d', strtotime('-'.$i.' days'));
+            $q[] =  DB::table('live_live')->where('live_date','=',$da)->lists('live_id');
+        }
+        foreach($q as $k => $v){
+            foreach($v as $k =>$v){
+                $m[] = $v;
+            }
+        }
+        return $m;
+    }
+    //封装最近时间段礼物分类成交量统计
+    public  function  Volume($gift_id){
+
+        for($i=0;$i<count($gift_id);$i++){
+            $id[] =  DB::table('user_giff')->where('live_id','=',$gift_id[$i])->select('giff_id','total_price')->get();
+        }
+        $ff = array();
+        foreach($id as $k => $v){
+            foreach($v as $k1 => $v1){
+                $ff[] = $v1;
+            }
+        }
+        $y = DB::table('live_gift')->lists('giftname','gift_id');
+        foreach($y as $k => $v) {
+            $g[$k] = 0;
+            foreach ($ff as $k1 => $v1) {
+                if ($v1 != null) {
+                    if ($v1->giff_id == $k) {
+                        $g[$k] += $v1->total_price;
+                    }
+                }
+            }
+        }
+        return $g;
+    }
+    //封装获取最近时间daunt成交量方法
+     public  function  The_Date($date){
+         $category = new Category();
+         $category->initconfig();
+         $ca = $category->category_config;
+         for($i=0; $i<$date;$i++){
+             $da = date('Y-m-d', strtotime('-'.$i.' days'));
+             $Seven[] =  DB::table('live_live')->where('live_date','=',$da)->select('user_id','live_id')->get();
+         }
+         foreach($Seven as $k => $v) {
+             foreach ($v as $k1 => $v1) {
+                 $Seven[$k][$k1]->sum = DB::table('user_giff')->where('live_id', '=', $v1->live_id)->sum('total_price') ? DB::table('user_giff')->where('live_id', '=', $v1->live_id)->sum('total_price') : 0;
+                 $a[]=$v1;
+             }
+         }
+
+         foreach($a as $k =>$v){
+             $days[] = DB::table('live_anchor')->where('user_id', '=', $v->user_id)->select('category_id')->first();
+             $a[$k]->category_id = $days[$k]->category_id;
+         }
+         foreach($ca as $k => $v) {
+             $xia[$k] = 0;
+             foreach ($a as $k1 => $v1) {
+                 if ($v1->category_id == $k) {
+                     $xia[$k] += $v1->sum;
+                 }
+             }
+         }
+         return $xia;
+     }
    //主页
     public function Empty_Page()
     {
@@ -86,11 +290,14 @@ class AdminController extends Controller
     public function Table()
     {
         $data =  DB::table('live_order')->get();
-        foreach($data as $k => $v){
-            $username= DB::table('live_user')->where('user_id','=',$v->user_id)->lists('username','user_id');
-            $v->username = $username[$v->user_id];
-            $v->addtime= date('Y-m-d H:i:s',$v->addtime);
+        if($data){
+            foreach($data as $k => $v){
+                $username= DB::table('live_user')->where('user_id','=',$v->user_id)->lists('username','user_id');
+                $v->username = $username[$v->user_id];
+                $v->addtime= date('Y-m-d H:i:s',$v->addtime);
+            }
         }
+
     	return view('admin.table',['data'=>$data]);
     }
   
@@ -110,21 +317,52 @@ class AdminController extends Controller
     public function Gift_Order()
     {
         $data=DB::table('user_giff')->get();
-        foreach($data as $k => $v){
-           $username = DB::table('live_user')->where('user_id','=',$v->user_id)->lists('username','user_id');
-            $v->username = $username[$v->user_id];
-            $anchor = DB::table('live_user')->where('user_id','=',$v->anchor_id)->lists('username','user_id');
-            $v->anchor = $anchor[$v->anchor_id];
-            $giftname = DB::table('live_gift')->where('gift_id','=',$v->giff_id)->lists('giftname','gift_id');
-            $v->giftname = $giftname[$v->giff_id];
+        if($data){
+            foreach($data as $k => $v){
+                $username = DB::table('live_user')->where('user_id','=',$v->user_id)->lists('username','user_id');
+                $v->username = $username[$v->user_id];
+                $anchor = DB::table('live_user')->where('user_id','=',$v->anchor_id)->lists('username','user_id');
+                $v->anchor = $anchor[$v->anchor_id];
+
+                $giftname = DB::table('live_gift')->where('gift_id','=',$v->giff_id)->lists('giftname','gift_id');
+                $v->giftname = $giftname[$v->giff_id];
+            }
         }
+
     	return view('admin.gift_order',['data'=>$data]);
     }
 
        //直播列表
     public function Contacts()
     {
-    	 return view('admin.contacts');
+        $category = new Category();
+        $category->initconfig();
+        $ca = $category->category_config;
+        $data = DB::table('live_live')->where('status','=',1)->get();
+       // print_r($data);return;
+        if($data){
+            foreach($data as $k =>$v){
+                if($v->user_id === null){
+                    $w = $v;
+                    $w->username = '非法连接，请核实';
+                    $v->cate='';
+                    unset($data[$k]);
+                    array_unshift($data,$w);
+                }else{
+                    $username =  DB::table('live_user')->where('user_id','=',$v->user_id)->lists('username','user_id');
+                    $v->username = $username[$v->user_id];
+                    $cate = DB::table('live_anchor')->where('user_id','=',$v->user_id)->lists('category_id','user_id');
+               //print_r($cate[$v->user_id]);
+                   foreach($ca as $k1 => $v1){
+                        if($cate[$v->user_id] == $k1){
+                            $v->cate = $v1;
+                        }
+                    };
+
+                }
+            }
+        }
+    	  return view('admin.contacts',['data'=>$data]);
     }
 
        //直播用户状态详情类表
