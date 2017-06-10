@@ -181,7 +181,7 @@
                                     <div class="ibox">
                                         <div class="ibox-content">
                                             <h5>本日交易额</h5>
-                                            <h2>198 009</h2>
+                                            <h2>{{$live['monday']}}</h2>
                                             <div class="sparkline1"></div>
                                         </div>
                                     </div>
@@ -190,7 +190,7 @@
                                     <div class="ibox">
                                         <div class="ibox-content">
                                             <h5>本周交易额</h5>
-                                            <h2>65 000</h2>
+                                            <h2>{{$live['week']}}</h2>
                                             <div class="sparkline2"></div>
                                         </div>
                                     </div>
@@ -199,7 +199,7 @@
                                     <div class="ibox">
                                         <div class="ibox-content">
                                             <h5>本月交易额</h5>
-                                            <h2>10000 900</h2>
+                                            <h2>{{$live['month']}}</h2>
                                             <div class="sparkline3"></div>
                                         </div>
                                     </div>
@@ -207,6 +207,7 @@
                                
                             </div>
                        <!--结束-->
+
                     </div>
                 </div>
             </div>  
@@ -236,53 +237,48 @@
                     <div class="ibox-content">
                        <!-- 包含-->
                                     <div class="row">
-                                <div class="col-sm-3">
-                                    <div class="ibox">
-                                        <div class="ibox-content">
-                                            <h5>娱乐主播</h5>
-                                            <table class="table table-stripped small m-t-md">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="no-borders">
-                                                            <i class="fa fa-circle text-navy">今日</i>
-                                                        </td>
-                                                        <td class="no-borders">
-                                                            88888￥
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <i class="fa fa-circle text-navy">本周</i>
-                                                        </td>
-                                                        <td>
-                                                            88888￥
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <i class="fa fa-circle text-navy">本月</i>
-                                                        </td>
-                                                        <td>
-                                                             88888￥
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <i class="fa fa-circle text-navy">今年</i>
-                                                        </td>
-                                                        <td>
-                                                             88888￥
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+
+
+                                        <div class="col-sm-3">
+                                            <div class="ibox">
+                                                <div class="ibox-content">
+                                                    <div class="cate_color" style="float:right; width:67px;"></div>
+                                                    <h5>今日成交量百分比</h5>
+                                                    <div class="text-center">
+                                                        <div id="sparkline5"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            
-                            </div>
+                                        <div class="col-sm-3">
+                                            <div class="ibox">
+                                                <div class="ibox-content">
+                                                    <div class="cate_color" style="float:right; width:67px;"></div>
+                                                    <h5>最近7天成交量百分比</h5>
+
+                                                    <div class="text-center">
+                                                        <div id="sparkline6"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="ibox">
+                                                <div class="ibox-content">
+                                                    <div class="cate_color" style="float:right; width:67px;"></div>
+                                                    <h5>最近三十天成交量百分比</h5>
+
+                                                    <div class="text-center">
+                                                        <div id="sparkline7"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                        <!--结束-->
-                    </div>
+
+
+                        </div>
                 </div>
             </div>  
       
@@ -290,7 +286,7 @@
           <div class="col-sm-6" style="width:100%">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>主播分类交易额展示</h5>
+                        <h5>主播交易额</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -316,50 +312,41 @@
             <div class="col-sm-3">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <h5>今日礼物成交量</h5>
-                        <h1 class="no-margins">886,200</h1>
-                        <div class="stat-percent font-bold text-navy">88888￥ </div>
-                        <small>今日总收入</small>
+                        <div class="gift_color" style="float:right; width:67px;"></div>
+                        <h5>今天礼物成交量</h5>
+
+                        <div class="text-center">
+                            <div id="sparkline8"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-             <div class="col-sm-3">
-                <div class="ibox">
-                    <div class="ibox-content">
-                        <h5>今日礼物成交量</h5>
-                        <h1 class="no-margins">886,200</h1>
-                        <div class="stat-percent font-bold text-navy">88888￥ </div>
-                        <small>今日总收入</small>
-                    </div>
-                </div>
-            </div>
-          
+
             <div class="col-sm-3">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <h5>本周礼物成交量</h5>
-                        <h1 class="no-margins">886,200</h1>
-                        <div class="stat-percent font-bold text-navy">88888￥ </div>
-                        <small>本周总收入</small>
+                        <div class="gift_color" style="float:right; width:67px;"></div>
+                        <h5>今天礼物成交量</h5>
+
+                        <div class="text-center">
+                            <div id="sparkline9"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-    
+
+
             <div class="col-sm-3">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <h5>本月礼物成交量</h5>
-                        <h1 class="no-margins">886,200</h1>
-                        <div class="stat-percent font-bold text-navy">88888￥ </div>
-                        <small>本月总收入</small>
+                        <div class="gift_color" style="float:right; width:67px;"></div>
+                        <h5>今天礼物成交量</h5>
+
+                        <div class="text-center">
+                            <div id="sparkline10"></div>
+                        </div>
                     </div>
                 </div>
-            
-           
-           
-
-            
-
             </div>
           
        
@@ -404,7 +391,7 @@
                                 fillColor: "#ffffff"
                         });
 
-                        $(".sparkline2").sparkline([24, 43, 43, 55, 44, 62, 44, 72], {
+                        $(".sparkline2").sparkline([msg.price[0],msg.price[1],msg.price[2],msg.price[3],msg.price[4],msg.price[5],msg.price[6]], {
                             type: 'line',
                             width: '100%',
                             height: '60',
@@ -412,7 +399,7 @@
                             fillColor: "#ffffff"
                         });
 
-                        $(".sparkline3").sparkline([74, 43, 23, 55, 54, 32, 24, 99], {
+                        $(".sparkline3").sparkline([msg.cc[0],msg.cc[1],msg.cc[2],msg.cc[3],msg.cc[4],msg.cc[5]], {
                             type: 'line',
                             width: '100%',
                             height: '60',
@@ -420,13 +407,7 @@
                             fillColor: "#ffffff"
                         });
 
-                        $(".sparkline4").sparkline([24, 43, 33, 55, 64, 72, 44, 22], {
-                            type: 'line',
-                            width: '100%',
-                            height: '60',
-                            lineColor: '#ed5565',
-                            fillColor: "#ffffff"
-                        });
+
                         $("#sparkline1").sparkline([0, 7, 6, 5, 4, 0, 1, 2], {
                             type: 'line',
                             width: '100%',
@@ -451,42 +432,57 @@
                             fillColor: "#ffffff"
                         });
 
-                        $("#sparkline4").sparkline([24, 43, 33, 55, 64, 72, 44, 22], {
-                            type: 'line',
-                            width: '100%',
-                            height: '60',
-                            lineColor: '#ed5565',
-                            fillColor: "#ffffff"
-                        });
-
-                        $("#sparkline5").sparkline([1, 4], {
+                        $("#sparkline5").sparkline([msg.ca[0],msg.ca[1],msg.ca[2],msg.ca[3],msg.ca[4],msg.ca[5],msg.ca[6]], {
                             type: 'pie',
                             height: '140',
-                            sliceColors: ['#1ab394', '#F5F5F5']
+                            sliceColors: msg.color
                         });
+                        var str ='';
+                        $.each(msg.category,function(k,v){
+                            str+='<div style="background-color:'+msg.color[k]+';width:20px;height:10px;float:left"></div><span style="float: right">'+v+'</span><br>'
+                        })
 
-                        $("#sparkline6").sparkline([5, 3], {
+                        $('.cate_color').html(str);
+                        $("#sparkline6").sparkline([msg.xia[0],msg.xia[1],msg.xia[2],msg.xia[3],msg.xia[4],msg.xia[5],msg.xia[6]], {
                             type: 'pie',
                             height: '140',
-                            sliceColors: ['#1ab394', '#F5F5F5']
+                            sliceColors:msg.color
                         });
 
-                        $("#sparkline7").sparkline([2, 2], {
+                        $("#sparkline7").sparkline([msg.Thirty_days[0],msg.Thirty_days[1],msg.Thirty_days[2],msg.Thirty_days[3],msg.Thirty_days[4],msg.Thirty_days[5],msg.Thirty_days[6]], {
                             type: 'pie',
                             height: '140',
-                            sliceColors: ['#ed5565', '#F5F5F5']
+                            sliceColors: msg.color
                         });
 
-                        $("#sparkline8").sparkline([2, 3], {
+                        var str ='';
+                        $.each(msg.live_gift,function(k,v){
+                            str+='<div style="background-color:'+msg.colors[k]+';width:20px;height:10px;float:left"></div><span style="float: right">'+v+'</span><br>'
+                        })
+
+                        $('.gift_color').html(str);
+                        $("#sparkline8").sparkline([msg.g[1],msg.g[2],msg.g[3],msg.g[4],msg.g[5],msg.g[6],msg.g[7]], {
                             type: 'pie',
                             height: '140',
-                            sliceColors: ['#ed5565', '#F5F5F5']
+                            sliceColors: msg.colors
                         });
+                        $("#sparkline9").sparkline([msg.m[1],msg.m[2],msg.m[3],msg.m[4],msg.m[5],msg.m[6],msg.m[7]], {
+                            type: 'pie',
+                            height: '140',
+                            sliceColors: msg.colors
+                        });
+                        $("#sparkline10").sparkline([msg.n[1],msg.n[2],msg.n[3],msg.n[4],msg.n[5],msg.n[6],msg.n[7]], {
+                            type: 'pie',
+                            height: '140',
+                            sliceColors: msg.colors
+                        });
+
                     }
                 }
             })
 
         });
+
     </script>
 
     

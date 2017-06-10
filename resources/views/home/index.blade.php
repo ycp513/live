@@ -343,7 +343,7 @@
             <a class="video-box" href="{{ url('liveroom/live') }}?id={{$val -> user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
                 <div class="video-pic">
                     <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val -> username}}"></div>
-                    <div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/YzViOGJkYjMtNjUzMy00OWE4LWIxNjEtYTQ1NGNkOTJiNWY1.jpg?imageview/4/0/w/363/h/330/blur/1" alt="{{$val -> username}}" /></div></div>
+                    <div class="pic-real"><img class="lazy" src="{{URL::asset($val->anchor_img)}}" style="display: inline;visibility: visible;" alt="{{$val -> username}}" /></div></div>
                     <div class="mask"></div>
                     <i class="icon-play"></i>
                 </div>
@@ -387,7 +387,7 @@
             <a class="video-box" href="{{url('liveroom/live')}}?id={{ $val -> user_id }}" target="_blank" title="{{$val -> username }}" data-stat-act-type="3">
                 <div class="video-pic">
                     <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val -> username }}"></div>
-                    <div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/ZDM2NjFiNTUtYjhlMi00ZWY5LTk1YWEtMzJjNTRmNzMyYTNk.jpg?imageview/4/0/w/363/h/330/blur/1" alt="{{$val->username}}" /></div></div>
+                    <div class="pic-real"><img class="lazy" src="{{URL::asset($val->anchor_img)}}" style="display: inline;visibility: visible;" alt="{{$val->username}}" /></div></div>
                     <div class="mask"></div>
                     <i class="icon-play"></i>
                 </div>
@@ -431,7 +431,7 @@
             <a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
                 <div class="video-pic">
                     <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val -> username}}"></div>
-                    <div class="pic-real"><img class="lazy" src="{{URL::asset('home/'.$val->anchor_img)}}" style="display: inline;visibility: visible;" data-original="" alt="{{$val -> username}}" /></div></div>
+                    <div class="pic-real"><img class="lazy" src="{{URL::asset($val->anchor_img)}}" style="display: inline;visibility: visible;" alt="{{$val -> username}}" /></div></div>
                     <div class="mask"></div>
                     <i class="icon-play"></i>
                 </div>
@@ -475,7 +475,7 @@
 			<a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
 				<div class="video-pic">
 					<div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val->username}}"></div>
-					<div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MTFmYzdkMDUtYTQ5MS00YjZkLThiZjAtMjA5ZWVkYTZjMjcz.jpg?imageview/4/0/w/363/h/330/blur/1" alt="{{$val->username}}" /></div></div>
+					<div class="pic-real"><img class="lazy" src="{{URL::asset($val->anchor_img)}}" style="display: inline;visibility: visible;" alt="{{$val->username}}" /></div></div>
 					<div class="video-tag tag-color-0">
 						</div>
 					<div class="mask"></div>
@@ -515,7 +515,7 @@
 				<a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" title="{{$val->username}}" target="_blank" data-stat-act-type="3">
 					<div class="video-pic">
 						<div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val->username}}"></div>
-						<div class="pic-real"><img class="lazy" data-original="" alt="{{$val->username}}" /></div></div>
+						<div class="pic-real"><img class="lazy" src="{{URL::asset($val->anchor_img)}}" style="display: inline;visibility: visible;" alt="{{$val->username}}" /></div></div>
 						<div class="video-type">{{$val->username}}</div>
 							<div class="mask"></div>
 						<i class="icon-play"></i>

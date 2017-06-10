@@ -64,6 +64,7 @@ Route::get('per/{action}', function(App\Http\Controllers\Home\PersonalController
 
 //Personal
 Route::get('liveroom/login','Home\StudioController@login');
+Route::post('liveroom/guardAdd','Home\StudioController@guardAdd');
 Route::get('liveroom/{action}', function(App\Http\Controllers\Home\StudioController $index, $action){
     return $index->$action();
 });

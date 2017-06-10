@@ -28,8 +28,8 @@ var stat = {
 <script src="{{ URL::asset('/home/js/jquery-1-fe84a54bc0.11.1.min.js') }}"></script>
 <title>YY LIVE-全民娱乐视频直播平台</title>
     <meta property="wb:webmaster" content="c50daaac5f17a835" />
-    <meta name="description" content="YY LIVE是全民娱乐视频直播平台,注册用户超10亿网站,提供在线高清流畅的直播间与美女直播视频秀、其中包含音乐、舞蹈、脱口秀等热门秀场直播以及CBA体育直播,lol、dota2、dnf等网络游戏直播。">
-    <meta name="keywords" content="直播,视频直播,直播网站,lol直播,CBA直播,直播平台,在线直播,美女直播,现场直播,体育直播,直播视频秀,直播间,网络直播,游戏直播">
+    <meta name="description" content="YY ">
+    <meta name="keywords" content="直播">
     <meta name="applicable-device" content="pc">
 <link rel="stylesheet" href="{{ URL::asset('/home/css/index-7f196aa861.css') }}" type="text/css">
 
@@ -364,7 +364,7 @@ var stat = {
             <a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val->username}}" data-stat-act-type="3">
                 <div class="video-pic">
                     <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val->username}}"></div>
-                    <div class="pic-real"><img class="lazy" data-original="//emyfs.bs2cdn.yy.com/MTFmYzdkMDUtYTQ5MS00YjZkLThiZjAtMjA5ZWVkYTZjMjcz.jpg?imageview/4/0/w/363/h/330/blur/1" alt="{{$val->username}}" /></div></div>
+                    <div class="pic-real"><img class="lazy" src="{{URL::asset($val->anchor_img)}}" style="display: inline;visibility: visible;" alt="{{$val->username}}" /></div></div>
                     <div class="video-tag tag-color-0">
                         </div>
                     <div class="mask"></div>
