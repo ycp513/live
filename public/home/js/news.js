@@ -52,7 +52,7 @@
         $('.duanxin').on('click',function(){
             //获取手机ID
             var iphone = $("#regi_mobile").val();
-            var username = $("#username").val();
+            var username = $("#yan_name").val();
 			var re = /^1\d{10}$/
 			if (!(re.test(iphone))) {
 				$('#sp4').html('请填些正确的手机号!');
@@ -61,15 +61,15 @@
 			} 
 
             $.ajax({
-                url:"per/getSms",
+                url:"getSms",
                 data:{iphone:iphone,username:username},
                 type:"GET",
                 dataType:"json",
                 success:function(msg){
                     if(msg.stat   == '100'){
-                        alert(message+',请注意查收！');
+                        alert(msg.message+',请注意查收！');
                     }else{
-                        alert(message);
+                        alert(msg.message);
                     }
 
                 }
@@ -105,6 +105,7 @@
                             success:function(e){
                                 if(e == 1){
                                     alert('修改成功');
+									location.reload();
                                 }else{
                                     alert('修改失败');
                                 }
