@@ -553,19 +553,19 @@
 			
 		})
 		//守护添加
-		$('#guard_btn').on('click',function(){
-			var starttime = $('#starttime').val();
-			var z_money = $('#gmoney').val();
-			var live_id = $('#live_id').val();
-			$.ajax({
-			   type: "GET",
-			   url: "guardAdd",
-			   data: {starttime:starttime,z_money:z_money,live_id:live_id},
-			   success: function(msg){
+		//$('#guard_btn').on('click',function(){
+		//	var starttime = $('#starttime').val();
+		//	var z_money = $('#gmoney').val();
+		//	var live_id = $('#live_id').val();
+		//	$.ajax({
+		///	   type: "GET",
+		//	   url: "guardAdd",
+		//	   data: {starttime:starttime,z_money:z_money,live_id:live_id},
+		//	   success: function(msg){
 				
-			   }
-			});
-		})
+		//	   }
+		//	});
+		//})
 		//查询是否已经守护
 		$('#guard_show').on('click',function(){
 			var user = $('#guser').val();
@@ -614,6 +614,15 @@
 
 			
 		})
+		$('#ddd').on('click',function(){
+			var user = $('#guser').val();
+			if(user.length == 0){
+				$('#loginWrap').show();
+				return false;
+			}
+		})
+		
+
 		/*--直播间 结束--*/
 
 })
@@ -654,3 +663,11 @@
 		  nums = 60; //重置时间
 		 }
 	 }
+	 function check(){
+	   var z_money = $('#gmoney').val();
+	   if(z_money ==  null || name == ''){
+			alert("请选择守护时间与金额");
+			return false;
+	   }
+	   return true;
+	}
