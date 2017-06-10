@@ -864,7 +864,7 @@
         <div class="box">
             <div class="a">
                 <?php foreach($gift as $k=>$v){ ?>
-                <span><img src="<?=$v['img_path'];?>" alt="" price="<?=$v['price'];?>" width="85" height="75" ids="<?=$v['gift_id'];?>" names="<?=$v['giftname'];?>"></span>
+                <span><img src="{{URL::asset('home/')}}/<?=$v['img_path']?>" alt="" price="<?=$v['price'];?>" width="85" height="75" ids="<?=$v['gift_id'];?>" names="<?=$v['giftname'];?>"></span>
                 <?php }?>
                 <input type="hidden" value="" id="giff_val">
                 <input type="hidden" value="" id="giff_src">
@@ -887,7 +887,6 @@
             </div>
             <div  stype="width:60px;height:40px;">
                 <button style="margin-top:30px;margin-right: 20px;" id="send">赠送</button>
-    <div class="gift-div"></div>
 	<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content animated bounceInRight">

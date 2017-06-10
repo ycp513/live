@@ -431,7 +431,7 @@
             <a class="video-box" href="{{url('liveroom/live')}}?id={{$val->user_id}}" target="_blank" title="{{$val -> username}}" data-stat-act-type="3">
                 <div class="video-pic">
                     <div class="video-pic-inner"><div class="pic-default"><img src="{{URL::asset('home/images/default_load-7889f80ae2.png')}}" alt="{{$val -> username}}"></div>
-                    <div class="pic-real"><img class="lazy" data-original="" alt="{{$val -> username}}" /></div></div>
+                    <div class="pic-real"><img class="lazy" src="{{URL::asset('home/'.$val->anchor_img)}}" style="display: inline;visibility: visible;" data-original="" alt="{{$val -> username}}" /></div></div>
                     <div class="mask"></div>
                     <i class="icon-play"></i>
                 </div>

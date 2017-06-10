@@ -249,7 +249,9 @@ class PersonalController extends Controller
 					$month = strtotime(date("Y-m-d",strtotime("+".$times." month")));			
 					DB::table('live_guard')->insert(['user_id'=>$info->user_id,'anchor_id'=>$live_id,'start_time'=>$time,'end_time'=>$month,'money'=>$total_fee]);
 				}
-	
+				//redis 守护榜变化
+                $guardkey =  'guard'.$live_id;
+				Redis::zadd($guardkey, $total_fee, $info->user_id);
 			}else{
 				//余额充值
 				$total_fee = ($info->balance+$total_fee);
@@ -317,15 +319,15 @@ class PersonalController extends Controller
 						$month = strtotime(date("Y-m-d",strtotime("+".$times." month")));			
 						DB::table('live_guard')->insert(['user_id'=>$info->user_id,'anchor_id'=>$live_id,'start_time'=>$time,'end_time'=>$month,'money'=>$total_fee]);
 					}
-				
-	
+					//redis 守护榜变化
+                    $guardkey =  'guard'.$live_id;
+					Redis::zadd($guardkey, $total_fee, $info->user_id);
 				}else{
 					//余额充值
 					$total_fee = ($info->balance+$total_fee);
 					DB::table('live_user')->where('user_id',$info->user_id)->update(['balance'=>$total_fee]);
 				}
                 $arr = DB::table('live_order')->where('order_id',$out_trade_no)->update(['order_status'=>'1']);
-
                 return view('home.alipay');
 
             case 'TRADE_FINISHED':

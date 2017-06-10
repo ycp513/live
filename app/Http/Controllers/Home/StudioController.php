@@ -110,6 +110,8 @@ class StudioController extends Controller
         $balance = $user[0]['balance'];
         $result = ['success'=>false, 'msg'=>''];
         if($balance>=$total_price){
+            $devotekey = 'devote'.$anchor_id;
+            Redis::ZINCRBY ($devotekey,$total_price,$user_id);
             $redis = $this->dispatch(new RedisList( $user_id, $anchor_id, $giff_id, $giff_num, $total_price, $live_id));
             $result['success'] = true;
         }else{
@@ -279,7 +281,7 @@ class StudioController extends Controller
 			if($start == '1'){
 				DB::table('live_user')->where('user_id',$live_id)->increment('concem');
 			}else{
-				DB::table('live_user')->where('user_id',$live_id)->decrement('concem')
+				DB::table('live_user')->where('user_id',$live_id)->decrement('concem');
 			}
 			$up = DB::table('user_concern')->where('user_id',$user_id)->where('anchor_id',$live_id)->update(['con_status'=>$start]);
 			if($up){
