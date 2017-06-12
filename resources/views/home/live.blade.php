@@ -301,10 +301,17 @@
                 <span class="glyphicon glyphicon-home" aria-hidden="true" ></span>
                 <span class="glyphicon-class">主页</span>
             </li></a>
+			@if(!empty($user['username']))
             <a href="{{url('per/getshow')}}"><li>
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 <span class="glyphicon-class">个人</span>
             </li></a>
+			@else
+			<a href="javascript:;" id="ddd"><li>
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span class="glyphicon-class">个人</span>
+            </li></a>
+			@endif
             <a href="{{url('list/livelist')}}?id=0"><li>
                     <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                     <span class="glyphicon-class">音乐</span>
@@ -864,7 +871,7 @@
         <div class="box">
             <div class="a">
                 <?php foreach($gift as $k=>$v){ ?>
-                <span><img src="<?=$v['img_path'];?>" alt="" price="<?=$v['price'];?>" width="85" height="75" ids="<?=$v['gift_id'];?>" names="<?=$v['giftname'];?>"></span>
+                <span><img src="{{URL::asset('home/')}}/<?=$v['img_path']?>" alt="" price="<?=$v['price'];?>" width="85" height="75" ids="<?=$v['gift_id'];?>" names="<?=$v['giftname'];?>"></span>
                 <?php }?>
                 <input type="hidden" value="" id="giff_val">
                 <input type="hidden" value="" id="giff_src">
@@ -887,8 +894,8 @@
             </div>
             <div  stype="width:60px;height:40px;">
                 <button style="margin-top:30px;margin-right: 20px;" id="send">赠送</button>
-    <div class="gift-div"></div>
 	<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<form action="{{url('liveroom/guardAdd')}}" method="post" onsubmit="return check()">
 		<div class="modal-dialog">
 			<div class="modal-content animated bounceInRight">
 				<div class="modal-header">
@@ -913,7 +920,7 @@
 						 <div class="form-group"  style="height: 32px;">
 								<label class="col-sm-2 control-label" style="padding: 6px 10px;">守护时间</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control m-b" id="starttime" name="account">
+                                    <select class="form-control m-b" id="starttime" name="starttime">
 										<option value="0">--请选择--</option>
                                         <option value="1">1个月</option>
                                         <option value="3">3个月</option>
@@ -938,18 +945,20 @@
 								<label class="col-sm-2 control-label" style="padding: 6px 10px;">充值金额</label>
                                 <div class="col-sm-10">
                                     <div class="m-t-xs font-bold" id="z_money" ></div>
-									<input type="hidden" id="gmoney" />
-									<input type="hidden" id="live_id" value="{{ $user_id }}"/>
+									<input type="hidden" name="z_money" id="gmoney" />
+									<input type="hidden" name="live_id" id="live_id" value="{{ $user_id }}"/>
+									<input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 </div>
                          </div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-						<button type="button" id="guard_btn" class="btn btn-primary">充值</button>
+						<button type="submit" id="guard_btn" class="btn btn-primary">充值</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		</form>
 	</div>
 	<!--登陆窗口-->
 <div id="loginWrap" class="login-box" style="height:480px;"><button style=" float: right;height: 20px;margin-right: 5px; margin-top: 5px; width: 20px;" id="close">X</button>

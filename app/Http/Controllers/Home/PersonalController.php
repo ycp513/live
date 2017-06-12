@@ -18,11 +18,12 @@ class PersonalController extends Controller
     public function getShow()
     {
 		$user = Session::get('username');
-	
+		
 		$user_id = $user[0]['user_id'];
         $get_user = DB::table('live_user')->where('user_id', $user_id)->first();
-        $get_anchor = DB::table('live_anchor')->where('user_id',$get_user->user_id)->first();
-        $live_rend = $get_anchor->live_rend;
+        $get_anchor = DB::table('live_anchor')->where('user_id',$user_id)->first();
+		
+        
         $point = $get_user->point;
         $app_path = app_path();
         //直播分类
@@ -30,15 +31,24 @@ class PersonalController extends Controller
         $category -> initconfig();
         $classify = $category ->category_config;
 
+		if($get_anchor){
+			$live_rend = $get_anchor->live_rend;
+			foreach($classify as $k => $v){
+			   if($k == $get_anchor->category_id){
+				   $get_anchor->category_id = $v;
+			   }
+			}
+		}else{
+			$live_rend = '';
+		}
+
         //vip等级
 		$vip_dj = new Vip;
         $vip_dj -> initconfig();
         $vip = $vip_dj ->vip_config;
-        foreach($classify as $k => $v){
-           if($k == $get_anchor->category_id){
-               $get_anchor->category_id = $v;
-           }
-        }
+
+		
+       
 		//轮播图
         $carousel = new Carousel;
         $carousel -> initconfig();
@@ -63,12 +73,9 @@ class PersonalController extends Controller
     public function getSms(){
         $iphone = $_GET['iphone'];
         $username = $_GET['username'];
-
         $code=rand(1000,9999);
         Session::put("'".$code."'",$code);
-        return $code;
         $content='你好！'.$username.',您的验证码：'.$code.'。如非本人操作，可不用理会！【八维直播】';
-
         $url='http://api.sms.cn/sms/?ac=send&uid=ycp123&pwd=69253cce2d3f1c4cf3c786a48c1dcd71&mobile='.$iphone.'&content='.urlencode($content);
         $data=array();
         $method='GET';
@@ -249,7 +256,9 @@ class PersonalController extends Controller
 					$month = strtotime(date("Y-m-d",strtotime("+".$times." month")));			
 					DB::table('live_guard')->insert(['user_id'=>$info->user_id,'anchor_id'=>$live_id,'start_time'=>$time,'end_time'=>$month,'money'=>$total_fee]);
 				}
-	
+				//redis 守护榜变化
+                $guardkey =  'guard'.$live_id;
+				Redis::zadd($guardkey, $total_fee, $info->user_id);
 			}else{
 				//余额充值
 				$total_fee = ($info->balance+$total_fee);
@@ -317,15 +326,15 @@ class PersonalController extends Controller
 						$month = strtotime(date("Y-m-d",strtotime("+".$times." month")));			
 						DB::table('live_guard')->insert(['user_id'=>$info->user_id,'anchor_id'=>$live_id,'start_time'=>$time,'end_time'=>$month,'money'=>$total_fee]);
 					}
-				
-	
+					//redis 守护榜变化
+                    $guardkey =  'guard'.$live_id;
+					Redis::zadd($guardkey, $total_fee, $info->user_id);
 				}else{
 					//余额充值
 					$total_fee = ($info->balance+$total_fee);
 					DB::table('live_user')->where('user_id',$info->user_id)->update(['balance'=>$total_fee]);
 				}
                 $arr = DB::table('live_order')->where('order_id',$out_trade_no)->update(['order_status'=>'1']);
-
                 return view('home.alipay');
 
             case 'TRADE_FINISHED':

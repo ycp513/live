@@ -287,9 +287,9 @@
                 <div class="basic">
                     <span>直播间ID：@if($live_rend != '') {{$live_rend}}  @else 暂无  @endif</span>
                         <span class="icon-line"></span>
-                    <span>年度积分：@if("{{$point}}" >= '0') {{$point}} @else 0 @endif </span>
+                    <span>年度积分：@if($point >= '0') {{$point}} @else 0 @endif </span>
                     <span class="icon-line"></span>
-                    <span>vip等级：@if("{{$get_user->user_vip}}" >= '0') {{$get_user->user_vip}} @else 0 @endif </span>
+                    <span>vip等级：@if($get_user->user_vip >= '0') {{$get_user->user_vip}} @else 0 @endif </span>
                     </div>
                 <div class="tag">
                     </div>
@@ -298,9 +298,9 @@
         <div class="user-status">
         </div>
         <div class="user-head-tab">
-            <a href="#" class="panel fans-link">粉丝<span>@if("{{$get_user->fans}}" >= '0'){{ $get_user->fans}} @else 0 @endif</span></a>
+            <a href="#" class="panel fans-link">粉丝<span>@if($get_user->fans >= '0'){{ $get_user->fans}} @else 0 @endif</span></a>
             <span class="icon-line"></span>
-            <a href="#" class="panel follows-link">关注<span>@if("{{$get_user->fans}}" >= '0'){{ $get_user->concem}} @else 0 @endif</span></a>
+            <a href="#" class="panel follows-link">关注<span>@if($get_user->concem >= '0'){{ $get_user->concem}} @else 0 @endif</span></a>
         </div>
     </div>
 </div>
@@ -336,7 +336,14 @@
 
                         </div>
                         <div class="roww" id="quan-row">
-                            <div class="total"><strong id="diamondQuan">@if("{{$get_anchor->commision}}" > '0'){{ $get_anchor->commision}} @else 0 @endif</strong></div>
+                            <div class="total">
+								@if(!empty($get_anchor))
+									<strong id="diamondQuan">@if("{{$get_anchor->commision}}" != ''){{ $get_anchor->commision}} @else 0 @endif</strong>
+								@else
+									<strong id="diamondQuan">0</strong>
+								@endif
+								
+							</div>
                             <div class="tips">
                                 <i class="hong"></i>佣金<a href="javascript:void(0);" class="btn" title="提现">提现</a>
                             </div>
@@ -347,7 +354,7 @@
                 </div>
             </div>
         </div>
-        @if("{{ $get_anchor->live_rend }}")
+        @if(!empty($get_anchor))
             <div id="tab-2" class="tab-pane">
                 <div class="panel-body">
                     <div class="form-horizontal"  >
@@ -425,7 +432,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-8">
-                            <input type="button" value="保存" class="btn btn-sm btn-info submit" style="background-color: #fd0;border-color: #fd0;margin-left: 220px;width: 135px;"/>
+                            <input type="submit" value="保存" class="btn btn-sm btn-info" style="background-color: #fd0;border-color: #fd0;margin-left: 220px;width: 135px;"/>
                         </div>
                     </div>
                 </form>
@@ -438,7 +445,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">用户名称：</label>
                             <div class="col-sm-8">
-                                <input type="text" id="username" value="{{$get_user->username}}" class="form-control">
+                                <input type="text" id="yan_name" value="{{$get_user->username}}" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
