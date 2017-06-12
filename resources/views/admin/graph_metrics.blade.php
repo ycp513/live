@@ -406,8 +406,20 @@
                             lineColor: '#1ab394',
                             fillColor: "#ffffff"
                         });
+                    }
+                }
+            })
 
+        });
 
+        $(document).ready(function () {
+
+            $.ajax({
+                type:'get',
+                url:'amount_user',
+                success:function(msg) {
+
+                    if (msg) {
                         $("#sparkline1").sparkline([0, 7, 6, 5, 4, 0, 1, 2], {
                             type: 'line',
                             width: '100%',
@@ -431,6 +443,19 @@
                             lineColor: '#1ab394',
                             fillColor: "#ffffff"
                         });
+                    }
+                }
+            })
+
+        });
+        $(document).ready(function () {
+
+            $.ajax({
+                type:'get',
+                url:'volumes',
+                success:function(msg) {
+
+                    if (msg) {
 
                         $("#sparkline5").sparkline([msg.ca[0],msg.ca[1],msg.ca[2],msg.ca[3],msg.ca[4],msg.ca[5],msg.ca[6]], {
                             type: 'pie',
@@ -454,6 +479,19 @@
                             height: '140',
                             sliceColors: msg.color
                         });
+                    }
+                }
+            })
+
+        });
+        $(document).ready(function () {
+
+            $.ajax({
+                type:'get',
+                url:'host_classification',
+                success:function(msg) {
+
+                    if (msg) {
 
                         var str ='';
                         $.each(msg.live_gift,function(k,v){
@@ -461,7 +499,7 @@
                         })
 
                         $('.gift_color').html(str);
-                        $("#sparkline8").sparkline([msg.g[1],msg.g[2],msg.g[3],msg.g[4],msg.g[5],msg.g[6],msg.g[7]], {
+                        $("#sparkline8").sparkline([msg.g[1],msg.g[2],msg.g[3],msg.g[4],msg.g[5],msg.g[6],msg.g[7],msg.g[8]], {
                             type: 'pie',
                             height: '140',
                             sliceColors: msg.colors
@@ -476,7 +514,6 @@
                             height: '140',
                             sliceColors: msg.colors
                         });
-
                     }
                 }
             })
