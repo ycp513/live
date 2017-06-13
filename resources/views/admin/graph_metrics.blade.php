@@ -504,12 +504,12 @@
                             height: '140',
                             sliceColors: msg.colors
                         });
-                        $("#sparkline9").sparkline([msg.m[1],msg.m[2],msg.m[3],msg.m[4],msg.m[5],msg.m[6],msg.m[7]], {
+                        $("#sparkline9").sparkline([msg.m[1],msg.m[2],msg.m[3],msg.m[4],msg.m[5],msg.m[6],msg.m[7],msg.m[8]], {
                             type: 'pie',
                             height: '140',
                             sliceColors: msg.colors
                         });
-                        $("#sparkline10").sparkline([msg.n[1],msg.n[2],msg.n[3],msg.n[4],msg.n[5],msg.n[6],msg.n[7]], {
+                        $("#sparkline10").sparkline([msg.n[1],msg.n[2],msg.n[3],msg.n[4],msg.n[5],msg.n[6],msg.n[7],msg.n[8]], {
                             type: 'pie',
                             height: '140',
                             sliceColors: msg.colors

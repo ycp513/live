@@ -210,15 +210,13 @@ class AdminController extends Controller
           $data['ca'] = $ca;
         }
         $color = ['red', 'orange ', 'yellow', 'green', 'blue', '#fff', '#FF00FF'];
-
         $data['category'] = $category;
         $data['color'] = $color;
         //最近七天的成交量
-        $xia = $this->The_Date(7);
-        $data['xia'] = $xia;
+        $data['xia'] = $this->The_Date(7);
+        //print_r($data['xia']);return;
         //查询最近三十天成交量
-        $Thirty_days = $this->The_Date(30);
-        $data['Thirty_days'] = $Thirty_days;
+        $data['Thirty_days']  = $this->The_Date(30);
         return $data;
     }
     //主播分类成交量查询
@@ -237,6 +235,7 @@ class AdminController extends Controller
         $data['m'] = $this->Volume($m);
       //调用方法得到三十天礼物分类成交量
         $n = $q = $this->Datetime(30);
+
         $data['n'] = $this->Volume($n);
         return $data;
     }
@@ -246,7 +245,11 @@ class AdminController extends Controller
             $da = date('Y-m-d', strtotime('-'.$i.' days'));
             $q[] =  DB::table('live_live')->where('live_date','=',$da)->lists('live_id');
         }
+        //return $q;
         foreach($q as $k => $v){
+            if($v==null){
+                return $m = array();
+            }
             foreach($v as $k =>$v){
                 $m[] = $v;
             }
@@ -296,6 +299,15 @@ class AdminController extends Controller
              $Seven[] =  DB::table('live_live')->where('live_date','=',$da)->select('user_id','live_id')->get();
          }
          foreach($Seven as $k => $v) {
+             if($v==null){
+                 foreach($ca as $k2 => $v2){
+                     $ca[$k2] = 0;
+                     if($v2=='其他'){
+                         $ca[$k2] = 1 ;
+                     }
+                 }
+              return $ca;
+             }
              foreach ($v as $k1 => $v1) {
                  $Seven[$k][$k1]->sum = DB::table('user_giff')->where('live_id', '=', $v1->live_id)->sum('total_price') ? DB::table('user_giff')->where('live_id', '=', $v1->live_id)->sum('total_price') : 0;
                  $a[]=$v1;

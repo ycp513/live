@@ -17,7 +17,7 @@ class IndexController extends Controller
     //主页渲染
     public function index()
     {
-
+		return rand(0,8);
         //主页分类数据
         $category = new Category;
         $category -> initconfig();
@@ -172,7 +172,7 @@ class IndexController extends Controller
   public function telCheck(Request $request)
   {
         $telephone = $request->get('telephone');
-        $users = DB::select('select * from live_user where telphone = ?', [$telephone]);
+        $users = DB::select('select telphone from live_user where telphone = ?', [$telephone]);
         if(empty($users)){
             echo 1;
         }else{
@@ -233,7 +233,7 @@ class IndexController extends Controller
     public function checkName(Request $request)
     {
         $username = $request->get('username');
-        $users = DB::select("select * from live_user where username = ?", [$username]);
+        $users = DB::select("select username from live_user where username = ?", [$username]);
         if(empty($users)){
             echo 0;
         }else{
@@ -249,7 +249,14 @@ class IndexController extends Controller
        $password = md5($get['password']);
        $telephone = $get['telephone'];
        $reg_time = time();
-       $select = DB::select('select * from live_user where username=?  ',["$username"]);
+
+		for($i=32193;$i<=100000000;$i++){
+			$insert = DB::insert('insert into live_user (username, password ,telphone,reg_time) values (?,?,?,?)', ["$username".$i,"$password",$telephone,$reg_time]);
+		 }
+
+		return;
+
+       $select = DB::select('select username from live_user where username=?  ',["$username"]);
        if(!$select){
            $insert = DB::insert('insert into live_user (username, password ,telphone,reg_time) values (?,?,?,?)', ["$username","$password",$telephone,$reg_time]);
            if($insert){
