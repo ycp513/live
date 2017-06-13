@@ -110,6 +110,8 @@ class StudioController extends Controller
         $balance = $user[0]['balance'];
         $result = ['success'=>false, 'msg'=>''];
         if($balance>=$total_price){
+            $devotekey = 'devote'.$anchor_id;
+            Redis::ZINCRBY ($devotekey,$total_price,$user_id);
             $redis = $this->dispatch(new RedisList( $user_id, $anchor_id, $giff_id, $giff_num, $total_price, $live_id));
             $result['success'] = true;
         }else{

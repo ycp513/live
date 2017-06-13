@@ -231,7 +231,6 @@ class AdminController extends Controller
         $data['g'] = $this->Volume($gift_id);
         //查询七天分类礼物成交量
         $m = $this->Datetime(7);
-       // return $m;
         //调用方法得到七天礼物分类成交量
         $data['m'] = $this->Volume($m);
       //调用方法得到三十天礼物分类成交量
